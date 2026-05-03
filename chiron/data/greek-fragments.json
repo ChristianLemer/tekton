@@ -1,0 +1,12 @@
+[
+  { "greek": "πάντα ῥεῖ",                          "english": "everything flows",                            "author": "Heraclitus" },
+  { "greek": "ἓν οἶδα ὅτι οὐδὲν οἶδα",            "english": "I know that I know nothing",                  "author": "Socrates" },
+  { "greek": "γενοῦ οἷος ἐσσὶ μαθών",             "english": "become who you are by learning",              "author": "Pindar" },
+  { "greek": "ἡ φύσις οὐδὲν μάτην ποιεῖ",        "english": "nature does nothing in vain",                 "author": "Aristotle" },
+  { "greek": "ἀρχὴ ἥμισυ παντός",                 "english": "the beginning is half of everything",         "author": "Pythagoras" },
+  { "greek": "ὁδὸς ἄνω κάτω μία καὶ ὡυτή",       "english": "the way up and the way down are the same",   "author": "Heraclitus" },
+  { "greek": "νοῦ γὰρ ἀρετὴ τὸ ἀληθεύειν",       "english": "the virtue of intellect is truth",            "author": "Aristotle" },
+  { "greek": "γνῶθι σεαυτόν",                      "english": "know thyself",                                "author": "Delphic maxim" },
+  { "greek": "μηδὲν ἄγαν",                         "english": "nothing in excess",                           "author": "Delphic maxim" },
+  { "greek": "σπεῦδε βραδέως",                     "english": "make haste slowly",                           "author": "attributed to Augustus, after Suetonius" }
+]

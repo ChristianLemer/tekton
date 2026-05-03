@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# IDE-pasted images (saved next to agent .md files)
+**/agents/image/
+
+# Authoring-time workspace config — not part of the plugin distribution
+# (`.claude-plugin/` is the distribution and stays tracked)
+.claude/
+
+# Local overrides — Claude Code convention, never committed
+CLAUDE.local.md
+*.local.code-workspace
+
+# Editor temporaries
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Future-proofing for hook dependencies (none today, but cheap to ignore upfront)
+node_modules/
+__pycache__/
+*.pyc

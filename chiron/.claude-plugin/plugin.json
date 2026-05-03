@@ -1,0 +1,23 @@
+{
+  "name": "chiron",
+  "version": "0.0.1",
+  "description": "Chiron — methodological companion for the tekton corpus.",
+  "author": {
+    "name": "Christian Lemer",
+    "url": "https://github.com/ChristianLemer"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading chiron..."
+          }
+        ]
+      }
+    ]
+  }
+}
