@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 // Chiron SessionStart activation hook (cross-platform).
 //
-// Two jobs:
+// Three jobs:
 //
 //   1. Inject the persona on the main thread by emitting agents/chiron.md
 //      (frontmatter stripped) on stdout — Claude Code splices it into
 //      the session context.
 //
-//   2. Deposit ~/.claude/.presence/chiron.json carrying {session_id, name,
+//   2. Inject the four grammars in full (Kentauros, Genesis, Praxis,
+//      Aisthesis) so Chiron actually *holds* the corpus instead of merely
+//      naming it. Skills stay installed for on-demand re-reading; this
+//      guarantees the knowledge is present even when the model wouldn't
+//      think to invoke them. Costs ~15k tokens per session — deliberate:
+//      a methodological companion that hasn't read its own method is a
+//      brochure, not a companion.
+//
+//   3. Deposit ~/.claude/.presence/chiron.json carrying {session_id, name,
 //      glyph, scope: "universal"} so the team statusline can render the
 //      🐴 glyph alongside any local personas (Saul the Steward, …).
 
@@ -72,10 +80,41 @@ for (const { rel, abs } of files) {
 }
 const pluginSha = combined.digest('hex').substring(0, 8);
 
+// --- Grammars: read them, don't just name them ---
+
+// Kentauros first — the collaboration protocol frames how the other three
+// are applied. Then Topos (Genesis → Praxis → Aisthesis): structure, then
+// action, then readability.
+const GRAMMARS = ['kentauros', 'genesis', 'praxis', 'aisthesis'];
+
+function readGrammar(name) {
+  const file = path.join(PLUGIN_DIR, 'skills', name, 'SKILL.md');
+  if (!fs.existsSync(file)) return null;
+  return stripFrontmatter(fs.readFileSync(file, 'utf8')).trim();
+}
+
 // --- Output ---
 
 process.stdout.write(`CHIRON ACTIVE — plugin v${version} • body sha ${bodySha} • plugin sha ${pluginSha}\n\n`);
 process.stdout.write(body);
+
+process.stdout.write('\n\n--- The grammars you operate by ---\n\n');
+process.stdout.write(
+  'The four grammars of the tekton corpus follow in full. You have read them — ' +
+    'reason from them directly, cite their conventions precisely, and apply them ' +
+    'without needing to invoke a skill first. The matching Skills remain available ' +
+    'when you want to re-read one in isolation.\n'
+);
+
+for (const name of GRAMMARS) {
+  const text = readGrammar(name);
+  if (!text) continue;
+  process.stdout.write(`\n\n${'='.repeat(70)}\n`);
+  process.stdout.write(`GRAMMAR — ${name.toUpperCase()}\n`);
+  process.stdout.write(`${'='.repeat(70)}\n\n`);
+  process.stdout.write(text);
+  process.stdout.write('\n');
+}
 
 // --- Presence card ---
 
