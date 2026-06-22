@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 // Chiron SessionStart activation hook (cross-platform).
 //
-// Reads agents/chiron.md, strips the YAML frontmatter, emits the body as
-// plain text on stdout. Claude Code injects this into the main thread
-// context at session start.
+// Two jobs:
 //
-// Single source of truth: edits to agents/chiron.md propagate automatically
-// to the next session — no hardcoded duplication to go stale.
+//   1. Inject the persona on the main thread by emitting agents/chiron.md
+//      (frontmatter stripped) on stdout — Claude Code splices it into
+//      the session context.
 //
-// The activation header carries verification signals (version + content
-// shas) for technical inspection. The welcome is composed by chiron itself
-// — this hook supplies a curated palette (template tones + Greek fragments),
-// chiron picks what resonates and comments briefly on its choice.
+//   2. Deposit ~/.claude/.presence/chiron.json carrying {session_id, name,
+//      glyph, scope: "universal"} so the team statusline can render the
+//      🐴 glyph alongside any local personas (Saul the Steward, …).
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const crypto = require('crypto');
 
 const PLUGIN_DIR = process.env.CLAUDE_PLUGIN_ROOT;
@@ -22,6 +21,8 @@ if (!PLUGIN_DIR) {
   console.error('CLAUDE_PLUGIN_ROOT is not set');
   process.exit(1);
 }
+
+const input = JSON.parse(fs.readFileSync(0, 'utf8'));
 
 const AGENT_FILE = path.join(PLUGIN_DIR, 'agents', 'chiron.md');
 const PLUGIN_JSON = path.join(PLUGIN_DIR, '.claude-plugin', 'plugin.json');
@@ -71,34 +72,25 @@ for (const { rel, abs } of files) {
 }
 const pluginSha = combined.digest('hex').substring(0, 8);
 
-// --- Welcome palette (chiron picks, integrates, comments) ---
-
-const TEMPLATES = JSON.parse(fs.readFileSync(path.join(PLUGIN_DIR, 'data', 'templates.json'), 'utf8'));
-
-const QUOTES = JSON.parse(fs.readFileSync(path.join(PLUGIN_DIR, 'data', 'greek-fragments.json'), 'utf8'));
-
 // --- Output ---
 
 process.stdout.write(`CHIRON ACTIVE — plugin v${version} • body sha ${bodySha} • plugin sha ${pluginSha}\n\n`);
 process.stdout.write(body);
 
-// Random pick happens in the script (not on chiron's side) so the variation
-// is real across sessions. With prompt caching + LLM bias toward same answers
-// on identical context, leaving the pick to chiron produced the same combo
-// each time. Script-side Math.random() guarantees genuine session variation.
+// --- Presence card ---
 
-const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const template = pick(TEMPLATES);
-const quote = pick(QUOTES);
-
-process.stdout.write('\n\n--- Welcome guidance for this session ---\n\n');
-process.stdout.write('The hook has chosen one template and one Greek fragment for this session. Use them:\n\n');
-process.stdout.write(`Template (${template.tone}):\n`);
-process.stdout.write(`  greeting:   "${template.greeting}"\n`);
-process.stdout.write(`  invitation: "${template.invitation}"\n\n`);
-process.stdout.write('Greek fragment:\n');
-process.stdout.write(`  greek:   ${quote.greek}\n`);
-process.stdout.write(`  english: ${quote.english}\n`);
-process.stdout.write(`  author:  ${quote.author}\n`);
-process.stdout.write('\nCompose the welcome with this layout — the fragment opens, commentary frames, *then* chiron arrives:\n\n');
-process.stdout.write('  <greek>\n  <english>\n  — <author>\n\n  <one-sentence commentary on why this fragment is on your tongue today — earned, not generic>\n\n  🐴 <greeting>\n\n  <invitation>\n');
+const presenceDir = path.join(os.homedir(), '.claude', '.presence');
+fs.mkdirSync(presenceDir, { recursive: true });
+fs.writeFileSync(
+  path.join(presenceDir, 'chiron.json'),
+  JSON.stringify(
+    {
+      session_id: input.session_id,
+      name: 'chiron',
+      glyph: '🐴',
+      scope: 'universal',
+    },
+    null,
+    2
+  ) + '\n'
+);
