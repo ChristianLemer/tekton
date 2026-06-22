@@ -1,6 +1,6 @@
 ---
 name: genesis
-description: Workspaces that explain themselves — naming and casing conventions, complete partition of zones, README as hub, INTENTION declarations, Genesis links (semantic identity-based references that survive restructuring), excluded zones (Attic / Purgatory / Void with retention gradient), structural grammar from file to vault level, content & navigation, link-vs-copy regimes, governance, directives. Use when designing or evaluating a workspace structure, naming directories or files for clarity, deciding link vs copy regimes, framing how a method is declared in a workspace, or making an existing workspace self-explanatory to someone arriving fresh.
+description: Workspaces that explain themselves — naming and casing conventions, complete partition of zones (active domains and excluded zones, with a reference vault-level partition), README as hub, INTENTION declarations, Genesis links (semantic identity-based references that survive restructuring), excluded zones (Attic / Purgatory / Void with retention gradient), structural grammar from file to vault level, content & navigation, link-vs-copy regimes, governance, directives. Use when designing or evaluating a workspace structure, naming directories or files for clarity, deciding link vs copy regimes, framing how a method is declared in a workspace, or making an existing workspace self-explanatory to someone arriving fresh.
 ---
 
 # Genesis
@@ -53,11 +53,38 @@ A knowledge base should be organized as a complete partition — domains that co
 
 The power isn't in having categories. It's in having categories that **force attention**. When something comes in, you ask "what kind of thing is this?" and the structure tells you where it goes.
 
+**Design the whole partition, not just the exit.** The excluded zones (7/8/9) are the easy part — they have a standard form and are documented below. The work is the *active* zones: they carry the domain and must be invented for each workspace. A workspace with three well-named exclusion zones and a vague active area has been organized backwards.
+
+**Zone semantics, not zone names.** Each active zone answers one question: *what kind of thing lives here?* The answer must be sharp enough that filing is a reflex, not a judgment call. Two symptoms of a partition that isn't done: content that could plausibly go in two zones (overlap), and content with nowhere obvious to go (gap — it silently accumulates at the root or in the inbox).
+
+**Name the zone by the state it holds, not by the category it contains.** `4. 📂 A Flawless Execution` and `4. 📂 Procedures` point at the same folder, but the first names what the zone is *for* — an aspiration the operator can fail or honour — while the second names a filing bucket. The full form (article included) is part of the convention, not decoration: an article turns a label into a claim. It also survives contact with reality better — a zone called *Procedures* silently accepts anything procedure-shaped, whereas *A Flawless Execution* keeps asking whether what you filed there belongs.
+
+**A reference partition at vault level.** This is Saul — a real workspace, named so the example stays discussable. The *shape* is what transfers; write your own zone names:
+
+| # | Emoji | Zone | What lives here |
+|---|-------|------|-----------------|
+| 0 | 🧹 | A Tidy Desk | Inbox — unsorted, pending triage |
+| 1 | 🧠 | An Indisputable Mastery | Theory, principles, shared semantics |
+| 2 | 📢 | An Obvious Presence | Outward-facing material (positioning, demos) |
+| 3 | 📈 | Results in Abundance | Domain guidance that produces outputs |
+| 4 | 📂 | A Flawless Execution | Runbooks, procedures, setup |
+| 5 | 🌿 | A Nice Environment | Tooling, environment configuration |
+| 6 | 🤝 | A Happy Team | People, profiles, roles |
+| 7 | 💤 | A Curated Attic | Archived (see *Excluded Zones*) |
+| 8 | 😈 | The Purgatory | Superseded (see *Excluded Zones*) |
+| 9 | 🌀 | The Void | Discarded (see *Excluded Zones*) |
+
+Read what this partition encodes. **0 is the inbox** — a partition needs a landing zone, or unsorted items corrupt the real zones. **1 → 6 moves from the abstract to the human**: semantics, then outward face, then output, then execution, then environment, then people. That ordering is itself a claim about the domain. **A zone may be empty at birth** and earn its content later — declaring it costs nothing and reserves the slot.
+
+Note the drift in article as you cross into exclusion: the active zones are *A* / *An* (one instance among possible others — yours will differ), the excluded ones are *The* (there is only one Purgatory, one Void). The grammar carries the distinction before the number does.
+
+Ten zones is not a rule. Between 5 and 10 is the practical range: fewer and the zones are too coarse to force attention, more and you can no longer hold the partition in your head.
+
 ### Naming Convention
 
 **Two usages of numbers.** Numbers serve two distinct roles — context disambiguates. *Sequence* (inside a project workshop): 1 → 2 → 3, a path to follow. Zero is reserved for elements outside the sequence. Parallel elements share the same number. *Identification* (at partition or project level): stable labels. You don't traverse — you choose. High numbers (7, 8, 9) signal exclusion. Zero identifies infrastructure.
 
-**Emoji convention.** Emoji follow the number to signal the nature of each zone visually. The standard set (validated for consistent monospace terminal rendering):
+**Emoji convention.** Emoji follow the number to signal the nature of each zone visually. The standard set at **project level** (validated for consistent monospace terminal rendering) — distinct from the vault-level partition above, which numbers domains rather than stages:
 
 | # | Emoji | Zone | Nature |
 |---|-------|------|--------|
