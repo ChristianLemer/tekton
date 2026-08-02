@@ -12,6 +12,14 @@
 CLAUDE.local.md
 *.local.code-workspace
 
+# Throwaway working notes — same convention as architekton (`_PLAN.md`)
+_*
+
+# Machine-local tooling — publishes from one machine only, and carries the
+# employer's shared-library path in clear. Excluded from the Saul mirror
+# already (`admin/publish/excludes.txt`); kept out of git for the same reason.
+admin/
+
 # Editor temporaries
 *.swp
 *.swo
