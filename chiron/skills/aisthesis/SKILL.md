@@ -2,7 +2,6 @@
 name: aisthesis
 description: Readability in a textual workspace — the principles of visual communication in a Markdown environment. What the reader does (perceive before reading, read at two speeds, write to be read, understand without reading, show before concluding), governance (just measure, rhythm), affordance (signals of expected interaction), tool independence. Use when designing the visual layer of a Markdown document, balancing density and breathing, choosing between prose / list / table / diagram, making affordance explicit for both human and AI readers, or evaluating whether an artefact is legible at a glance.
 ---
-
 # Aisthesis
 
 *Readability in a textual workspace.*
@@ -41,7 +40,7 @@ A document serves two readers: the one who scans and the one who reads deeply. B
 
 **Typographic styles.** **Bold** signals importance — it is the scan channel. *Italic* signals nuance — it is the deep-read channel. `Inline code` signals the literal. Each style is a semantic channel, not decoration. A wall of bold signals nothing.
 
-**Attention markers.** Callouts, blockquotes — structured interruptions of the flow. They let the scan catch only the signals and let the deep read integrate them. The marker is a contract: "you can go fast, but don't miss this."
+**Attention markers.** Callouts, blockquotes — structured interruptions of the flow. They let the scan catch only the signals and let the deep read integrate them. The marker is a contract: "you can go fast, but don't miss this." The principle is tool-independent — see the [callout convention](references/convention-callouts.md) and the [implementation reference](references/callouts-reference.md).
 
 **Headings as filters.** A descriptive heading ("How to declare methods") serves the scan — you know whether the section is relevant without reading it. A vague heading ("Considerations") serves no one.
 
@@ -57,15 +56,19 @@ Prose is a visual register like any other — with its own strengths, anti-patte
 
 ### 4. Understand without reading
 
-Some information resists prose. Relationships, comparisons, hierarchies — text linearises them at a cost. The space of the page can show directly.
+Some information resists prose. The reason is cognitive: prose is sequential — one idea after another — and the reader must reconstruct the whole in working memory. A visual artefact is simultaneous — five dimensions coexist in the same glance, and the eye navigates between them without effort. This is not a presentation luxury — it is a thinking capability that linear text cannot offer.
+
+When a subject has more dimensions than prose can carry at once, it *demands* a visual artefact so that one can think about it. Proximity says "related." Separation says "distinct." Colour says "state." Size says "importance." No words need say it — topology communicates.
 
 **Tables.** Comparisons, catalogues, registers. Tabular information is grasped at a glance. But a 30-row table is as impenetrable as a 30-line paragraph.
 
 **Lists and trees.** Hierarchies, sequences, enumerations. Indentation shows belonging. Numbering shows order. The risk: the bullet list as a lazy crutch.
 
-**Diagrams.** Flows, relationships, states, sequences. Mermaid for formal structures, inline SVG for free-form illustrations. A diagram is documentation, not illustration.
+**Diagrams.** Flows, relationships, states, sequences. Mermaid for formal structures, inline SVG for free-form illustrations. A diagram is documentation, not illustration — see the [Mermaid reference](references/mermaid-reference.md).
 
 **Images.** The richest and most expensive register. Useful when the referent is visual by nature. An image without a caption is an image that does not communicate.
+
+**Dynamic artefacts.** Beyond the static document: a dashboard that shows pipeline state, a companion terminal with a refreshing table, a grid that makes multi-dimensional progress visible in real time. The channel adapts to the available environment — structured text as baseline, terminal pane when a multiplexer is present, HTML when a browser is available. The reflex is constant; only the richness varies.
 
 ### 5. Show before concluding
 
@@ -134,6 +137,12 @@ Affordance has two consumers. The human reader perceives signals visually and in
 
 Aisthesis principles are independent of any tool. Obsidian, VS Code, GitHub, a bare text editor — implementations change, principles hold. Markdown is the common medium, not the constraint.
 
+Implementation references accompany this document:
+
+- [callouts-reference](references/callouts-reference.md) — available Obsidian callout types
+- [mermaid-reference](references/mermaid-reference.md) — supported Mermaid diagram types
+- [convention-callouts](references/convention-callouts.md) — which callouts to use in Tekton projects
+
 ---
 
 ## Characteristics
@@ -147,10 +156,20 @@ A workspace made readable by Aisthesis tends to have:
 - **Semantic symbols** — emoji and numeric prefixes as positional language, not decoration
 - **Prose as a conscious register** — one idea per unit, descriptive headings, peer-to-peer tone
 - **Narrative arc** — show before concluding, let the reader see for themselves
-- **Appropriate visual registers** — tables, diagrams, images chosen for the type of information
+- **Appropriate visual registers** — tables, diagrams, images, dynamic artefacts chosen for the type of information
+- **Visual power** — when a subject exceeds what prose can carry simultaneously, externalise into a visual artefact adapted to the available channel
 - **Just measure** — every layer used with intention, not habit
 - **Rhythm** — cadence between density and breathing across the document
 - **Affordance** — the document signals what kind of interaction it expects
+
+---
+
+## What remains to explore
+
+Aisthesis is a young project. Two territories are identified but not yet mature:
+
+- **Rhythm** — the cadence patterns of a document. Are there identifiable rhythmic structures? Does rhythm interact with the narrative arc? Can it be prescribed, or only observed after the fact?
+- **Affordance** — the full grammar of interaction signals. How do naming conventions, case, position, and document endings compose into a coherent system? Where exactly does Aisthesis end and Praxis begin?
 
 ---
 

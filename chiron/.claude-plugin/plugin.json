@@ -1,6 +1,6 @@
 {
   "name": "chiron",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Chiron — methodological companion for the tekton corpus.",
   "author": {
     "name": "Christian Lemer",
@@ -55,6 +55,16 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar aisthesis",
             "timeout": 5,
             "statusMessage": "Loading aisthesis..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar dialektike",
+            "timeout": 5,
+            "statusMessage": "Loading dialektike..."
           }
         ]
       }

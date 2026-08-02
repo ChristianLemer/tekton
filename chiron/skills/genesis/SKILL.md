@@ -2,7 +2,6 @@
 name: genesis
 description: Workspaces that explain themselves — naming and casing conventions, complete partition of zones (active domains and excluded zones, with a reference vault-level partition), README as hub, INTENTION declarations, Genesis links (semantic identity-based references that survive restructuring), excluded zones (Attic / Purgatory / Void with retention gradient), structural grammar from file to vault level, content & navigation, link-vs-copy regimes, governance, directives. Use when designing or evaluating a workspace structure, naming directories or files for clarity, deciding link vs copy regimes, framing how a method is declared in a workspace, or making an existing workspace self-explanatory to someone arriving fresh.
 ---
-
 # Genesis
 
 *Workspaces that explain themselves.*
@@ -59,14 +58,14 @@ The power isn't in having categories. It's in having categories that **force att
 
 **Name the zone by the state it holds, not by the category it contains.** `4. 📂 A Flawless Execution` and `4. 📂 Procedures` point at the same folder, but the first names what the zone is *for* — an aspiration the operator can fail or honour — while the second names a filing bucket. The full form (article included) is part of the convention, not decoration: an article turns a label into a claim. It also survives contact with reality better — a zone called *Procedures* silently accepts anything procedure-shaped, whereas *A Flawless Execution* keeps asking whether what you filed there belongs.
 
-**A reference partition at vault level.** This is Saul — a real workspace, named so the example stays discussable. The *shape* is what transfers; write your own zone names:
+**A reference partition at vault level.** Drawn from a workspace in service. The *shape* is what transfers; write your own zone names:
 
 | # | Emoji | Zone | What lives here |
 |---|-------|------|-----------------|
 | 0 | 🧹 | A Tidy Desk | Inbox — unsorted, pending triage |
 | 1 | 🧠 | An Indisputable Mastery | Theory, principles, shared semantics |
 | 2 | 📢 | An Obvious Presence | Outward-facing material (positioning, demos) |
-| 3 | 📈 | Results in Abundance | Domain guidance that produces outputs |
+| 3 | 📈 | An Abundance of Results | Domain guidance that produces outputs |
 | 4 | 📂 | A Flawless Execution | Runbooks, procedures, setup |
 | 5 | 🌿 | A Nice Environment | Tooling, environment configuration |
 | 6 | 🤝 | A Happy Team | People, profiles, roles |
@@ -94,7 +93,7 @@ Ten zones is not a rule. Between 5 and 10 is the practical range: fewer and the 
 | 8 | 😈 | Purgatory | Superseded (in reprieve) |
 | 9 | 🌀 | The Void | Discarded (gone) |
 
-The gap between 1 and 6 leaves room for intermediate spaces. The rhythm **1...6 | 7 8 9** reproduces the active/excluded separation. Emoji with variation selectors (U+FE0F) may render at inconsistent widths in monospace — test before adopting.
+The gap between 1 and 6 leaves room for intermediate spaces. The rhythm **1...6 | 7 8 9** reproduces the active/excluded separation. Emoji with variation selectors (U+FE0F) may render at inconsistent widths in monospace — test before adopting. See references/emoji for the full specification.
 
 **Nested structures.** When structures nest, each level should use a different convention if it serves a different purpose. At project level, numbers are identifiers (with emoji). Inside the workshop, numbers are a sequence (without emoji).
 
@@ -110,6 +109,20 @@ Every level that produces work should be a folder. Inside the folder, casing sep
 
 A deliverable can be a folder — UPPERCASE throughout signals "this is a product, not a workspace." Auxiliary subfolders use lowercase — they travel with the product but are not the product.
 
+```
+6. 📦 Deliverable/
+└── KAIROS/
+    ├── README.md
+    ├── BALANCE.md
+    ├── CYCLE.md
+    ├── TYPES.md
+    └── templates/       ← auxiliary: scaffolding for instantiation
+        ├── BALANCE.md
+        └── JOURNAL.md
+```
+
+The entire `KAIROS/` folder is the deliverable — copy as-is to its destination.
+
 ### Deliverable Packaging
 
 A deliverable folder contains companion files of different natures. The placement of each file encodes its expected mode of consultation — a signal to the reader about how often they will need it.
@@ -119,6 +132,16 @@ A deliverable folder contains companion files of different natures. The placemen
 **Support references** live in `references/`. These are files consulted on demand — catalogues of available types, specification tables, technical conventions. They serve a need, then recede.
 
 The criterion is not the technical nature of the file. It is the frequency of consultation. A lexicon is not a reference — it is a companion. Placing it in a subfolder increases the access cost at every consultation.
+
+```
+DELIVERABLE/
+├── DOC.md              ← main document
+├── lexicon.md          ← permanent tool (root)
+├── PLAYBOOK.md         ← permanent tool (root, if applicable)
+└── references/         ← on-demand support
+    ├── directives.md
+    └── emoji.md
+```
 
 ### Excluded Zones
 
@@ -130,7 +153,7 @@ Three zones with a retention gradient:
 | 8 | 😈 | Purgatory | Superseded content | Consultable for rollback, cleanable periodically |
 | 9 | 🌀 | The Void | Discarded content | May be wiped without notification |
 
-The gradient: **dormant → in reprieve → gone.** Purgatory is the landing zone for DELIVER. The Void gives AI a safe action: move here instead of delete. The contract applies to any operator — the exclusion is a property of the zone, not of the operator.
+The gradient: **dormant → in reprieve → gone.** The Void gives AI a safe action: move here instead of delete. The contract applies to any operator — the exclusion is a property of the zone, not of the operator.
 
 ---
 
@@ -194,6 +217,7 @@ Reference by identity, never by path. Format: `Segment .. Segment .. Target`. Ea
 | `Tekton .. Logos .. Organon .. ANABASIS` | Fully qualified |
 | `Forge .. lessive` | A specific file in La Forge |
 | `Kentauros .. Angles` | 1b. Angles/ in Kentauros workshop |
+| `Mon Jardin .. esprit .. aesthesis` | Aisthesis in Tekton/Corpus/Topos |
 
 Generic names (README, REQUESTS) often need more segments. When in doubt: add a segment to the left until it's obvious.
 
@@ -205,7 +229,11 @@ Methods are declared in the README by reference using Genesis links. `µ. METHOD
 
 A workspace has one language. Folder names, file names, and content are in that language.
 
-Methods are written once, in one language. Translation is the responsibility of the agent (Kentauros), not the producer. Each method contains a **lexicon** — a multilingual correspondence table for its technical terms, forged by the method's author.
+Methods are written once, in one language. Translation is the responsibility of the agent (Kentauros), not the producer. Each method contains a **lexicon** — a multilingual correspondence table for its technical terms, forged by the method's author. The lexicon exists because some terms have literal translations that would be inadequate, imprecise, or ambiguous. The author knows the context that literal translation loses — the lexicon captures that knowledge.
+
+The agent consults the lexicon when creating a workspace in the user's language or when explaining a gesture. Genesis defines the rule, not the translations. The specific correspondences are maintained by each method in its lexicon. See lexicon.md for Genesis's own.
+
+Exception: when the audience cannot access the agent (printed document, static export) — a frozen translated copy is appropriate, same regime as Link or Copy for stabilised consumers.
 
 ### Parallel Variants
 
@@ -221,7 +249,7 @@ Methods are written once, in one language. Translation is the responsibility of 
 
 Lateral forces that influence reasoning without participating in it. UPPERCASE files inside the level's folder.
 
-Typed on two axes — **source** (internal vs external) and **binding force** (strong vs medium). The strong pair: CONSTRAINTS (external, imposed) and CHOICES (internal, decided). The medium pair: CONSIDERATIONS (external, terrain) and CONVICTIONS (internal, beliefs). TEMPERED has survived practice — the strongest form. FRAME stands apart as structural.
+Typed on two axes — **source** (internal vs external) and **binding force** (strong vs medium). The strong pair: CONSTRAINTS (external, imposed) and CHOICES (internal, decided). The medium pair: CONSIDERATIONS (external, terrain) and CONVICTIONS (internal, beliefs). TEMPERED has survived practice — the strongest form. FRAME stands apart as structural. See references/directives for the full catalogue.
 
 The catalogue is open — extensible by practice, not by drift.
 
@@ -233,7 +261,7 @@ REQUESTS.md receives feedback from any operator at any level. Input channels liv
 
 ### Request Lifecycle
 
-A request has three states: **open, done, or gone.** The elevation rule: if a closed request produced something worth remembering, elevate it into an artefact. The request itself is not the memory.
+A request has three states: **open, done, or gone.** The elevation rule: if a closed request produced something worth remembering, elevate it into an artefact. The request itself is not the memory. A REQUESTS.md that accumulates history competes with action for attention.
 
 ### Version Drift
 
@@ -245,10 +273,20 @@ Thinking space: accept drift entirely. Operational space: light versioning, cons
 
 ---
 
+## Activable Capabilities
+
+Not every project needs every convention. Three capabilities are available when activated:
+
+- **Epistemic qualification** — tag assertions by nature. Activate when credibility matters or when Si needs to distinguish fact from conjecture.
+- **Parallel variants** — maintain separated copies for different audiences. Activate when a deliverable must exist in multiple forms.
+- **Visual documentation** — diagrams (Mermaid) and illustrations (inline SVG) when structure can be shown. Always preferred over text when possible.
+
+---
+
 ## What Genesis Does Not Prescribe
 
 - **Tools** — works with any filesystem
-- **Gestures** — that's Praxis
+- **Gestures** — that's Praxis (Tekton .. Praxis .. PRAXIS)
 - **Compliance** — that's the domain
 - **Content** — Genesis structures; it doesn't tell you what to think
 
@@ -270,6 +308,18 @@ If yes — it's a Genesis workspace.
 ## Relation to Praxis
 
 Genesis designs the workspace — *what it contains*. Praxis animates the workspace — *what can be done in it*. The two are independent: a workspace can follow Genesis without Praxis. A workspace cannot follow Praxis without Genesis.
+
+Praxis covers: gestures, the µ namespace (LOCAL, ADMIN, METHODS), orientation (ORIENT), agent bootstrap, and the four forms of codified knowledge. See Praxis (Tekton .. Praxis .. PRAXIS).
+
+---
+
+## References
+
+| File | Content |
+|------|---------|
+| lexicon.md | Multilingual correspondence table for Genesis terms |
+| references/directives | Directive catalogue — two axes, standard types, gradient |
+| references/emoji | Emoji convention — standard set, terminal constraints, numbering rhythm |
 
 ---
 

@@ -4,12 +4,23 @@
 // Invoked once per mode, from several SessionStart entries in plugin.json:
 //
 //   --persona            Inject the persona on the main thread by emitting
-//                        agents/chiron.md (frontmatter stripped) on stdout —
-//                        Claude Code splices it into the session context.
-//                        Also deposits ~/.claude/.presence/chiron.json carrying
-//                        {session_id, name, glyph, scope: "universal"} so the
-//                        team statusline can render the 🐴 glyph alongside any
-//                        local personas (Saul the Steward, …).
+//                        agents/chiron.md (the essence, frontmatter stripped)
+//                        followed by agents/activation.md (the conduct) on
+//                        stdout — Claude Code splices them into the session
+//                        context. Also deposits ~/.claude/.presence/chiron.json
+//                        carrying {session_id, name, glyph, scope: "universal"}
+//                        so the team statusline can render the 🐴 glyph
+//                        alongside any local personas (Saul the Steward, …).
+//
+// WHY TWO FILES, ONE PAYLOAD — the essence (who Chiron is) and the activation
+// (what makes it appear and keeps it there) are separate upstream, because
+// merging them is what let a compiler amputate the bootstrap and silently drop
+// the welcome card and the 🐴 rule. They ride in a single hook payload because
+// the activation must be true at message zero: emitting it separately reopens
+// the window where the persona exists without its signature. Together they are
+// ~9 KB, well inside the ceiling described below — do not split them.
+// Both files are REQUIRED: a persona without conduct is worse than none, so
+// this exits non-zero rather than emitting a mute persona.
 //
 //   --grammar <name>     Inject one grammar (kentauros, genesis, praxis,
 //                        aisthesis) in full, so Chiron actually *holds* the
@@ -41,13 +52,56 @@ if (!PLUGIN_DIR) {
 }
 
 const AGENT_FILE = path.join(PLUGIN_DIR, 'agents', 'chiron.md');
+// Outside agents/ deliberately: the harness scans agents/ and validates every
+// file there as an agent definition, and this is not one — it is a payload the
+// handler composes onto the persona. Left in agents/ it raises a "no
+// frontmatter" warning, and the publish gate fails on warnings, not just errors.
+const ACTIVATION_FILE = path.join(PLUGIN_DIR, 'persona', 'activation.md');
 const PLUGIN_JSON = path.join(PLUGIN_DIR, '.claude-plugin', 'plugin.json');
 
-// Kentauros first — the collaboration protocol frames how the other three are
-// applied. Then Topos (Genesis → Praxis → Aisthesis): structure, then action,
-// then readability. Hook entries are declared in this order; each grammar block
-// is self-describing so it still reads correctly if the harness reorders them.
-const GRAMMARS = ['kentauros', 'genesis', 'praxis', 'aisthesis'];
+const INVENTORY_FILE = path.join(PLUGIN_DIR, 'INVENTORY.md');
+
+// The carrier does not know what it carries — it reads the inventory deposited
+// at the package root and injects what it finds, in the order it finds it.
+//
+// WHY A FILE AND NOT A GLOB OF skills/ — the inventory carries what discovery
+// would lose: the load order (deliberate — Kentauros first, because the
+// collaboration protocol frames how the others apply) and the reason for an
+// absence. Sorting a directory listing would silently invent an order.
+//
+// WHY NOT A HARD-CODED LIST — the previous `const GRAMMARS` generated the
+// phrase "The N grammars…" from its own length, so the count was always right
+// and nothing could ever signal a missing grammar. A four-grammar package
+// announced itself as a complete package of four; that is how Dialektikē
+// stayed out of the payload for three weeks without a single warning.
+//
+// The inventory's load-order table is the contract:  | 1 | `kentauros` | … |
+function readInventory() {
+  if (!fs.existsSync(INVENTORY_FILE)) {
+    console.error(`no INVENTORY.md at ${INVENTORY_FILE} — the carrier has nothing to read`);
+    process.exit(1);
+  }
+  const rows = [];
+  for (const line of fs.readFileSync(INVENTORY_FILE, 'utf8').split('\n')) {
+    const m = line.match(/^\|\s*(\d+)\s*\|\s*`([a-z0-9-]+)`\s*\|/);
+    if (m) rows.push({ rank: Number(m[1]), name: m[2] });
+  }
+  if (rows.length === 0) {
+    console.error(`no load-order rows in ${INVENTORY_FILE} — expected rows like: | 1 | \`kentauros\` | …`);
+    process.exit(1);
+  }
+  // Ranks must be 1..n with no gap: a hole means a row was hand-edited out, and
+  // the inventory is meant to be regenerated rather than maintained.
+  rows.sort((a, b) => a.rank - b.rank);
+  const contiguous = rows.every((r, i) => r.rank === i + 1);
+  if (!contiguous) {
+    console.error(`load-order ranks are not contiguous: ${rows.map((r) => r.rank).join(', ')}`);
+    process.exit(1);
+  }
+  return rows.map((r) => r.name);
+}
+
+const GRAMMARS = readInventory();
 
 function stripFrontmatter(content) {
   const lines = content.split('\n');
@@ -65,7 +119,17 @@ function stripFrontmatter(content) {
 
 function emitPersona() {
   const version = JSON.parse(fs.readFileSync(PLUGIN_JSON, 'utf8')).version;
-  const body = stripFrontmatter(fs.readFileSync(AGENT_FILE, 'utf8'));
+
+  // Essence + conduct. The activation is not optional: a persona that loads
+  // without its bootstrap, welcome and signature looks active while being mute,
+  // which is the failure this separation exists to prevent. Fail loudly.
+  if (!fs.existsSync(ACTIVATION_FILE)) {
+    console.error(`activation file not found: ${ACTIVATION_FILE}`);
+    process.exit(1);
+  }
+  const essence = stripFrontmatter(fs.readFileSync(AGENT_FILE, 'utf8')).trim();
+  const activation = stripFrontmatter(fs.readFileSync(ACTIVATION_FILE, 'utf8')).trim();
+  const body = `${essence}\n\n${activation}\n`;
   const bodySha = crypto.createHash('sha256').update(body).digest('hex').substring(0, 8);
 
   const EXCLUDED_DIRS = new Set(['.git', '.jj', 'image']);
@@ -97,11 +161,13 @@ function emitPersona() {
   process.stdout.write(body);
   process.stdout.write(
     `\n\n--- The grammars you operate by ---\n\n` +
-      `The four grammars of the tekton corpus (${GRAMMARS.join(', ')}) are injected ` +
-      `in full alongside this card, one per message. You have read them — reason from ` +
-      `them directly, cite their conventions precisely, and apply them without needing ` +
-      `to invoke a skill first. The matching Skills remain available when you want to ` +
-      `re-read one in isolation.\n`
+      `These ${GRAMMARS.length} grammars of the tekton corpus are injected in full ` +
+      `alongside this card, one per message, in this load order: ${GRAMMARS.join(', ')}. ` +
+      `They are what this package carries — not the whole corpus, and not a fixed list: ` +
+      `read INVENTORY.md at the package root for their provenance and for anything the ` +
+      `packaging left out. You have read them — reason from them directly, cite their ` +
+      `conventions precisely, and apply them without needing to invoke a skill first. ` +
+      `The matching Skills remain available when you want to re-read one in isolation.\n`
   );
 
   // Presence card — only in persona mode, so the grammar invocations stay
