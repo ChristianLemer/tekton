@@ -1,0 +1,9 @@
+{
+  "name": "kyklos",
+  "version": "0.0.1",
+  "description": "Kyklos — the unified cycle of learning and production. Three profiles sharing one trunk: Elasis (swift), Anabasis (production refinement), Organon (knowledge refinement).",
+  "author": {
+    "name": "Christian Lemer",
+    "url": "https://github.com/ChristianLemer"
+  }
+}

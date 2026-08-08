@@ -18,6 +18,11 @@
       "name": "kairos",
       "description": "Kairos — attention allocation guardian. Dispatchable subagent or main-thread persona for workspaces that hold a KAIROS/ state.",
       "source": "./kairos"
+    },
+    {
+      "name": "kyklos",
+      "description": "Kyklos — the unified cycle of learning and production. Three profiles sharing one trunk: Elasis (swift forge), Anabasis (production refinement), Organon (knowledge refinement).",
+      "source": "./kyklos"
     }
   ]
 }
