@@ -1,9 +1,9 @@
 ---
 name: allocate
-description: Plan a period (day or week) for the Kairos workspace, respecting BALANCE and INFLECTIONS. Reads balance + inflections + backlog, integrates constraints first then desires, includes rhythms and worksite slices, flags conflicts, writes ALLOCATION.md. The morning ritual. Use when the user says "what should I do?", "allocate today", "plan the week", "/kairos:allocate".
+description: Plan a period (day or week) for the Kairos workspace, respecting BALANCE and INFLECTIONS. Reads balance + inflections + backlog, integrates constraints first then desires, includes rhythms and worksite slices, flags conflicts, writes ALLOCATION.md. The morning ritual. Use when the user says "what should I do?", "allocate today", "plan the week".
 ---
 
-# /kairos:allocate
+# Allocate
 
 *"What should I do?"*
 

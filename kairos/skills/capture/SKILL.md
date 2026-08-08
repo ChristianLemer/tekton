@@ -1,9 +1,9 @@
 ---
 name: capture
-description: Capture a task into the Kairos backlog without friction. Identifies the partition and nature (one-off / rhythm / worksite), creates the task file in the right partition folder, asks if ambiguous (never guesses). Use when the user says "I have a task", "capture this", "/kairos:capture", or signals a task in passing.
+description: Capture a task into the Kairos backlog without friction. Identifies the partition and nature (one-off / rhythm / worksite), creates the task file in the right partition folder, asks if ambiguous (never guesses). Use when the user says "I have a task", "capture this", or signals a task in passing.
 ---
 
-# /kairos:capture
+# Capture
 
 *"I have a task."*
 

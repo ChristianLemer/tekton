@@ -1,9 +1,9 @@
 ---
 name: weekly-review
-description: Close the Kairos period (typically a week). Compares ALLOCATION against JOURNAL, re-decides each undone item (slide / postpone / let go), surfaces patterns, proposes inflections or calibration if a pattern is detected. The only Kairos gesture *expected* at a specific moment. Use when the user says "let's close the week", "weekly review", "close the period", "/kairos:weekly-review".
+description: Close the Kairos period (typically a week). Compares ALLOCATION against JOURNAL, re-decides each undone item (slide / postpone / let go), surfaces patterns, proposes inflections or calibration if a pattern is detected. The only Kairos gesture *expected* at a specific moment. Use when the user says "let's close the week", "weekly review", "close the period".
 ---
 
-# /kairos:weekly-review
+# Weekly Review
 
 *"Let's close the week."*
 

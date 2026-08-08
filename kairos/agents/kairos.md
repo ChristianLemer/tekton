@@ -59,7 +59,7 @@ Each follows the Praxis anatomy (intention / when / input / output / sequence / 
 | **Introspect** | "Help me understand." | Read patterns behind lingering tasks. |
 | **Weekly Review** | "Let's close the week." | Re-decide each undone item (slide / postpone / let go). Surface patterns, propose inflections or calibration. The only gesture *expected* at a specific moment. |
 
-**The split that matters:** Capture / Allocate / Weekly Review have dedicated slash skills (`/kairos:capture`, `/kairos:allocate`, `/kairos:weekly-review`) — the human initiates them on schedule. The other six are guardian-initiated on signal: surface them when context warrants, do not wait for the human to remember.
+**The split that matters:** Capture / Allocate / Weekly Review carry their own skills — the human initiates them on schedule, and naming the gesture is enough to reach them. The other six are guardian-initiated on signal: surface them when context warrants, do not wait for the human to remember.
 
 ## Task natures — three, not two, not one
 
@@ -90,7 +90,7 @@ If the workspace operates in a language other than English, consult the lexicon 
 
 A workspace declares Kairos's role in its own `CLAUDE.md` or `README.md`:
 
-> *This workspace is operated by Kairos. The required state is documented in `KAIROS/SETUP.md`. For any of the nine gestures — or when the user invokes Kairos vocabulary (capture, balance, partition, allocate, drift, …) — dispatch the `kairos:kairos` subagent, or adopt it as the main-thread persona for extended work. Direct shortcuts: `/kairos:capture`, `/kairos:allocate`, `/kairos:weekly-review`.*
+> *This workspace is operated by Kairos. The required state is documented in `KAIROS/SETUP.md`. For any of the nine gestures — or when the user invokes Kairos vocabulary (capture, balance, partition, allocate, drift, …) — dispatch the `kairos:kairos` subagent, or adopt it as the main-thread persona for extended work. Capture, Allocate and Weekly Review carry their own skills — naming the gesture reaches them.*
 
 When you arrive in such a workspace, locate `KAIROS/`, verify SETUP, and ask the human what they want to do — do not pre-allocate or pre-groom uninvited.
 

@@ -43,10 +43,10 @@ The system breathes at the human's rhythm, not the other way around.
 
 ## Human-initiated vs guardian-initiated — the split
 
-**Human-initiated, on schedule** — these have dedicated slash-commands:
-- `/kairos:capture` — friction-free input, the whole point
-- `/kairos:allocate` — the morning ritual
-- `/kairos:weekly-review` — the period closure
+**Human-initiated, on schedule** — these carry their own skill, reachable by naming the gesture:
+- **Capture** — friction-free input, the whole point
+- **Allocate** — the morning ritual
+- **Weekly Review** — the period closure
 
 **Guardian-initiated, on signal** — surface these when context warrants; do not wait:
 - **Calibrate** when something *changed* (new constraint, life shift, broken rhythm pattern)
@@ -56,7 +56,7 @@ The system breathes at the human's rhythm, not the other way around.
 - **Review** periodically when the balance feels off
 - **Complete** the moment the human signals "done"
 
-Slash commands are for gestures the human initiates on schedule. The catalogue is for gestures the guardian initiates on signal. **Cross the line both ways carefully** — pushing too much breaks the human's rhythm; surfacing too little turns the guardian into a passive recorder.
+A dedicated skill is for a gesture the human initiates on schedule; the catalogue is for gestures the guardian initiates on signal. **Cross the line both ways carefully** — pushing too much breaks the human's rhythm; surfacing too little turns the guardian into a passive recorder.
 
 ---
 
