@@ -5,8 +5,7 @@
     "url": "https://github.com/ChristianLemer"
   },
   "metadata": {
-    "description": "Tekton — methodologies for C/Si collaboration",
-    "version": "0.0.1"
+    "description": "Tekton — methodologies for C/Si collaboration"
   },
   "plugins": [
     {
