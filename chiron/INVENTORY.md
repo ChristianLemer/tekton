@@ -4,7 +4,7 @@
 
 > **A rendering, not a source.** PACKAGE writes this by applying the attachment rule to the corpus as it stands, crossed with the maturity read at each piece and the opportunity decision. Chiron reads it; nobody maintains it. Regenerate rather than edit.
 >
-> Rendered 2026-08-02 · 5 grammars · attachment rule `Topos + Synergeia`
+> Rendered 2026-08-10 · 5 grammars · attachment rule `Topos + Synergeia`
 
 ---
 
@@ -32,18 +32,19 @@ Nothing. Every grammar the attachment rule yields is carried in this rendering.
 
 ## The persona
 
-Two files, two layers — substance orients, conduct applies:
+Two files, two layers — substance orients, conduct applies. Both derive from one deliverable, the same way a grammar does:
 
-| File | Source | Layer |
-|---|---|---|
-| `agents/chiron.md` | `Chiron/…/4. Forge/CHIRON/CHIRON.md` | essence |
-| `persona/activation.md` | `Chiron/…/4. Forge/CHIRON/ACTIVATION.md` | conduct — bootstrap, welcome, signature, persistence |
+| File | Source | Layer | What is dropped |
+|---|---|---|---|
+| `agents/chiron.md` | `Chiron/…/6. 📦 Livrable/CHIRON/CHIRON.md` | essence | title, subtitle, the layering callout |
+| `persona/activation.md` | `Chiron/…/6. 📦 Livrable/CHIRON/ACTIVATION.md` | conduct — bootstrap, welcome, signature, persistence | the opening sections: why the split, how a target consumes it |
+| the `description:` | `Chiron/…/6. 📦 Livrable/CHIRON/ABOUT.md` | presentation | compressed, never authored here |
 
-**Obtained by transformation, not yet by tooling — and that is a debt, declared.** The transformation is a fact of the target: an agent file addresses the agent (*« You are… »* — verified across every agent file on a working installation), so the person of address shifts. The rule that bounds it, from `ACTIVATION.md`: *a transformation may change who is addressed; it may not add what the source does not say.*
+**One transformation, and it is a fact of the target.** An agent file opens by addressing the agent it instantiates (*« You are… »* — verified across every agent file on a working installation). Nothing else shifts: the body is copied verbatim, `C` included. The rule that bounds it, from the conduct layer: *a transformation may change who is addressed; it may not add what the source does not say.*
 
-Both files were verified line by line against their source on 2026-08-02 — every difference falls under a declared transformation. But **verified once is not derived**: nothing replays the transformation, so it will drift. The case that proves it is on record — two files written in one sitting, an hour apart, by one author, and the second had already drifted from the first. A hand copy drifts without anyone erring.
+**Checkable, which is the point.** The essence body must equal its source from `## What Chiron is` onward; the conduct body must equal its source from `## 1. Bootstrap` onward. Both verified byte-for-byte at this rendering. That the check is mechanical is new — the previous rendering prescribed four substitutions and a *"only clauses addressing the agent shift"* rule, which is a reading judgment no tool can replay: a tool cannot tell whether *« ask C »* instructs or describes. That rule had no upstream and was withdrawn (see the Chiron atelier, `3c. Opérationnel/CONTRAINTES.md`).
 
-Until the transformation is tooled, treat these two as the least sound part of this package.
+**What the debt was, and what remains of it.** The previous rendering declared *"verified once is not derived, so it will drift"* — a hand copy drifts without anyone erring, and the case is on record: two files written an hour apart, by one author, already divergent. That debt is now liftable rather than lifted: the comparison is defined and passes here, but nothing replays it at each packaging yet. Tool the two comparisons above and the persona becomes as sound as a skill.
 
 **Why `persona/` and not `agents/`.** The target scans `agents/` and validates every file there as an agent — `activation.md` is not one, it is a payload the handler composes, so it warned. `persona/` holds what the carrier *assembles*; `agents/` holds what the harness must read as an agent. A third layer would enter `persona/` without inventing a third directory.
 
