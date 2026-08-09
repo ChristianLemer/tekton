@@ -1,158 +1,121 @@
 ---
-name: kairos
-description: Kairos — attention allocation system held by an AI guardian. The principle (attention is finite, drifts toward urgent/pleasant, willpower insufficient), the architecture (PARTITIONS / CALIBRATION / BALANCE / INFLECTIONS / backlog / JOURNAL / ALLOCATION), the workspace setup contract, the multilingual lexicon. Use when designing a Kairos workspace, validating its SETUP, instantiating in another language, or reasoning about why the system is shaped this way.
+name: "kairos"
+description: "An attention allocation system held by an AI guardian. Attention is finite and drifts toward the urgent or the pleasant; what is silent — important but not pressing — accumulates unseen, and willpower cannot correct that drift. The architecture is a set of documents, not a tool: a mathematical partition of attention zones, a calibration carrying the why behind the numbers, a balance that is the sole reference for allocation, dated inflections that bend it, a backlog per partition, an append-only journal, and an ephemeral allocation. Tasks have three natures — one-off, rhythm, worksite — and their mutation carries more information than the tasks themselves. Nine gestures make it operable, each with a trigger phrase; three are human-initiated, six guardian-initiated. Use when attention rather than time is the constraint, when willpower has already failed at this, when several zones of life or work compete and nothing arbitrates, or when designing and validating such a workspace. References carry the setup contract, the task anatomy, the nine gesture specifications, the templates and the multilingual lexicon. Not for tracking a single project (a backlog tool does that), not for scheduling, and not without a partner able to hold the complexity."
 ---
 
 # Kairos
 
 *An attention allocation system, held by an AI guardian.*
 
-The deliverable lives in the deployed Tekton corpus at `Poiesis .. KAIROS`. This skill is the **dense reference** — read it when you need the architecture, not the per-gesture detail (for that, load **kairos-gestures**).
+Attention is finite. It drifts toward the urgent or the pleasant, and what is silent — important but not pressing — accumulates unseen. Kairos replaces willpower with a mechanism: the human lives their life and interacts when they choose; the guardian holds the coherence, recalls what is slipping, surfaces what is forgotten.
+
+καιρός — the opportune moment. Not *chronos*, measured time, but the moment worth seizing.
 
 ---
 
-## The principle
+## The Problem
 
-Attention is finite. It drifts toward the urgent or the pleasant. What is silent — important but not pressing — accumulates without alarm. **Willpower alone cannot correct this drift durably.**
+**Attention is the problem, not time.** Time is constrained and equal for everyone. Attention is the variable — it is what drifts, and it is what must be governed.
 
-Kairos replaces willpower with a mechanism. The human lives their life and interacts when they choose. The guardian maintains coherence: recalls what drifts, suggests what's forgotten, holds the balance the human declared.
+**Willpower is not a solution.** A system that rests on individual discipline has an expiry date. Discipline is spent, and once spent it does not come back on demand. The mechanism replaces the will rather than reinforcing it.
 
-Not a productivity tool. An *attention allocation* system — partitionable, calibratable, tenable in time.
-
----
-
-## Architecture — what state must exist
-
-A Kairos workspace contains a **`KAIROS/`** folder. The state files form a layered system: each layer feeds the next.
-
-### Layer 1 — Partitions (the map)
-
-> *A mathematical partition: exhaustive and non-overlapping.*
-
-`PARTITIONS.md` declares the zones of attention. Each has a name, an emoji, a colour:
-
-```
-| # | Emoji | Partition | Colour |
-|---|-------|-----------|--------|
-| 1 | 💰    | Finance   | green  |
-| 2 | 💪    | Health    | red    |
-| 3 | 🧠    | Work      | blue   |
-| ...
-```
-
-**Checks:** no gaps (everything that demands attention is covered), no overlap (each task belongs to exactly one partition), each partition has a corresponding folder for its backlog.
-
-### Layer 2 — Calibration (the *why*)
-
-> *Calibration precedes balance. Never the other way.*
-
-`CALIBRATION.md` holds:
-- **Theoretical balance** — baseline distribution, context-free
-- **Active situation fragments** — dated, with named impact ("Q1 surgery", "kid's exam season")
-- **The X-Ray** — visualisation of theoretical vs effective
-
-### Layer 3 — Balance (the *number*)
-
-> *The effective values — sole reference for allocation.*
-
-`BALANCE.md` holds:
-- Effective values per partition (derived from calibration)
-- Active allocation directives (summary of fragments guiding task selection)
-
-Never modify directly. Re-calibrate first, balance derives.
-
-### Layer 4 — Inflections (the *bend*)
-
-> *What bends allocation beyond the balance. Read alongside BALANCE.md.*
-
-`INFLECTIONS.md` holds:
-- **Regular inflections** — personal allocation rules, stable, set at setup ("never schedule heavy work after 8pm", "Friday afternoons stay open")
-- **One-time inflections** — dated: today's desires, this week's preferences, this month's constraints
-
-Regular persists. One-time comes and goes.
-
-### Layer 5 — Backlog (the *content*)
-
-One folder per partition. Each task is an `.md` file named:
-
-```
-[partition] [nature] Description.md
-[partition] [nature] PROJECT — Description.md
-```
-
-Three or four segments: *where* · *what* · (*project*) · *name*. Self-contained — readable in its partition folder *and* in cross-cutting views (allocation, journal, weekly review).
-
-The optional `Project:` frontmatter field mirrors the project segment for programmatic use.
-
-### Layer 6 — Journal (the *trace*)
-
-`JOURNAL.md` — append-only, filled by Complete. Must exist, even if empty.
-
-### Layer 7 — Allocation (the *plan*)
-
-`ALLOCATION.md` — ephemeral rendering, regenerated by Allocate. May not exist; will be regenerated.
-
-> *The plan is disposable. The system is permanent.*
+**The system presupposes a partner able to hold complexity.** Nature × dimensions × evolution over time — too many parameters for a static tool, not too many for a dialogue. This is why Kairos is held by a guardian and not by a checklist.
 
 ---
 
-## Setup contract
+## The Architecture
 
-When deploying Kairos to a fresh workspace, walk SETUP.md and verify:
+### Partition, not categories
 
-1. PARTITIONS.md exists, partitions are exhaustive and non-overlapping
-2. Each partition has a backlog folder
-3. CALIBRATION.md exists with theoretical balance + situation fragments + X-Ray
-4. BALANCE.md exists with effective values per partition
-5. INFLECTIONS.md exists with regular + one-time sections
-6. JOURNAL.md exists (empty is fine)
-7. lexicon.md is consulted if the workspace operates in a non-English language
+**The division is a mathematical partition** — exhaustive and non-overlapping. No "miscellaneous", no orphan task, no shadow zone. If something exists, it has a place.
 
-What is missing must be created **with the human**, not autonomously. The shape of partitions and the calibration are personal — the guardian does not invent them.
+**The division is generic.** Kairos does not presuppose what the partitions are. Life domains, teams, projects, clients — the mechanics are identical, and several instances coexist without interfering.
 
----
+**Categorising is not balancing.** Without target values, partitions are only labels. It is the weighting that turns a division into an allocation system.
 
-## Three task natures, not two, not one
+### The state that must exist
 
-| Nature       | Emoji         | What it is                               | When it ends  |
-| ------------ | ------------- | ---------------------------------------- | ------------- |
-| **One-off**  | 📌            | Single action with a window of relevance | When done     |
-| **Rhythm**   | 📊 🧹 🔧 🤝   | Discipline — regularity is the goal      | Never         |
-| **Worksite** | 🏗️            | Single commitment with sub-tasks         | When complete |
+The system is a set of documents, not a tool. `SETUP.md` declares the required state; in short:
 
-**Rhythm sub-categories** (the disruption signal differs):
+| Artifact | What it holds | Nature |
+|---|---|---|
+| **PARTITIONS** | the attention zones | the division |
+| **CALIBRATION** | the *why* behind the numbers — theoretical balance, active situation, X-Ray | the reasoning |
+| **BALANCE** | effective values per partition | the reference for allocation |
+| **INFLECTIONS** | what bends allocation beyond the balance | the exceptions, dated |
+| **backlog** | one folder per partition, tasks inside | the reservoir |
+| **JOURNAL** | append-only log of what was completed | the memory |
+| **ALLOCATION** | the plan for a period | ephemeral — regenerated, never repaired |
 
-| Emoji | Category    | Maintains                       | Disruption signals     |
-| ----- | ----------- | ------------------------------- | ---------------------- |
-| 📊    | Tracking    | Indicators, metrics             | Reality is masked      |
-| 🧹    | Hygiene     | What degrades without attention | Degradation takes hold |
-| 🔧    | Maintenance | Tools and infrastructure        | Means become fragile   |
-| 🤝    | Attention   | Relationships, bonds            | Bonds erode            |
+**The plan is ephemeral, the system is permanent.** Backlog, balance and calibration are the system; the allocation is a disposable rendering. Destroying the plan destroys nothing.
 
-**Worksites are single documents** — not folders of separate task files. Sub-tasks inside (linear → counted; non-linear → milestoned). The guardian surfaces relevant sub-tasks during Allocate.
+**Without a trace, no feedback.** Human memory is selective. The log is the only faithful basis for comparing what was aimed at with what was done. History is not rewritten.
 
-**Mutations carry information.** A one-off that lingers may be a disguised worksite. A broken rhythm signals by category. A stalled worksite may need re-scoping or letting go. The guardian spots mutations during Groom.
+**The system needs to see itself.** Numbers inform; the visual makes conscious. The X-Ray is not a luxury — it is what turns the balance from an accounting exercise into an awareness.
 
 ---
 
-## Multilingual instantiation
+## Tasks
 
-The lexicon at `Poiesis .. KAIROS .. lexicon.md` provides correspondence tables for: gestures, task natures, rhythm categories, system files, concepts, trigger phrases, key phrases.
+**Tasks have three natures — not two, not one.** One-off, rhythm, worksite. Merging rhythm and worksite hides that one *maintains* while the other *depletes*. This is not simplified away. `TASKS.md` carries the full anatomy.
 
-Forged for terms where literal translation would be inadequate. Consult **at instantiation**, not on the fly. The workspace is then internally consistent in its language.
+**Rhythms are not a homogeneous block.** What a rhythm maintains determines what its breaking signals — measuring, preserving, tending, nourishing are four distinct ways of resisting degradation.
 
-Example: in a French workspace, JOURNAL.md becomes JOURNAL.md (unchanged), but TASKS.md becomes TACHES.md, PARTITIONS.md stays PARTITIONS.md, GESTURES/ becomes GESTES/, and "Capture" becomes "Capturer".
+**Tasks mutate, and the mutation is the signal.** A one-off that lingers, a rhythm broken, a worksite that stalls — the change of nature carries more information than the task itself.
+
+**A worksite is a commitment, not a list.** In the mind of whoever carries it, it is one thing. It may contain sub-tasks, but it remains a single document; the guardian surfaces the relevant sub-tasks at allocation time.
 
 ---
 
-## Key principles
+## The Dynamics
 
-- **The system breathes at the human's rhythm**, not the other way around.
-- **Numbers inform; visuals make conscious.**
-- **The plan is disposable. The system is permanent.**
-- **Letting go is a gesture, not a failure.**
-- **Calibration precedes balance. Never the other way.**
-- **Capture has no friction. If capture is hard, the system loses to the back of an envelope.**
+**Calibration is named, never silent.** One may deviate from the plan — but not pretend the plan has not changed. Adjustment is explicit and traceable.
+
+**Allocation takes inflections in without yielding to them.** The human arrives with a state — a desire, a preference, a constraint. The system accommodates it without submitting: desire is not relevance, preference is not calibration, constraint is not urgency. **An inflection that persists is a calibration ignoring itself.**
+
+**Feedback separates two diagnoses.** *I aimed badly* and *I executed badly* call for different answers. Confusing them leads to guilt or to complacency; neither is a correction.
+
+**The period closes explicitly.** What was not done is re-decided, never slid forward by inertia. Noting the gap without acting on it is feedback; acting on it — re-deciding, letting go, escalating — is the review.
+
+**Grooming is an explicit gesture.** Not a side effect, not "when there's time". It is uncomfortable and indispensable: it produces clarity, not completed tasks.
+
+**Letting go is a gesture, not a failure.** Consciously abandoning a task is deciding it no longer deserves the attention it consumes by its mere presence.
+
+---
+
+## The Gestures
+
+Nine gestures, each following the Praxis anatomy. `GESTURES/` carries the full specification, one file per gesture.
+
+**The vocabulary is what makes the gestures invocable.** *"I'm getting organised"* means nothing. Distinct verbs for distinct acts let the human ask for the right mode of interaction — and let the guardian know which one is being asked for.
+
+| Gesture | Trigger | What it does |
+|---|---|---|
+| **Capture** | "I have a task." | adds to the backlog without friction |
+| **Groom** | "Let's groom." | walks the backlog to produce clarity |
+| **Allocate** | "What should I do?" | plans a period respecting balance and inflections |
+| **Calibrate** | — | adjusts the balance, explicitly |
+| **Complete** | "Done." | logs and closes |
+| **Let-go** | "Drop it." | abandons consciously |
+| **Review** | — | compares intent with outcome |
+| **Introspect** | — | examines the system itself |
+| **Weekly Review** | end of week | closes the period, produces inflections |
+
+### Who initiates
+
+**The guardian does not wait to be asked.** Three gestures belong to the human — Capture, Allocate, Weekly Review. They answer an **inner state** only they hold: I have a task in mind, I want to know what to do, the week is over. Waiting is correct there; the guardian cannot guess them.
+
+The other six belong to the guardian, because they answer an **imbalance in the system** — a broken rhythm, a task that lingers, a partition being avoided. These are facts of the backlog and the journal: visible in the documents, invisible to someone living their life. Waiting for the human to notice them is asking them to hold what the system exists to hold — *willpower is not a solution*, and that applies to the interaction too.
+
+**The threshold is named, in both directions.** Pushing too much imposes a rhythm that is not theirs, and the prompts end up ignored — the true signal lost among the others. Pushing too little turns the guardian into a passive recorder, one that knows what is drifting and waits for the question. The second failure costs more and shows less: a silent guardian looks correct.
+
+The breathing pattern — which gesture fires in the morning, daily, at end of week, on change — is part of the gesture specification.
+
+---
+
+## Language
+
+**One deliverable, one language, one lexicon.** The deliverable is forged in English; `lexicon.md` carries the multilingual correspondence, and the agent translates at instantiation. Parallel translated copies are not maintained — a hand copy drifts without anyone erring.
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "name": "kairos",
-  "version": "0.0.1",
-  "description": "Kairos — attention allocation guardian. Dispatchable subagent or main-thread persona for workspaces that hold a KAIROS/ state.",
+  "version": "0.0.2",
+  "description": "Kairos — an attention allocation system held by an AI guardian. Partitions, balance, inflections, backlog, journal; three task natures and nine gestures.",
   "author": {
     "name": "Christian Lemer",
     "url": "https://github.com/ChristianLemer"
