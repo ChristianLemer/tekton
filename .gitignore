@@ -15,10 +15,16 @@ CLAUDE.local.md
 # Throwaway working notes — same convention as architekton (`_PLAN.md`)
 _*
 
-# Machine-local tooling — publishes from one machine only, and carries the
-# employer's shared-library path in clear. Excluded from the Saul mirror
-# already (`admin/publish/excludes.txt`); kept out of git for the same reason.
-admin/
+# Machine-local tooling. `publish` carries the employer's shared-library path in
+# clear — it publishes from one machine only, and that is why it stays out.
+# Excluded from the Saul mirror already (`admin/publish/excludes.txt`).
+#
+# The exclusion was applied to the whole directory, and it cost the validation
+# gate: the file that carried it stopped being versioned, so a `rm` would lose
+# it without trace. What is clean is tracked, one module at a time.
+admin/*
+!admin/manifest/
+!admin/verify/
 
 # Editor temporaries
 *.swp
