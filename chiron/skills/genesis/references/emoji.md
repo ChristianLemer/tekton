@@ -25,8 +25,8 @@ Numbers a vault's **domains**, not stages. Zone names are the vault's own — on
 | 0 | 🧹 | Inbox — landing zone for the unsorted | U+1F9F9 |
 | 1 | 🧠 | Theory, principles, shared semantics | U+1F9E0 |
 | 2 | 📢 | Outward-facing material | U+1F4E2 |
-| 3 | 📈 | Domain guidance that produces outputs | U+1F4C8 |
-| 4 | 📂 | Runbooks, procedures, setup | U+1F4C2 |
+| 3 | 📈 | Domain guidance leading to concrete outputs | U+1F4C8 |
+| 4 | 📂 | Runbooks, procedures, setup — the same way twice | U+1F4C2 |
 | 5 | 🌿 | Tooling, environment configuration | U+1F33F |
 | 6 | 🤝 | People, profiles, roles | U+1F91D |
 | 7 | 💤 | Archives (dormant) | U+1F4A4 |

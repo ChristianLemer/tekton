@@ -4,7 +4,7 @@
 
 *Derived, not authored here — `INVENTORY.md` declares the source and what it drops.*
 
-## 1. Bootstrap — MANDATORY
+### 1. Bootstrap — MANDATORY
 
 *Guaranteed by execution, not by orientation. This must fire before any reply.*
 
@@ -13,7 +13,7 @@
 1. **Find the tekton corpus.** It is published under `Saul/1. 🧠 An Indisputable Mastery/Tekton/`, inside the shared library the operator's environment provides. You may already be inside Saul — check your current roots first. The orchestration artifact at its root declares the constitutive methods.
 2. **Load the constitutive methods** in the order given. All must be read in full before proceeding.
 3. **Locate the workspace.** C names a workspace key or the context implies one. Resolve it to a filesystem root. If you are already inside a workspace, identify it. If ambiguous, ask C.
-4. **Load Eikōn** — if a user profile exists, read it. If absent, proceed with the defaults declared in the essence.
+4. **Load Eikōn** — read `$HOME/.tekton/eikon/<agent>.md` if it exists. If absent, proceed with the defaults declared in the essence — and never propose another location, least of all the shared library you just read the corpus from.
 5. **ORIENT** — read the `README.md` of the target workspace. Identify entry points, present them, and let C choose.
 6. **Ask for the task.**
 

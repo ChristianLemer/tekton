@@ -60,22 +60,30 @@ The power isn't in having categories. It's in having categories that **force att
 
 **A reference partition at vault level.** Drawn from a workspace in service. The *shape* is what transfers; write your own zone names:
 
-| # | Emoji | Zone | What lives here |
-|---|-------|------|-----------------|
-| 0 | 🧹 | A Tidy Desk | Inbox — unsorted, pending triage |
-| 1 | 🧠 | An Indisputable Mastery | Theory, principles, shared semantics |
-| 2 | 📢 | An Obvious Presence | Outward-facing material (positioning, demos) |
-| 3 | 📈 | An Abundance of Results | Domain guidance that produces outputs |
-| 4 | 📂 | A Flawless Execution | Runbooks, procedures, setup |
-| 5 | 🌿 | A Nice Environment | Tooling, environment configuration |
-| 6 | 🤝 | A Happy Team | People, profiles, roles |
-| 7 | 💤 | A Curated Attic | Archived (see *Excluded Zones*) |
-| 8 | 😈 | The Purgatory | Superseded (see *Excluded Zones*) |
-| 9 | 🌀 | The Void | Discarded (see *Excluded Zones*) |
+| # | Emoji | Zone | Filing question | What lives here |
+|---|-------|------|-----------------|-----------------|
+| 0 | 🧹 | A Tidy Desk | *how do I work?* | Inbox — unsorted, pending triage |
+| 1 | 🧠 | An Indisputable Mastery | *what do I know?* | Theory, principles, shared semantics |
+| 2 | 📢 | An Obvious Presence | *who sees me?* | Outward-facing material (positioning, demos) |
+| 3 | 📈 | Results in Abundance | *how do I produce?* | Domain guidance leading to concrete outputs |
+| 4 | 📂 | A Flawless Execution | *how do I do it the same way twice?* | Runbooks, procedures, setup |
+| 5 | 🌿 | A Nice Environment | *what do I work with?* | Tooling, environment configuration |
+| 6 | 🤝 | A Happy Team | *who with?* | People, profiles, roles |
+| 7 | 💤 | A Curated Attic | — | Archived (see *Excluded Zones*) |
+| 8 | 😈 | The Purgatory | — | Superseded (see *Excluded Zones*) |
+| 9 | 🌀 | The Void | — | Discarded (see *Excluded Zones*) |
+
+**Each zone carries a filing question, and that is the mechanism.** The name states the aspiration; the question settles where a thing goes. A name without a question leaves filing to judgment, and filing left to judgment drifts. Zones 3 and 4 show why the pair matters: *how do I produce* against *how do I do it the same way twice* — guidance that leads somewhere, against a procedure that repeats. Read either gloss alone and the two zones blur.
+
+**Zone 1 against zone 4 — knowledge against the manual for this installation.** The most disputed boundary in the set, and the names do not carry it. Zone 1 holds knowledge you can account for: it is understood, argued, taught, and it outlives a post. Zone 4 holds what brings *this* environment up — provisioning a laptop, obtaining access, refreshing a repository. The first is learned, the second applied. **Imposed knowledge is still knowledge:** knowing how to work an enforced toolchain is a competence, so it belongs in zone 1 — that zone is not *what I chose to learn*, it is *what I can account for*.
+
+**A regulation goes in zone 1; the procedure for complying with it goes in zone 4.** A regulation does not say how to proceed — it says what must be true on arrival. Filing it under execution would merge it with its own implementation, so that rewriting the procedure would move the regulation for no reason.
+
+**What the location cannot say, epistemic qualification says.** A manual and a regulation differ by **source of authority**, not by subject: the manual explains a mechanism you can verify, the regulation binds because an authority decreed it. That is a difference of *status*, and it belongs to epistemic tagging — `documented` against `stated` (see *Epistemic Qualification*) — not to the partition. Spending a zone on it would cross two orthogonal axes, and the cost falls on the first document that is both at once: a guide interpreting a regulation, explanatory in form and binding in reach, would have no zone despite having one subject. **The partition files by subject; qualification states the authority.**
 
 Read what this partition encodes. **0 is the inbox** — a partition needs a landing zone, or unsorted items corrupt the real zones. **1 → 6 moves from the abstract to the human**: semantics, then outward face, then output, then execution, then environment, then people. That ordering is itself a claim about the domain. **A zone may be empty at birth** and earn its content later — declaring it costs nothing and reserves the slot.
 
-Note the drift in article as you cross into exclusion: the active zones are *A* / *An* (one instance among possible others — yours will differ), the excluded ones are *The* (there is only one Purgatory, one Void). The grammar carries the distinction before the number does.
+Note the drift in article as you cross into exclusion: active zones tend to *A* / *An* (one instance among possible others — yours will differ), the excluded ones take *The* (there is only one Purgatory, one Void). A tendency, not a rule — `Results in Abundance` carries no article and needs none. Put an article where the phrase wants one; never add one for the sake of alignment.
 
 Ten zones is not a rule. Between 5 and 10 is the practical range: fewer and the zones are too coarse to force attention, more and you can no longer hold the partition in your head.
 
