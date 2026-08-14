@@ -5,23 +5,92 @@
     "url": "https://github.com/ChristianLemer"
   },
   "metadata": {
-    "description": "Tekton — methodologies for C/Si collaboration"
+    "description": "Tekton — methodologies for C/Si collaboration. Two channels: stable entries track main, Beta entries track beta."
   },
   "plugins": [
     {
       "name": "chiron",
+      "displayName": "Chiron",
       "description": "Chiron — methodological companion for the tekton corpus.",
-      "source": "./chiron"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "chiron",
+        "ref": "main"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
     },
     {
       "name": "kairos",
+      "displayName": "Kairos",
       "description": "Kairos — attention allocation guardian. Dispatchable subagent or main-thread persona for workspaces that hold a KAIROS/ state.",
-      "source": "./kairos"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "kairos",
+        "ref": "main"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
     },
     {
       "name": "kyklos",
+      "displayName": "Kyklos",
       "description": "Kyklos — the unified cycle of learning and production. Three profiles sharing one trunk: Elasis (swift forge), Anabasis (production refinement), Organon (knowledge refinement).",
-      "source": "./kyklos"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "kyklos",
+        "ref": "main"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
+    },
+    {
+      "name": "chiron-beta",
+      "displayName": "Chiron Beta",
+      "description": "Beta channel — Chiron ahead of stable. Same components as chiron, so install one or the other, never both.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "chiron",
+        "ref": "beta"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
+    },
+    {
+      "name": "kairos-beta",
+      "displayName": "Kairos Beta",
+      "description": "Beta channel — Kairos ahead of stable. Same components as kairos, so install one or the other, never both.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "kairos",
+        "ref": "beta"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
+    },
+    {
+      "name": "kyklos-beta",
+      "displayName": "Kyklos Beta",
+      "description": "Beta channel — Kyklos ahead of stable. Same components as kyklos, so install one or the other, never both.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChristianLemer/tekton.git",
+        "path": "kyklos",
+        "ref": "beta"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/ChristianLemer/tekton",
+      "repository": "https://github.com/ChristianLemer/tekton"
     }
   ]
 }

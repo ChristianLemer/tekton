@@ -39,6 +39,29 @@ def is-here-only [rel: string]: nothing -> bool {
     $HERE_ONLY | any {|pat| $rel | str starts-with $pat }
 }
 
+# The plugin directories the catalogue points at, deduped and sorted.
+#
+# Not `plugins.name`: since the catalogue carries two channels, an entry name is
+# a channel label (`chiron-beta`), not a directory. Several entries share one
+# directory at different refs — what is verifiable here is the directory, once.
+# Entries whose source has no local path (github, url, archive) are skipped:
+# they are not deployed from this repo, so there is nothing here to compare.
+def catalogue-dirs []: nothing -> list<string> {
+    open .claude-plugin/marketplace.json
+    | get plugins
+    | get source
+    | each {|src|
+        if ($src | describe) starts-with record {
+            $src | get --optional path | default ''
+        } else {
+            $src | str replace --regex ^\./ '' | str trim --right --char /
+        }
+    }
+    | where {|dir| $dir != '' }
+    | uniq
+    | sort
+}
+
 # Relative file list under a directory, sorted. Empty list if absent.
 # Absolute paths throughout: `path relative-to` needs both sides in the same
 # form, and a relative dir yields relative glob results that do not match.
@@ -104,7 +127,7 @@ export def main [
     let plugins = if $plugin != null {
         [$plugin]
     } else {
-        open .claude-plugin/marketplace.json | get plugins.name
+        catalogue-dirs
     }
 
     info $"verify: deployed packages against ($f)"
