@@ -172,22 +172,33 @@ function emitPersona() {
 
   // Presence card — only in persona mode, so the grammar invocations stay
   // read-only and stdin-free.
-  const input = JSON.parse(fs.readFileSync(0, 'utf8'));
-  const presenceDir = path.join(os.homedir(), '.claude', '.presence');
-  fs.mkdirSync(presenceDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(presenceDir, 'chiron.json'),
-    JSON.stringify(
-      {
-        session_id: input.session_id,
-        name: 'chiron',
-        glyph: '🐴',
-        scope: 'universal',
-      },
-      null,
-      2
-    ) + '\n'
-  );
+  //
+  // Never let this fail the hook. The persona above is the activation and it
+  // has already been written; presence is a convenience on top. A bare parse
+  // here made the handler exit 1 whenever stdin was absent or malformed — the
+  // whole payload emitted, then a non-zero exit that reads as a failed hook.
+  // It also made the handler untestable by hand, which is how the defect hid.
+  try {
+    const input = JSON.parse(fs.readFileSync(0, 'utf8'));
+    const presenceDir = path.join(os.homedir(), '.claude', '.presence');
+    fs.mkdirSync(presenceDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(presenceDir, 'chiron.json'),
+      JSON.stringify(
+        {
+          session_id: input.session_id,
+          name: 'chiron',
+          glyph: '🐴',
+          scope: 'universal',
+        },
+        null,
+        2
+      ) + '\n'
+    );
+  } catch (err) {
+    // Diagnostic only: stderr does not affect the hook's exit status.
+    console.error(`chiron: presence card skipped (${err.message})`);
+  }
 }
 
 function emitGrammar(name) {
