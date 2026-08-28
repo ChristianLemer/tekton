@@ -15,6 +15,13 @@ Tekton is a corpus of methods about how a human and an AI work together — how 
 /plugin install chiron@tekton
 ```
 
+For GitHub Copilot CLI, use the same marketplace and plugin names:
+
+```
+copilot plugin marketplace add ChristianLemer/tekton
+copilot plugin install chiron@tekton
+```
+
 Then start a new session. Chiron introduces itself and asks what you are working on.
 
 ## The plugins
@@ -39,16 +46,17 @@ Each is also a skill you can read on its own: `/chiron:genesis`.
 
 ## Two channels
 
-Every plugin is listed twice — once tracking `main`, once tracking `beta`.
+The stable channel is published from `main` as `tekton`. The beta channel is
+published from `beta` as `tekton-beta`. Both marketplaces use relative plugin
+paths, which are supported by Claude Code and GitHub Copilot CLI.
 
 | Install | Channel |
 |---|---|
 | `chiron@tekton` | stable — tracks `main` |
-| `chiron-beta@tekton` | ahead of stable — tracks `beta` |
+| `chiron@tekton-beta` | ahead of stable — tracks `beta` |
 
-One marketplace serves both; pick the entry, not the marketplace. **Install one or the other, never both** — a plugin and its Beta twin carry the same components, so having both installed collides.
-
-A channel only moves when a plugin's `version` changes. That is deliberate: a push without a version bump delivers nothing.
+Install one channel or the other, never both — the stable and beta plugins
+provide the same components and would collide when enabled together.
 
 ## Where this comes from
 
