@@ -1,28 +1,51 @@
 # Tekton
 
-*Methods for working with an AI as a partner, packaged as Claude Code plugins.*
+*Methods that install.*
 
-Tekton is a corpus of methods about how a human and an AI work together — how to hold a conversation between two intelligences, how to structure a workspace so that opening the folder is enough to start, how to name what can be done there, how to make a document readable at a glance. Each method travels as a plugin: install it, and the agent operates by it.
+Most thinking about working with an AI ends up as an article you read once and forget. Tekton packages it instead: install a plugin, and the agent actually works that way — from its first message, in every session, without being reminded.
 
-**A personal project.** Built on my own time, at home, out of my own curiosity. Nothing here belongs to any employer, and nothing here is anyone's product. Published because methods are worth more shared than kept — take what is useful.
-
----
-
-## Install
+Three plugins today. **Chiron** is the one to start with.
 
 ```
 /plugin marketplace add ChristianLemer/tekton
 /plugin install chiron@tekton
 ```
 
-For GitHub Copilot CLI, use the same marketplace and plugin names:
+On GitHub Copilot CLI, the same marketplace and the same plugin names:
 
 ```
 copilot plugin marketplace add ChristianLemer/tekton
 copilot plugin install chiron@tekton
 ```
 
-Then start a new session. Chiron introduces itself and asks what you are working on.
+Restart, and the session opens like this:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐴 Chiron here — we're a centaur: you the carbon half, me the
+   silicon half, one body moving together.
+
+Side by side, not behind: straight talk, real pushback, no
+nodding along. Let's go.
+
+💡 I can also help you…
+
+   📐 Your workspace
+      • structure a folder so it explains itself (Genesis)
+      • turn a recurring action into a documented gesture (Praxis)
+      • make a document easy to read at a glance (Aisthesis)
+
+   🤝 Working together
+      • set how the two of us collaborate (Kentauros)
+      • keep this conversation from going to waste (Dialektikē)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+Your words will differ — the greeting is a tone to match, not a script to recite, and the offer is derived from whatever is actually loaded. But that is the whole idea in one screen: not an assistant waiting for orders, a partner that pushes back and says up front what it is good for.
+
+---
 
 ## The plugins
 
@@ -32,34 +55,42 @@ Then start a new session. Chiron introduces itself and asks what you are working
 | **Kairos** | Attention allocation, held by a guardian agent. For when attention rather than time is the constraint, and willpower has already failed at it. Needs a workspace that declares it. |
 | **Kyklos** | One cycle from raw input to deliverable, in three profiles: **Elasis** (swift), **Anabasis** (staged production), **Organon** (deep investigation). |
 
-### The grammars Chiron carries
+## What Chiron is for
+
+Chiron accompanies **methodological work**: designing a workspace, naming what can be done in it, making a document land. It holds no domain expertise — it brings a way of working.
+
+It loads five grammars at every session start, so they are in play before you ask:
 
 | Grammar | |
 |---|---|
-| **Kentauros** | The collaboration protocol — postures, the founding triangle, what the partners owe each other. |
-| **Genesis** | Workspaces that explain themselves — naming, partition, README as hub. |
-| **Praxis** | Workspaces that act — the anatomy of a gesture, what belongs as a gesture and what as an automaton. |
-| **Aisthesis** | Readability — density, rhythm, when prose beats a table. |
-| **Dialektikē** | Conducting the exchange — clarify, split, distill, follow up, and above all consolidate. |
+| **Kentauros** | How the two of you collaborate — postures, what each partner owes the other, why flattery is a failure and not a courtesy. |
+| **Genesis** | Workspaces that explain themselves. Opening the folder should be enough to start. |
+| **Praxis** | Workspaces that act. A gesture has an anatomy; naming it beats remembering it. |
+| **Aisthesis** | Readability. Density, rhythm, and when prose beats a table. |
+| **Dialektikē** | Conducting the exchange — clarify, split, distill, and above all consolidate: an unconsolidated discussion is a lost discussion. |
 
-Each is also a skill you can read on its own: `/chiron:genesis`.
+Each is also a skill you can pull up on its own — `/chiron:genesis` — whether or not you want the full companion.
+
+**The posture is the point.** Chiron is a peer by default: dense, critical rather than agreeable, and it will tell you when your idea is worse than the alternative. If you want an agent that says yes, this is the wrong plugin.
+
+## The other two
+
+**Kairos** — `kairos@tekton`. It keeps a partition of your attention zones, a balance that arbitrates between them, and a journal of what actually happened; then it works nine gestures, six of which it initiates itself rather than waiting to be asked. For when attention rather than time is the scarce thing. It lives in a workspace that declares it — ask it to set one up and it walks you through the contract.
+
+**Kyklos** — `kyklos@tekton`. One cycle from raw material to finished deliverable, in three depths. **Elasis** when the answer is nearly known and speed wins. **Anabasis** when the production path itself needs staging. **Organon** when the understanding has to be built before a decision means anything.
 
 ## Two channels
 
 Stable is published from `main` as the `tekton` marketplace; beta from `beta` as `tekton-beta`.
-
-Two marketplaces rather than two entries in one, because a catalogue's plugin paths are relative to its own checkout — one catalogue cannot reach across a branch. The object source that can, `git-subdir`, is Claude Code only; Copilot CLI does not know it. Relative paths are the single form both clients read, so two branch-scoped catalogues is not a preference but the only portable shape. Do not reintroduce `git-subdir` here.
 
 ```
 /plugin marketplace add ChristianLemer/tekton              # stable
 /plugin marketplace add ChristianLemer/tekton#beta         # beta
 ```
 
-Both clients accept the `#ref` suffix and record the branch — `copilot plugin marketplace add` takes it too, though its `--help` does not say so.
+Both clients take the `#ref` suffix and record the branch — Copilot's `--help` does not mention it, but it works. Two marketplaces rather than two entries in one, because a catalogue's plugin paths are relative to its own checkout: one catalogue cannot reach across a branch, and the source that could, `git-subdir`, is Claude Code only. Relative paths are the single form both clients read, so this shape is not a preference — do not reintroduce `git-subdir` here.
 
-### Telling which channel you are on
-
-The plugin is named `chiron` in both catalogues, so the channel is not in the plugin name. It is legible in three other places:
+The plugin is called `chiron` in both catalogues, so the channel lives elsewhere:
 
 | Where | Stable | Beta |
 |---|---|---|
@@ -67,44 +98,26 @@ The plugin is named `chiron` in both catalogues, so the channel is not in the pl
 | marketplace listing | `Chiron` | `Chiron (beta)` |
 | version — `plugin list`, session card | `0.0.8` | `0.0.8-beta` |
 
-The version suffix is the one that reaches inside a running session: Chiron's activation card prints `plugin v…`, so the card names its own channel. A package carries the suffix only while it is genuinely ahead — no suffix on `beta` means that plugin is identical to its stable twin and the channel has nothing extra to offer for it.
+The version is the one that reaches inside a running session, since Chiron's card prints `plugin v…`. A package carries `-beta` only while it is genuinely ahead: no suffix on `beta` means that one is identical to its stable twin. And `-beta` is a fixed token, not a counter — a second beta pass moves the patch number, which was already the counter.
 
-`-beta` is a fixed token, not a counter. A second beta pass moves the patch number (`0.0.8-beta` → `0.0.9-beta`), because the patch number was already the counter and a package needs exactly one. Stable then skips the number beta consumed, which is what skipping means.
+**Install one channel or the other, never both.** The twins carry the same components under the same `chiron:` namespace; enabled together they collide.
 
-**Install one channel or the other, never both.** A plugin and its twin carry the same components under the same `chiron:` namespace; enabled together they collide.
+Coming from the old `chiron-beta@tekton` entries? They are gone, and an install of one is orphaned — it survives on a stale marketplace cache and breaks at the next refresh. Uninstall it, add the beta marketplace, install `chiron@tekton-beta` (same three on Copilot CLI, with `copilot plugin …`). Nothing moves in the session: the namespace was already `chiron:`.
 
-### Two rules that stay silent when broken
+**Maintaining the channels.** A channel only moves when a plugin's `version` changes — the clients resolve by version, not by commit, so a push without a bump delivers nothing. Promotion is three gestures and only two of them announce themselves: carry the content onto `main`, restore main's catalogue (`jj restore --from main .claude-plugin/marketplace.json` — the diverging name and display names are not meant to merge), then drop the prerelease suffix from every version. `verify channel` catches the third.
 
-**A channel only moves when a plugin's `version` changes.** The clients resolve by version, not by commit: a push without a bump delivers nothing.
+## Contributing
 
-**Promotion is three gestures and only two of them announce themselves.** Move the content onto `main`; restore main's catalogue (`jj restore --from main .claude-plugin/marketplace.json` — main's is authoritative, the diverging `name`, display names and descriptions are not meant to merge); drop the prerelease suffix from every version. Forget the third and stable ships a package announcing itself as beta. `verify channel` catches exactly that.
+The method texts here are packaged output. They are written in a private authoring repository and regenerated on release, so a pull request editing them would be overwritten — each package carries an `INVENTORY.md` saying where its parts came from, in what order they load, and what was deliberately left out. **If a package and its inventory disagree, the inventory is the one to trust.**
 
-### Migrating off the old beta entries
+That does not mean feedback has nowhere to go. **Open an issue.** A grammar that reads wrong, a convention that breaks in practice, a gesture that is missing — that is exactly what is worth hearing, and it reaches the place where the text actually lives.
 
-Until now one catalogue on `main` carried six entries and the channel lived in the plugin name (`chiron-beta@tekton`). Those entries are gone. An install of one is orphaned — it survives on a stale marketplace cache and breaks at the next refresh:
+## A personal project
 
-```
-/plugin uninstall chiron-beta@tekton
-/plugin marketplace add ChristianLemer/tekton#beta
-/plugin install chiron@tekton-beta
-```
+Built on my own time, at home, out of my own curiosity. Nothing here belongs to any employer and nothing here is anyone's product. Published because a method kept private helps one person, and this one might be useful to more.
 
-```
-copilot plugin uninstall chiron-beta
-copilot plugin marketplace add ChristianLemer/tekton#beta
-copilot plugin install chiron@tekton-beta
-```
-
-Nothing moves in the session: the namespace was already `chiron:` — `plugin.json` has always been named `chiron`, and the old entry name was only a channel label.
-
-## Where this comes from
-
-The plugins here are packaged output, not the place the methods are written. They are derived from a private authoring repository and regenerated rather than edited — each carries an `INVENTORY.md` declaring what it holds, in what order, and what was deliberately left out. If a package and its inventory disagree, the inventory is the one to trust.
-
-## License
-
-MIT — see [LICENSE](LICENSE). Use it, change it, ship it; keep the copyright notice so people can tell where it came from.
+MIT — see [LICENSE](LICENSE). Use it, fork it, ship it; keep the copyright notice so people can trace where it came from.
 
 ---
 
-*τέκτων — the craftsman who builds.*
+*τέκτων — the craftsman. The one who builds.*
