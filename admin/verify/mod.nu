@@ -19,6 +19,7 @@
 #   use admin/verify
 #   verify --forge <path>            # all plugins in the marketplace
 #   verify chiron --forge <path>     # one plugin
+#   verify channel                   # channel/version coherence, no forge needed
 #
 # The forge path is architekton's `2. 🧭 Apparatus/1. 🔨 Atelier/4. Forge`.
 # Set TEKTON_FORGE to avoid passing it every time.
@@ -41,11 +42,14 @@ def is-here-only [rel: string]: nothing -> bool {
 
 # The plugin directories the catalogue points at, deduped and sorted.
 #
-# Not `plugins.name`: since the catalogue carries two channels, an entry name is
-# a channel label (`chiron-beta`), not a directory. Several entries share one
-# directory at different refs — what is verifiable here is the directory, once.
-# Entries whose source has no local path (github, url, archive) are skipped:
-# they are not deployed from this repo, so there is nothing here to compare.
+# Not `plugins.name`: an entry name is a catalogue label, a source is a
+# location, and nothing forces the two to agree — they did not when one
+# catalogue served both channels and `chiron-beta` pointed at `chiron`. They
+# agree again now that each channel has its own catalogue, but reading the
+# source is what keeps this correct under either shape. Deduped, because more
+# than one entry may legitimately land on one directory. Entries whose source
+# names no local path (github, url, archive) are skipped: they are not deployed
+# from this repo, so there is nothing here to compare.
 def catalogue-dirs []: nothing -> list<string> {
     open .claude-plugin/marketplace.json
     | get plugins
@@ -60,6 +64,100 @@ def catalogue-dirs []: nothing -> list<string> {
     | where {|dir| $dir != '' }
     | uniq
     | sort
+}
+
+# The channel this catalogue serves, read from its own name: `tekton` is stable,
+# `tekton-beta` is beta. Nothing else in the repo declares it — and this is not
+# an arbitrary convention: both Claude Code and Copilot CLI derive the local
+# marketplace name from this field, so it is the name the operator actually
+# types (`chiron@tekton-beta`). Which makes it the one field that cannot lie
+# about which branch a checkout is on.
+def catalogue-channel []: nothing -> string {
+    let name = (open .claude-plugin/marketplace.json | get name)
+    if ($name | str ends-with '-beta') { 'beta' } else { 'stable' }
+}
+
+# What each deployed package declares as its version, and whether that version
+# carries a prerelease suffix (`0.0.8-beta`). Semver puts the suffix after the
+# first `-` and these versions carry no build metadata, so a single `-` is the
+# whole test.
+#
+# Deliberately blind to what the suffix says: `-beta`, `-rc`, anything. The
+# suffix is a fixed token here rather than a counter — a package needs one
+# counter and the patch number already is it — but this check has no business
+# policing which token, only that stable ships none.
+def declared-versions []: nothing -> table {
+    catalogue-dirs | each {|dir|
+        let manifest = ($dir | path join '.claude-plugin' 'plugin.json')
+        let version = if ($manifest | path exists) {
+            open $manifest | get --optional version
+        } else {
+            null
+        }
+        {
+            plugin: $dir
+            version: $version
+            prerelease: (($version | default '') | str contains '-')
+        }
+    }
+}
+
+# Report channel/version coherence and return the count of incoherences.
+# Printing here, deciding at the call sites: `verify channel` errors on a
+# non-zero return, `verify` only folds it into its verdict.
+def check-channel []: nothing -> int {
+    let channel = catalogue-channel
+    let rows = declared-versions
+    info $"verify channel: catalogue serves ($channel)"
+
+    let unversioned = ($rows | where {|r| $r.version == null })
+    let marked = ($rows | where {|r| $r.prerelease })
+    let plain = ($rows | where {|r| $r.version != null and (not $r.prerelease) })
+
+    $unversioned | each {|r| bad $"  ($r.plugin): no version in .claude-plugin/plugin.json" }
+
+    if $channel == 'stable' {
+        $marked | each {|r| bad $"  ($r.plugin): ($r.version) — prerelease on the stable channel; drop the suffix" }
+        $plain | each {|r| ok $"  ($r.plugin): ($r.version)" }
+    } else {
+        $marked | each {|r| ok $"  ($r.plugin): ($r.version) — ahead of stable" }
+        $plain | each {|r| info $"  ($r.plugin): ($r.version) — no suffix, so identical to stable; bump it if this one is ahead" }
+    }
+
+    let wrong = if $channel == 'stable' { ($marked | length) } else { 0 }
+    ($wrong + ($unversioned | length))
+}
+
+# Check that the channel this catalogue serves agrees with the versions it ships.
+#
+# Why it exists: the channel is legible to an operator in three places — the
+# marketplace name, the entry display name, and the version string. Only the
+# third reaches inside a running session, because Chiron's activation card
+# prints the version. The three live in different files, and promoting beta to
+# stable has to change all of them. Restoring the catalogue conflicts loudly if
+# skipped; dropping the prerelease suffix is silent. Forget it and stable ships
+# a package that announces itself as beta, to every client, for as long as
+# nobody looks.
+#
+# Unlike the forge comparison, this one *decides*: a prerelease version on the
+# stable channel is never legitimate, so there is no judgement to leave to the
+# operator and it exits non-zero.
+#
+# What it deliberately does NOT check: whether a beta package that is genuinely
+# ahead of stable actually carries a suffix. That needs the other branch, and
+# this reads only the working copy — the unsuffixed lines are reported so the
+# operator can judge. See "Two channels" in README.md.
+#
+# Needs no forge. Run from the tekton repo root:
+#   use admin/verify
+#   verify channel
+export def channel []: nothing -> nothing {
+    let wrong = check-channel
+    if $wrong == 0 {
+        ok "channel coherent"
+    } else {
+        error make {msg: $"($wrong) package\(s\) disagree with the channel this catalogue serves"}
+    }
 }
 
 # Relative file list under a directory, sorted. Empty list if absent.
@@ -130,6 +228,12 @@ export def main [
         catalogue-dirs
     }
 
+    # Free — reads only the working copy and needs no forge — so it has no
+    # reason ever to be skipped. Folded into the verdict rather than raised:
+    # `verify` reports, `verify channel` is the one that gates.
+    let incoherent = check-channel
+    print ''
+
     info $"verify: deployed packages against ($f)"
     let results = ($plugins | each {|p| verify-one $p $f })
 
@@ -138,5 +242,8 @@ export def main [
         ok $"($results | length) package\(s\) match their forge"
     } else {
         bad $"($drifted | length) of ($results | length) package\(s\) diverge — judge each line, do not copy blindly"
+    }
+    if $incoherent > 0 {
+        bad $"and ($incoherent) disagree with the channel — run `verify channel`"
     }
 }
