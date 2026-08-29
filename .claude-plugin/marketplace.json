@@ -1,17 +1,17 @@
 {
-  "name": "tekton",
+  "name": "tekton-beta",
   "owner": {
     "name": "Christian Lemer",
     "url": "https://github.com/ChristianLemer"
   },
   "metadata": {
-    "description": "Tekton — methodologies for C/Si collaboration. Stable channel, served from main; the beta channel is tekton-beta, from the beta branch."
+    "description": "Tekton — methodologies for C/Si collaboration. Beta channel, served from the beta branch; the stable channel is tekton, from main."
   },
   "plugins": [
     {
       "name": "chiron",
-      "displayName": "Chiron",
-      "description": "Chiron — methodological companion for the tekton corpus.",
+      "displayName": "Chiron (beta)",
+      "description": "Chiron — methodological companion for the tekton corpus. Beta channel: ahead of stable. Install this or its stable twin, never both — same components, they collide.",
       "source": "./chiron",
       "license": "MIT",
       "homepage": "https://github.com/ChristianLemer/tekton",
@@ -19,8 +19,8 @@
     },
     {
       "name": "kairos",
-      "displayName": "Kairos",
-      "description": "Kairos — attention allocation guardian. Dispatchable subagent or main-thread persona for workspaces that hold a KAIROS/ state.",
+      "displayName": "Kairos (beta)",
+      "description": "Kairos — attention allocation guardian. Dispatchable subagent or main-thread persona for workspaces that hold a KAIROS/ state. Beta channel: install this or its stable twin, never both — same components, they collide.",
       "source": "./kairos",
       "license": "MIT",
       "homepage": "https://github.com/ChristianLemer/tekton",
@@ -28,8 +28,8 @@
     },
     {
       "name": "kyklos",
-      "displayName": "Kyklos",
-      "description": "Kyklos — the unified cycle of learning and production. Three profiles sharing one trunk: Elasis (swift forge), Anabasis (production refinement), Organon (knowledge refinement).",
+      "displayName": "Kyklos (beta)",
+      "description": "Kyklos — the unified cycle of learning and production. Three profiles sharing one trunk: Elasis (swift forge), Anabasis (production refinement), Organon (knowledge refinement). Beta channel: install this or its stable twin, never both — same components, they collide.",
       "source": "./kyklos",
       "license": "MIT",
       "homepage": "https://github.com/ChristianLemer/tekton",
