@@ -20,6 +20,7 @@
 #   verify --forge <path>            # all plugins in the marketplace
 #   verify chiron --forge <path>     # one plugin
 #   verify channel                   # channel/version coherence, no forge needed
+#   verify skills                    # skill descriptions fit Copilot, no forge needed
 #
 # The forge path is architekton's `2. 🧭 Apparatus/1. 🔨 Atelier/4. Forge`.
 # Set TEKTON_FORGE to avoid passing it every time.
@@ -99,6 +100,80 @@ def declared-versions []: nothing -> table {
             version: $version
             prerelease: (($version | default '') | str contains '-')
         }
+    }
+}
+
+# Copilot CLI refuses a skill whose frontmatter `description` runs past 1024
+# characters — "Skill description must be at most 1024 characters" — and the
+# refusal is per-skill and quiet: the session banner counts the casualties, the
+# rest of the package loads normally, and the operator sees a working plugin with
+# a hole in it. Claude Code has no such limit, so a description can pass every
+# check on that side and still drop one grammar in the other client.
+#
+# MEASURED, not assumed: chiron's `dialektike` shipped at 1081 characters and its
+# skill silently failed to load in Copilot. Nobody noticed, because Chiron itself
+# still held the grammar — the SessionStart payload carries all five in full. Only
+# the standalone `/chiron:dialektike` was gone.
+const SKILL_DESCRIPTION_MAX = 1024
+
+# Every skill this repo deploys, with the character count of its description.
+# Parsed through `from yaml` rather than a regex: a description may be quoted,
+# folded, or span lines, and a regex that handles only today's shape would go
+# quiet exactly when the shape changes.
+def skill-descriptions []: nothing -> table {
+    catalogue-dirs
+    | each {|dir|
+        glob ($dir | path join 'skills' '*' 'SKILL.md')
+        | each {|f|
+            let fm = (open --raw $f | split row --regex '(?m)^---\s*$' | get --optional 1 | default '')
+            let meta = (try { $fm | from yaml } catch { {} })
+            let desc = ($meta | get --optional description | default '' | into string)
+            {
+                plugin: $dir
+                skill: ($f | path dirname | path basename)
+                chars: ($desc | str length)
+            }
+        }
+    }
+    | flatten
+}
+
+# Report over-long skill descriptions and return how many there are.
+def check-skills []: nothing -> int {
+    let rows = skill-descriptions
+    if ($rows | is-empty) {
+        info "verify skills: no skills deployed here"
+        return 0
+    }
+    info $"verify skills: ($rows | length) description\(s\), Copilot's ceiling is ($SKILL_DESCRIPTION_MAX)"
+    let over = ($rows | where {|r| $r.chars > $SKILL_DESCRIPTION_MAX })
+    $rows
+    | sort-by chars --reverse
+    | each {|r|
+        let label = $"  ($r.plugin)/($r.skill): ($r.chars)"
+        if $r.chars > $SKILL_DESCRIPTION_MAX {
+            bad $"($label) — ($r.chars - $SKILL_DESCRIPTION_MAX) over; Copilot will refuse this skill"
+        } else {
+            ok $"($label)"
+        }
+    }
+    ($over | length)
+}
+
+# Check that no skill description exceeds what Copilot CLI accepts.
+#
+# Like `verify channel` and unlike the forge comparison, this one decides: a
+# description over the ceiling is never legitimate, so it exits non-zero.
+#
+# Needs no forge. Run from the tekton repo root:
+#   use admin/verify
+#   verify skills
+export def skills []: nothing -> nothing {
+    let over = check-skills
+    if $over == 0 {
+        ok "every skill description fits"
+    } else {
+        error make {msg: $"($over) skill description\(s\) exceed ($SKILL_DESCRIPTION_MAX) characters"}
     }
 }
 
@@ -233,6 +308,8 @@ export def main [
     # `verify` reports, `verify channel` is the one that gates.
     let incoherent = check-channel
     print ''
+    let oversized = check-skills
+    print ''
 
     info $"verify: deployed packages against ($f)"
     let results = ($plugins | each {|p| verify-one $p $f })
@@ -245,5 +322,8 @@ export def main [
     }
     if $incoherent > 0 {
         bad $"and ($incoherent) disagree with the channel — run `verify channel`"
+    }
+    if $oversized > 0 {
+        bad $"and ($oversized) skill description\(s\) are too long for Copilot — run `verify skills`"
     }
 }
