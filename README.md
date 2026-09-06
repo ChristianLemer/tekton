@@ -96,7 +96,7 @@ The plugin is called `chiron` in both catalogues, so the channel lives elsewhere
 |---|---|---|
 | `plugin list`, `plugin install` | `chiron@tekton` | `chiron@tekton-beta` |
 | marketplace listing | `Chiron` | `Chiron (beta)` |
-| version — `plugin list`, session card | `0.0.8` | `0.0.8-beta` |
+| version — `plugin list`, session card | `X.Y.Z` | `X.Y.Z-beta` |
 
 The version is the one that reaches inside a running session, since Chiron's card prints `plugin v…`. A package carries `-beta` only while it is genuinely ahead: no suffix on `beta` means that one is identical to its stable twin. And `-beta` is a fixed token, not a counter — a second beta pass moves the patch number, which was already the counter.
 
@@ -104,7 +104,15 @@ The version is the one that reaches inside a running session, since Chiron's car
 
 Coming from the old `chiron-beta@tekton` entries? They are gone, and an install of one is orphaned — it survives on a stale marketplace cache and breaks at the next refresh. Uninstall it, add the beta marketplace, install `chiron@tekton-beta` (same three on Copilot CLI, with `copilot plugin …`). Nothing moves in the session: the namespace was already `chiron:`.
 
-**Maintaining the channels.** A channel only moves when a plugin's `version` changes — the clients resolve by version, not by commit, so a push without a bump delivers nothing. Promotion is three gestures and only two of them announce themselves: carry the content onto `main`, restore main's catalogue (`jj restore --from main .claude-plugin/marketplace.json` — the diverging name and display names are not meant to merge), then drop the prerelease suffix from every version. `verify channel` catches the third.
+**Maintaining the channels.** A channel only moves when a plugin's `version` changes — the clients resolve by version, not by commit, so a push without a bump delivers nothing. Promotion is three gestures and only one of them announces itself: carry the content onto `main` — a merge, loud when it fails — then restore main's catalogue (the diverging name and display names are not meant to merge), then drop the prerelease suffix from every version. The last two are silent, which is exactly why they are no longer left to prose:
+
+```nu
+use admin/promote
+promote --dry-run    # what would be carried, and which versions move
+promote              # merge, restore the catalogue, de-beta, verify — stops before pushing
+```
+
+It stops with the promotion committed and unpushed: `main` is what strangers install, so publishing stays a deliberate act. `verify channel` gates the result, and runs in CI on every push.
 
 ## Contributing
 

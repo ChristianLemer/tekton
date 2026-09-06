@@ -24,6 +24,7 @@ _*
 # it without trace. What is clean is tracked, one module at a time.
 admin/*
 !admin/manifest/
+!admin/promote/
 !admin/verify/
 
 # Editor temporaries
