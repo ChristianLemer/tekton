@@ -1,0 +1,37 @@
+# Channel coherence, checked by something that does not depend on remembering.
+#
+# Why it exists: the operator of this repository is an agent, and the owner does
+# not read the history. A guard that runs only when someone thinks to run it
+# guards nothing. `verify channel` is free — it reads the working copy and needs
+# no Forge — so there is no reason for it not to run on every push.
+#
+# It catches the one failure that is otherwise silent: a package announcing
+# itself as beta on the stable channel. That reaches every client, for as long
+# as nobody looks.
+
+name: verify
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  channel:
+    runs-on: ubuntu-latest
+    env:
+      NU_VERSION: 0.115.1
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned tarball rather than a third-party setup action: one fewer
+      # dependency to trust in the path that guards what gets published.
+      - name: Install Nushell
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          curl -sSfL "https://github.com/nushell/nushell/releases/download/${NU_VERSION}/nu-${NU_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C "$HOME/.local/bin" --strip-components=1 --wildcards '*/nu'
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: verify channel
+        run: nu -c 'use admin/verify; verify channel'
