@@ -51,6 +51,31 @@ if (!PLUGIN_DIR) {
   process.exit(1);
 }
 
+// WHICH CLIENT IS RUNNING US. GitHub Copilot CLI reads these same SessionStart
+// entries — `SessionStart` in PascalCase is a documented Copilot event name, its
+// "VS Code compatible format" — and it also sets CLAUDE_PLUGIN_ROOT for
+// compatibility, so no CLAUDE_* variable can tell the two apart. COPILOT_CLI can.
+//
+// ⚠️ EVERYTHING BELOW IS MEASURED on Copilot CLI 1.0.81, not read from its docs,
+// which are silent or wrong on three of the four:
+//
+//   · Copilot runs these hooks and then DISCARDS stdout that is not one JSON
+//     object: "if the leftover output ... fails to parse as JSON, the hook is
+//     treated as having produced no output". No error, no warning. Raw Markdown
+//     is exactly what this handler emits for Claude Code, so for months the
+//     package looked installed and enabled while its bootstrap never happened.
+//   · Only the LAST non-empty `additionalContext` of an event survives. Several
+//     sessionStart hooks are NOT merged — the documented "joined, capped at
+//     10 KB" rule belongs to postToolUse. Six invocations would deliver one.
+//   · A hook that prints NOTHING does not clobber an earlier payload.
+//   · A single ~70 KB `additionalContext` arrives intact; the bound is 10 MiB.
+//
+// Hence the inversion: under Copilot ONE invocation carries the whole corpus and
+// the other five stay silent — the exact opposite of the split Claude Code needs
+// (see WHY ONE MODE PER INVOCATION above). Do not unify the two paths: they exist
+// because the two clients have opposite constraints.
+const COPILOT = Boolean(process.env.COPILOT_CLI);
+
 const AGENT_FILE = path.join(PLUGIN_DIR, 'agents', 'chiron.md');
 // Outside agents/ deliberately: the harness scans agents/ and validates every
 // file there as an agent definition, and this is not one — it is a payload the
@@ -157,40 +182,79 @@ function emitPersona() {
   }
   const pluginSha = combined.digest('hex').substring(0, 8);
 
-  process.stdout.write(`CHIRON ACTIVE — plugin v${version} • body sha ${bodySha} • plugin sha ${pluginSha}\n\n`);
-  process.stdout.write(body);
-  process.stdout.write(
+  const card = `CHIRON ACTIVE — plugin v${version} • body sha ${bodySha} • plugin sha ${pluginSha}\n\n`;
+
+  // Where the grammars are is not decoration — it is an instruction about where
+  // to look, and it differs by client. Claude Code gets one per message; Copilot
+  // gets them inside this very payload.
+  const delivery = COPILOT
+    ? `below, inside this same payload, in this load order`
+    : `alongside this card, one per message, in this load order`;
+  const note =
     `\n\n--- The grammars you operate by ---\n\n` +
-      `These ${GRAMMARS.length} grammars of the tekton corpus are injected in full ` +
-      `alongside this card, one per message, in this load order: ${GRAMMARS.join(', ')}. ` +
-      `They are what this package carries — not the whole corpus, and not a fixed list: ` +
-      `read INVENTORY.md at the package root for their provenance and for anything the ` +
-      `packaging left out. You have read them — reason from them directly, cite their ` +
-      `conventions precisely, and apply them without needing to invoke a skill first. ` +
-      `The matching Skills remain available when you want to re-read one in isolation.\n`
-  );
+    `These ${GRAMMARS.length} grammars of the tekton corpus are injected in full ` +
+    `${delivery}: ${GRAMMARS.join(', ')}. ` +
+    `They are what this package carries — not the whole corpus, and not a fixed list: ` +
+    `read INVENTORY.md at the package root for their provenance and for anything the ` +
+    `packaging left out. You have read them — reason from them directly, cite their ` +
+    `conventions precisely, and apply them without needing to invoke a skill first. ` +
+    `The matching Skills remain available when you want to re-read one in isolation.\n`;
+
+  if (COPILOT) {
+    // ONE object, ONE invocation, the whole corpus inside — see COPILOT above for
+    // why the split cannot work here. JSON.stringify escapes every newline into
+    // \n, so the payload leaves as a single stdout line, which is the shape
+    // Copilot's per-line scan of hook output expects.
+    process.stdout.write(
+      JSON.stringify({
+        additionalContext: card + body + note + '\n' + GRAMMARS.map(grammarBlock).join('\n'),
+      })
+    );
+    // No presence card under Copilot: its hook payload names the session
+    // `sessionId`, not `session_id`, and ~/.claude is not its home — writing
+    // there would deposit a card with an undefined id for the statusline to read.
+    return;
+  }
+
+  process.stdout.write(card);
+  process.stdout.write(body);
+  process.stdout.write(note);
 
   // Presence card — only in persona mode, so the grammar invocations stay
   // read-only and stdin-free.
-  const input = JSON.parse(fs.readFileSync(0, 'utf8'));
-  const presenceDir = path.join(os.homedir(), '.claude', '.presence');
-  fs.mkdirSync(presenceDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(presenceDir, 'chiron.json'),
-    JSON.stringify(
-      {
-        session_id: input.session_id,
-        name: 'chiron',
-        glyph: '🐴',
-        scope: 'universal',
-      },
-      null,
-      2
-    ) + '\n'
-  );
+  //
+  // Never let this fail the hook. The persona above is the activation and it
+  // has already been written; presence is a convenience on top. A bare parse
+  // here made the handler exit 1 whenever stdin was absent or malformed — the
+  // whole payload emitted, then a non-zero exit that reads as a failed hook.
+  // It also made the handler untestable by hand, which is how the defect hid.
+  try {
+    const input = JSON.parse(fs.readFileSync(0, 'utf8'));
+    const presenceDir = path.join(os.homedir(), '.claude', '.presence');
+    fs.mkdirSync(presenceDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(presenceDir, 'chiron.json'),
+      JSON.stringify(
+        {
+          session_id: input.session_id,
+          name: 'chiron',
+          glyph: '🐴',
+          scope: 'universal',
+        },
+        null,
+        2
+      ) + '\n'
+    );
+  } catch (err) {
+    // Diagnostic only: stderr does not affect the hook's exit status.
+    console.error(`chiron: presence card skipped (${err.message})`);
+  }
 }
 
-function emitGrammar(name) {
+// One grammar, rendered exactly as Claude Code receives it. Extracted rather than
+// inlined so the Copilot path can concatenate all five without a second copy of
+// this header format drifting away from the one Claude Code sees.
+function grammarBlock(name) {
   if (!GRAMMARS.includes(name)) {
     console.error(`unknown grammar: ${name} (expected one of ${GRAMMARS.join(', ')})`);
     process.exit(1);
@@ -202,12 +266,16 @@ function emitGrammar(name) {
   }
   const text = stripFrontmatter(fs.readFileSync(file, 'utf8')).trim();
   const rule = '='.repeat(70);
-  process.stdout.write(
+  return (
     `${rule}\nCHIRON GRAMMAR — ${name.toUpperCase()} ` +
-      `(${GRAMMARS.indexOf(name) + 1} of ${GRAMMARS.length}, in full)\n${rule}\n\n`
+    `(${GRAMMARS.indexOf(name) + 1} of ${GRAMMARS.length}, in full)\n${rule}\n\n` +
+    text +
+    '\n'
   );
-  process.stdout.write(text);
-  process.stdout.write('\n');
+}
+
+function emitGrammar(name) {
+  process.stdout.write(grammarBlock(name));
 }
 
 // --- Dispatch ---
@@ -216,6 +284,11 @@ const argv = process.argv.slice(2);
 if (argv[0] === '--persona') {
   emitPersona();
 } else if (argv[0] === '--grammar') {
+  // Under Copilot the persona invocation already carried every grammar, and a
+  // second non-empty payload would REPLACE it rather than add to it. Silence is
+  // what keeps the first one alive. The inventory guard above still ran, on
+  // purpose: a package whose INVENTORY.md is broken should fail in both clients.
+  if (COPILOT) process.exit(0);
   emitGrammar(argv[1]);
 } else {
   console.error('usage: session-start.js --persona | --grammar <name>');

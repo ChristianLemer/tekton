@@ -1,6 +1,6 @@
 {
   "name": "kairos",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Kairos — an attention allocation system held by an AI guardian. Partitions, balance, inflections, backlog, journal; three task natures and nine gestures.",
   "author": {
     "name": "Christian Lemer",
