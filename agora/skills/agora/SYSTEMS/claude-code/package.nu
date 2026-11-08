@@ -24,8 +24,13 @@
 # acquired by construction, it is not checked apart. A unit keeps the number it
 # carries in the apparatus unless this passage gives it a new one.
 #
+# It reports, without stopping: a skill description over another client's ceiling, and a
+# skill whose cost on invoke passes the re-attach ceiling — measured by the system's own
+# projection (`claude plugin details`); cutting a head is the piece's cycle's to do.
+#
 # What this script does NOT do: review (the instance is read, not confirmed),
-# qualify, decide the number, write the home page (DOCUMENT does), deploy.
+# qualify, decide the number, write the home page (DOCUMENT does, in the apparatus's
+# destination folder, versioned with it), cut a skill, deploy.
 # Judgment stays with the gesture.
 #
 # Run from the corpus's place — the folder that holds MANIFEST.md, which names the folders
@@ -41,7 +46,7 @@ const PRODUCT = "4. Forge"
 # README is the hub of whoever opens it (system file, "What has no place")
 const NOT_CARRIED = ["ABOUT.md" "README.md"]
 # what the destination holds besides the units, in the apparatus (system file, "The gate")
-const DESTINATION = "_destination"
+const DESTINATION = "destination"
 # the destination of a unit that serves the corpus itself, not a catalog (system file, "The gate")
 const CORPUS_DESTINATION = "this corpus"
 # what a unit served to the corpus may carry: skills only — the project's skill folder holds nothing else
@@ -57,6 +62,8 @@ const RULE = "\n---\n"
 const NATURES = ["grammar" "method" "persona"]
 # another client reading the same units refuses a skill description past this (system file, "Limits")
 const OTHER_CEILING = 1024
+# after compaction the system re-attaches only this many tokens of an invoked skill (system file, "Limits")
+const REATTACH_CEILING = 5000
 # where this script lives: templates/ sit beside it, and Agora's lexicon two levels up
 const HERE = (path self | path dirname)
 const LEXICON = (path self | path dirname | path join .. .. lexicon.md)
@@ -528,6 +535,23 @@ def ceilings [units: list<string>]: nothing -> nothing {
     }
 }
 
+# Skills past the re-attach ceiling: reported, never cut — where a head ends is a decision of
+# frequency, the piece's cycle makes it (system file, "Limits"). The measure is the system's
+# own projection of each skill's cost on invoke; without it, the step says so and goes on.
+def reattach [units: list<string>]: nothing -> nothing {
+    for u in $units {
+        let skills = (glob ([(unit-dir $u) skills * SKILL.md] | path join) | each {|f| $f | path dirname | path basename })
+        if ($skills | is-empty) { continue }
+        let r = (do { ^claude --plugin-dir (unit-dir $u) plugin details $u } | complete)
+        if $r.exit_code != 0 { info $"($u): the system's projection is unavailable — re-attach ceiling not measured"; continue }
+        for row in ($r.stdout | lines | parse --regex '^\s+(?<name>[a-z0-9-]+)\s+~(?<always>[0-9.]+k?)\s+~(?<invoke>[0-9.]+k?)\s*$') {
+            if $row.name not-in $skills { continue }
+            let n = (if ($row.invoke | str ends-with "k") { ($row.invoke | str trim --right --char "k" | into float) * 1000 } else { $row.invoke | into float })
+            if $n > $REATTACH_CEILING { info $"($u): skill ($row.name) costs ~($row.invoke) tokens on invoke — past the ($REATTACH_CEILING) re-attached after compaction; the head of its main document is the piece's cycle to cut" }
+        }
+    }
+}
+
 def current-version [unit: string]: nothing -> string {
     let m = ([(unit-dir $unit) .claude-plugin plugin.json] | path join)
     if not ($m | path exists) { stop $"($unit) is packaged for the first time — give it a number: ($unit)=<version>" }
@@ -582,9 +606,11 @@ def main [
         if ($inst.rows | where Unit == $v.unit | get Destination.0) == $CORPUS_DESTINATION { corpus-servable $v.unit }
     }
     ceilings $inst.units
+    reattach $inst.units
     one-helm $inst.rows
 
-    # what the destination holds besides the units — the home page is DOCUMENT's, kept as it is
+    # what the destination holds besides the units — the home page is DOCUMENT's, kept as it is:
+    # written by judgment, its only source is this folder under version control
     let dest = ([$env.APPARATUS $DESTINATION] | path join)
     if ($dest | path exists) { ls -a $dest | where {|e| ($e.name | path basename) != "README.md" } | each {|e| rm -rf $e.name } | ignore }
     destination-files $inst.files $inst.dir

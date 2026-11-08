@@ -34,7 +34,7 @@ One orchestration artifact per unit, and one home page per destination, written 
 4. **Carry the movements.** From the instance: what left which piece for where, what is retired. Written for someone who knew the previous version and opens this one.
 5. **Write the technical content** — inventory, order, dependencies, how to start.
 6. **Write the promotional content** where the unit is meant to be discovered — honest articulation of why one would care, before how it works.
-7. **Write the destination's home page** — what it offers, which unit to start with and why, how to install from each channel — from the units' presentations and the instance, never from memory of the last page.
+7. **Write the destination's home page** — what it offers, which unit to start with and why, how to install from each channel — from the units' presentations and the instance, never from memory of the last page. It is written in the apparatus, where the system file puts it, and committed with it: it is the one file there written by judgment, and its only source.
 
 ## Guardrails
 

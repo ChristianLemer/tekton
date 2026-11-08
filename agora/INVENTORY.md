@@ -4,7 +4,7 @@
 
 > **A rendering, not a source.** PACKAGE writes this from the instance and the deliverable as they stand. Regenerate rather than edit.
 >
-> Rendered at corpus revision `aa3904b` · one method, one skill · composition by list: Agora
+> Rendered at corpus revision `6b5fc81` · one method, one skill · composition by list: Agora
 
 ---
 
@@ -14,7 +14,7 @@ Each skill's body is its main document, byte for byte after the frontmatter; eve
 
 | Skill | Deliverable | Carried beside `SKILL.md` |
 |---|---|---|
-| `agora` | `f. 🏛️ Architektonikē/Agora/4. Forge/AGORA/` | `GESTURES/`, `SYSTEMS/`, `lexicon.md`, `templates/` |
+| `agora` | `f. 🏛️ Architektonikē/Agora/4. Forge/AGORA/` | `GESTURES/`, `SYSTEMS/`, `lexicon.md`, `references/`, `templates/` |
 
 The `description:` of each skill derives from its own `ABOUT.md`, compressed by reading — *when it serves*, and its boundary. Nothing is authored here.
 

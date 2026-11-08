@@ -29,7 +29,7 @@ The nine sections answer the same nine questions as every file in `SYSTEMS/`, in
 
 **Installation copies the unit into a cache keyed by version** — `<cache>/<catalog>/<unit>/<version>/` — and records, per installed plugin, its version, its install path and the commit identifier of the catalog at install time. The cached copy is what the consumer runs; the catalog is re-read, the unit is not.
 
-**The home page** of a head is its root `README.md` — what a human reads on arriving at the repository: what it offers, where to start, how to install — and that one channel is installed, never both: the same components under two catalogs collide. DOCUMENT writes it into the apparatus; it is carried like the rest, never edited at the destination.
+**The home page** of a head is its root `README.md` — what a human reads on arriving at the repository: what it offers, where to start, how to install — and that one channel is installed, never both: the same components under two catalogs collide. DOCUMENT writes it into the apparatus; it is carried like the rest, never edited at the destination. It is the one file of the apparatus written by judgment rather than regenerated — PACKAGE keeps it as it is — so its only source is the apparatus under version control.
 
 **The rules of an agent started at the destination** are its root `AGENTS.md` — which the system loads at start (measured) — a destination file written from the template `templates/destination-agents.md`: the repository is generated, nothing is edited or run there, and what is done there is committing and pushing what DEPLOY aligned.
 
@@ -38,13 +38,15 @@ The nine sections answer the same nine questions as every file in `SYSTEMS/`, in
 ```
 <apparatus>/
 ├── <unit>/                     ← one per unit of the instance
-└── _destination/
+└── destination/
     ├── README.md               ← the home page — DOCUMENT's
     ├── <file>                  ← each destination file the instance names, copied — LICENSE, AGENTS.md
     └── <catalog>/.claude-plugin/marketplace.json   ← one per channel, generated
 ```
 
-The image of a head is the units, the files of `_destination/`, and that head's catalog at the root. The apparatus's own `README.md`, for whoever opens the folder, is not carried.
+The image of a head is the units, the files of `destination/`, and that head's catalog at the root. The apparatus's own `README.md`, for whoever opens the folder, is not carried.
+
+**The apparatus is versioned whole**, `destination/` included: the diff between two packagings is read there, and the home page has no other source. Its folders carry no leading underscore — a common convention for disposable files, which a workspace's version control often ignores; the home page of a corpus was lost that way (measured).
 
 **One unit per carrier, plus what reads without a carrier.** A unit takes one of three shapes, read in its composition and in the natures its pieces declare — never in its name:
 
@@ -181,6 +183,8 @@ What the rendering changes relative to the deliverable, and nothing else. Each o
 
 Order of magnitude, measured on a served unit: five grammars between 7 and 23 KB each, plus a persona payload of 10 KB — about **88 KB per session** if everything arrived. Under the cap as it stands, only payloads under 10 000 characters arrive whole: on the served unit, one grammar of five. The exact figures belong to the unit's inventory, not here; the consequence belongs to REVIEW — a composition whose payloads exceed the cap is not carried, whatever the manifest says.
 
+**The re-attach ceiling.** After compaction, the system re-attaches only the **first 5 000 tokens** of each invoked skill, within a budget of 25 000 for all of them (system documentation); the rest is lost in a long session, with no sign. A skill's cost on invoke is its body — the deliverable's main document; `claude --plugin-dir <unit> plugin details <unit>` projects it, per skill (`on-invoke`). What must stay present belongs in the head of the main document, the detail in `references/` (Genesis, *Deliverable Packaging*): the cut is a decision of frequency, the piece's cycle makes it. PACKAGE measures every skill it renders and reports those past the ceiling; it does not cut, and does not refuse — the unit works, it degrades in a long session. ADMIT tells the author beforehand.
+
 **The cost follows the composition without anyone deciding it.** An attachment rule that admits every new grammar of a family adds a payload per grammar. REVIEW shows the sum when the rule brings a piece in; what is discussed when the sum hurts is *which grammars the carrier takes*, not how it loads them.
 
 **Other facts that constrain composition:**
@@ -256,7 +260,7 @@ Order of magnitude, measured on a served unit: five grammars between 7 and 23 KB
 | 5 | DEPLOY | **bump before transport** — refuse when a number already served, on this head or another, comes with another content: same number, two contents is the collision the validator cannot see |
 | 6 | DEPLOY | transport, dry-run read, then applied |
 
-**Two scripts, beside this file — and no other.** `package.nu` regenerates the whole apparatus from the deliverables and the instance — each unit's selection resolved from its composition and ordered by the instance's reading order, the units with the declared transformations and nothing else, their manifests, each channel's catalog — listing the units of that channel's destination only —, the files the instance names — runs the validator, and reports descriptions over the other client's ceiling; its inventory templates — one per shape — sit beside it; the descriptions read from each `ABOUT.md` sit with the corpus, in its readings file. `deploy.nu` is the transport above, with its checks — to a channel of the catalog repository, or to the corpus itself. The validator is the system's own command.
+**Two scripts, beside this file — and no other.** `package.nu` regenerates the whole apparatus from the deliverables and the instance — each unit's selection resolved from its composition and ordered by the instance's reading order, the units with the declared transformations and nothing else, their manifests, each channel's catalog — listing the units of that channel's destination only —, the files the instance names — runs the validator, and reports descriptions over the other client's ceiling and skills past the re-attach ceiling; its inventory templates — one per shape — sit beside it; the descriptions read from each `ABOUT.md` sit with the corpus, in its readings file. `deploy.nu` is the transport above, with its checks — to a channel of the catalog repository, or to the corpus itself. The validator is the system's own command.
 
 ---
 

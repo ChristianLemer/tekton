@@ -29,7 +29,7 @@
 #   nu "<path to>/deploy.nu" corpus <unit> --apply
 
 # what the destination holds besides the units, in the apparatus (system file, "The gate")
-const DESTINATION = "_destination"
+const DESTINATION = "destination"
 const CATALOG = ".claude-plugin/marketplace.json"
 # the corpus as a destination: its channel row, and where the system installs project skills
 const CORPUS_DESTINATION = "this corpus"
