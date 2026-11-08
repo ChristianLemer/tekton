@@ -1,69 +1,72 @@
 # Inventory — chiron
 
-*What this package carries, in what order, and what it leaves out.*
+*What this unit carries, in what order, and what it leaves out.*
 
-> **A rendering, not a source.** PACKAGE writes this by applying the attachment rule to the corpus as it stands, crossed with the maturity read at each piece and the opportunity decision. Chiron reads it; nobody maintains it. Regenerate rather than edit.
+> **A rendering, not a source.** PACKAGE writes this by applying the composition rule of the instance to the corpus as it stands, minus what the instance pauses. The carrier reads it; nobody maintains it. Regenerate rather than edit.
 >
-> Rendered 2026-08-10 · 5 grammars · attachment rule `Topos + Synergeia`
+> Rendered at corpus revision `aa3904b` · 5 grammars · rule `every grammar of the families 🤝 Synergeia and 📐 Topos`
 
 ---
 
-## Load order
+## The grammars — carried as skills, loaded on demand
 
-The order is **framing**, not reading. Kentauros first: the collaboration protocol frames how the others apply. Then Topos — structure, then action, then readability. Dialektikē last within Synergeia: it is the manner of an exchange whose spirit Kentauros has already set.
+The order is the corpus's **reading order**, restricted to what the rule selects: the instance writes it once, REVIEW proposes it and the user confirms it. Neither this unit nor its persona chooses it — the persona declares what it mobilises, not in what order. The agent file lists the grammars under `skills:`, in this order, so that their descriptions are present from the first reply; the bodies load when a description triggers, or when the conduct asks for them in full.
 
-| # | Grammar | Family | Why here |
-|---|---------|--------|----------|
-| 1 | `kentauros` | 🤝 Synergeia | the spirit — frames everything after it |
-| 2 | `genesis` | 📐 Topos | the root of the corpus, presupposes nothing |
-| 3 | `praxis` | 📐 Topos | presupposes Genesis |
-| 4 | `aisthesis` | 📐 Topos | closes the triptych |
-| 5 | `dialektike` | 🤝 Synergeia | the manner — presupposes Kentauros |
+| # | Grammar | Family |
+|---|---------|--------|
+| 1 | `kentauros` | 🤝 Synergeia |
+| 2 | `dialektike` | 🤝 Synergeia |
+| 3 | `genesis` | 📐 Topos |
+| 4 | `praxis` | 📐 Topos |
+| 5 | `aisthesis` | 📐 Topos |
 
-**Not the reading order.** A corpus is read bottom-up from Genesis (see TOPOLOGIE). A carrier loading its grammars is not learning the corpus — it is tuning itself. Two orders, two ends; this file carries the loading one.
-
-**One payload per load.** The harness measures each hook's output independently and truncates past ~60 KB. All five together exceed it. Never merge loads; if a single grammar approaches the ceiling, split that grammar instead.
+**None is injected at session start.** The system measures each hook's output independently and truncates past the ceiling the system file states; no grammar fits under it whole, and splitting a grammar is its author's act, not this unit's. Decided at the review; revalidated when a grammar changes size or the ceiling moves.
 
 ## Excluded
 
-Nothing. Every grammar the attachment rule yields is carried in this rendering.
+What the instance pauses, and nothing else: every other grammar the rule yields is carried in this rendering.
 
-*Read this as a state, not a guarantee.* The rule is `Topos + Synergeia` — any new grammar in either family enters by default, and its own maturity and the opportunity decision are what may hold it back. Both are re-examined at each packaging; neither is remembered here.
+## The persona — the session's agent
 
-## The persona
-
-Two files, two layers — substance orients, conduct applies. Both derive from one deliverable, the same way a grammar does:
+Two files, two layers — substance orients, conduct applies. Both derive from one deliverable, the same way a grammar does, cut at the marks the persona declares in its workshop:
 
 | File | Source | Layer | What is dropped |
 |---|---|---|---|
-| `agents/chiron.md` | `Chiron/…/6. 📦 Livrable/CHIRON/CHIRON.md` | essence | title, subtitle, the layering callout |
-| `persona/activation.md` | `Chiron/…/6. 📦 Livrable/CHIRON/ACTIVATION.md` | conduct — bootstrap, welcome, signature, persistence | the opening sections: why the split, how a target consumes it |
-| the `description:` | `Chiron/…/6. 📦 Livrable/CHIRON/ABOUT.md` | presentation | compressed, never authored here |
+| `agents/chiron.md` | `e. 🎭 Personas/Chiron/4. Forge/CHIRON/` main document | essence | what precedes the first section heading — the layering callout; the opening sentence addresses the agent, derived from the persona's title and subtitle: *You are <title> — <subtitle>* |
+| `persona/activation.md` | `e. 🎭 Personas/Chiron/4. Forge/CHIRON/ACTIVATION.md` | conduct | the opening sections, cut at `## 1.`; the title and subtitle are kept |
+| the `description:` | `e. 🎭 Personas/Chiron/4. Forge/CHIRON/ABOUT.md` | presentation | compressed by reading from *When it serves*, its boundary kept, never authored here |
 
-**One transformation, and it is a fact of the target.** An agent file opens by addressing the agent it instantiates (*« You are… »* — verified across every agent file on a working installation). Nothing else shifts: the body is copied verbatim, `C` included. The rule that bounds it, from the conduct layer: *a transformation may change who is addressed; it may not add what the source does not say.*
+**How the two reach the session.** The manifest names the essence as the session's agent (`settings.agent`): it is the system prompt from the first reply, without a hook. The conduct is the one payload a `SessionStart` hook injects — `hooks-handlers/session-start.js --conduct`, under the ceiling — because it must be true at message zero and the agent file alone does not bring it.
 
-**Checkable, which is the point.** The essence body must equal its source from `## What Chiron is` onward; the conduct body must equal its source from `## 1. Bootstrap` onward. Both verified byte-for-byte at this rendering. That the check is mechanical is new — the previous rendering prescribed four substitutions and a *"only clauses addressing the agent shift"* rule, which is a reading judgment no tool can replay: a tool cannot tell whether *« ask C »* instructs or describes. That rule had no upstream and was withdrawn (see the Chiron atelier, `3c. Opérationnel/CONTRAINTES.md`).
+**Not dispatched automatically — a limit, not a guarantee.** The system makes every agent of a unit a dispatchable subagent too, this one included, and no field withholds it. What holds the system back is the description: it keeps the boundary of the presentation — when the persona does not serve. An agent dispatched on request is not prevented.
 
-**What the debt was, and what remains of it.** The previous rendering declared *"verified once is not derived, so it will drift"* — a hand copy drifts without anyone erring, and the case is on record: two files written an hour apart, by one author, already divergent. That debt is now liftable rather than lifted: the comparison is defined and passes here, but nothing replays it at each packaging yet. Tool the two comparisons above and the persona becomes as sound as a skill.
+**Checkable.** The essence body from its first section heading onward equals its source; the conduct body from `## 1.` onward equals its source; the address equals the rule applied to the title and subtitle.
 
-**Why `persona/` and not `agents/`.** The target scans `agents/` and validates every file there as an agent — `activation.md` is not one, it is a payload the handler composes, so it warned. `persona/` holds what the carrier *assembles*; `agents/` holds what the harness must read as an agent. A third layer would enter `persona/` without inventing a third directory.
+## Channels — the destination's catalogs, and whom each serves
+
+The carrier reads this table to recognise its twin — this unit enabled from another catalog of the same destination. When it finds one, the copy whose catalog serves all stands down for the one that serves a few, and says so to the user. Written from the instance's channels; the same on every head.
+
+| Catalog | Serves |
+|---|---|
+| `tekton-beta` | a few — trial |
+| `tekton` | all |
 
 ## Provenance
 
-Each grammar comes from a single deliverable. The body is the main document; the presentation is derived from that deliverable's own `ABOUT.md` — never authored here.
+Each grammar comes from a single deliverable. The body is the main document, byte for byte after the frontmatter; the presentation is derived from that deliverable's own `ABOUT.md`.
 
-| Grammar | Deliverable |
-|---------|-------------|
-| `kentauros` | `c. 🤝 Synergeia/Kentauros/6. 📦 Livrable/KENTAUROS/` |
-| `genesis` | `b. 📐 Topos/Genesis/6. 📦 Livrable/GENESIS/` |
-| `praxis` | `b. 📐 Topos/Praxis/6. 📦 Livrable/PRAXIS/` |
-| `aisthesis` | `b. 📐 Topos/Aisthesis/6. 📦 Livrable/AISTHESIS/` |
-| `dialektike` | `c. 🤝 Synergeia/Dialektikē/6. 📦 Livrable/DIALEKTIKE/` |
+| Grammar | Deliverable | Carried beside `SKILL.md` |
+|---------|-------------|--------------------------|
+| `kentauros` | `c. 🤝 Synergeia/Kentauros/4. Forge/KENTAUROS/` | `EIKON.md`, `references/` |
+| `dialektike` | `c. 🤝 Synergeia/Dialektikē/4. Forge/DIALEKTIKE/` | — |
+| `genesis` | `b. 📐 Topos/Genesis/4. Forge/GENESIS/` | `lexicon.md`, `references/` |
+| `praxis` | `b. 📐 Topos/Praxis/4. Forge/PRAXIS/` | `lexicon.md`, `references/` |
+| `aisthesis` | `b. 📐 Topos/Aisthesis/4. Forge/AISTHESIS/` | `lexicon.md`, `references/` |
 
-**Name mapping.** Directory and `name:` keys are ASCII: `Dialektikē` → `dialektike`, the macron dropped. A target that cannot carry the character decides the spelling, not the corpus.
+**Name mapping.** Directory and `name:` keys are the deliverable's name in lowercase ASCII (`<DELIVERABLE>` → `<deliverable>`, diacritics dropped).
 
-**What travels besides the body.** Each deliverable's `references/`, copied as-is — a skill may carry its own. Genesis, Praxis and Aisthesis have them; Kentauros and Dialektikē do not.
+**What travels besides the body.** Everything else each deliverable carries, beside `SKILL.md`, as-is, each at its place in the deliverable. Never carried: `ABOUT.md`, consumed for the description; a deliverable's `README.md`.
 
 ---
 
-*Five grammars. Regenerated, never maintained.*
+*Regenerated, never maintained.*

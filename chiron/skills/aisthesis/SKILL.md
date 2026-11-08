@@ -1,12 +1,12 @@
 ---
 name: aisthesis
-description: Readability in a textual workspace — the principles of visual communication in a Markdown environment. What the reader does (perceive before reading, read at two speeds, write to be read, understand without reading, show before concluding), governance (just measure, rhythm), affordance (signals of expected interaction), tool independence. Use when designing the visual layer of a Markdown document, balancing density and breathing, choosing between prose / list / table / diagram, making affordance explicit for both human and AI readers, or evaluating whether an artefact is legible at a glance.
+description: Use when a document is written and the question shifts from whether it is correct to whether it will be read; when density and breathing need balancing — a wall of prose repels, the same content in four paragraphs invites; when a subject has more dimensions than prose can hold at once and demands a table, a diagram, a visual artefact so it can be thought about at all; when a reader must know at a glance what to do next; when emphasis is about to be added and should still mean something the fifth time; and when an artefact must be legible to a human and an agent at once, without two versions. Not the structure of the space — that is Genesis. Not what can be done in it — that is Praxis.
 ---
 # Aisthesis
 
 *Readability in a textual workspace.*
 
-The principles of visual communication in a Markdown environment. Genesis designs the workspace. Praxis operates it. Aisthesis makes it readable — and shows what to do next.
+The principles of visual communication in a working space. Genesis designs the workspace. Praxis operates it. Aisthesis makes it readable — and shows what to do next.
 
 Every visual choice carries information or noise. Aisthesis provides the principles to tell the difference.
 
@@ -14,9 +14,25 @@ Every visual choice carries information or noise. Aisthesis provides the princip
 
 ## The idea
 
-A Markdown file looks like plain text. It is not. It carries information on multiple simultaneous layers. A reader — human or AI — does not just read words. They perceive structure, visual weight, signals, symbols, spatial representations.
+A Markdown file looks like plain text. It is not. It carries information on several simultaneous layers. A reader — human or AI — does not just read words. They perceive structure, visual weight, signals, symbols, spatial forms.
 
 Readability is not a property of the text. It is a property of the orchestration of its layers.
+
+---
+
+## Meaning and form
+
+Everything Aisthesis says rests on one distinction.
+
+**Meaning** is what the author wants to stand out: this matters more than the rest, this belongs to that, this is in such a state. It is decided while writing, and it depends on no tool.
+
+**Form** is how that meaning is made visible: structure, position, emphasis, typeface, colour, language, format. Form changes with the medium — a text file, a web page, a status screen — and can change without touching the meaning.
+
+Aisthesis lives on the side of meaning. Its principles say what must reach the eye; the choice of means comes afterwards, for the reader's eye and the medium at hand.
+
+**Emphasis exists only if it is perceived.** The author knows what they meant to mark; the reader receives only what they see. A means the eye cannot separate, or that the rendering erases, leaves the intention without effect — and the failure is silent: the author believes they signalled, the reader does not know they missed anything. Distinction belongs to the one who perceives, not to the intention of the one who writes.
+
+Readability is thought at the level of meaning and checked in the rendering.
 
 ---
 
@@ -26,92 +42,90 @@ Aisthesis is organised around what the reader *does* — not around the medium.
 
 ### 1. Perceive before reading
 
-The eye precedes the brain. Before the first word, the reader has already perceived density, structure, presence of signals. This pre-linguistic perception decides whether they will read, scan, or close.
+The eye precedes the brain. Before the first word, the reader has already perceived density, structure, the presence of signals. This pre-linguistic perception decides whether they will read, scan, or close.
 
-**Document structure.** The heading hierarchy creates a navigation map visible at first glance. Splitting content into separate documents creates units of meaning. A document title is a promise; a section title is a signal. Structure is not formatting — it is attention architecture.
+**Structure.** The heading hierarchy draws a map visible at a glance. Splitting content into documents creates units of meaning. A document title is a promise; a section title is a signal. Structure is not formatting — it is attention architecture.
 
-**Density.** A 20-line paragraph without a break repels. The same content in four 5-line paragraphs invites. Spacing between sections creates rhythm. Separators (`---`) mark a change of register.
+**Density.** A compact block repels; the same content, given room, invites. Space between parts sets the cadence; a separator marks a change of register.
 
-**Symbols.** Two registers of compressed semantics operate before reading. Emoji (`🧠`, `📐`, `🔨`) communicate the *nature* of a space — they categorise and signal a register. Numeric prefixes (`1.`, `6.`, `8.`) communicate *position in a cycle*. Together they read as one: `1. 🔨 Workshop` says both *where* you are and *what* the space does, before a single word is read. This is not decoration — it is positional language.
+**Symbols.** A sign placed in a name tells the *nature* of a space; a numeric prefix tells its *position* in a whole. Read together, they say where you are and what the space does: `1. 🔨 Workshop`, before a single word is read. This is not decoration — it is positional language.
 
 ### 2. Read at two speeds
 
-A document serves two readers: the one who scans and the one who reads deeply. Both read the same file. A well-designed document serves both without sacrificing either.
+A document serves two readers: the one who scans and the one who reads deeply. Both read the same text. A well-designed document serves both without sacrificing either.
 
-**Typographic styles.** **Bold** signals importance — it is the scan channel. *Italic* signals nuance — it is the deep-read channel. `Inline code` signals the literal. Each style is a semantic channel, not decoration. A wall of bold signals nothing.
+**Distinct channels.** **Bold** signals importance — it is the scan channel. *Italic* signals nuance, a term introduced — it is the deep-read channel. `Inline code` signals the literal. Each style is a channel of meaning, not decoration.
 
-**Attention markers.** Callouts, blockquotes — structured interruptions of the flow. They let the scan catch only the signals and let the deep read integrate them. The marker is a contract: "you can go fast, but don't miss this." The principle is tool-independent — see the [callout convention](references/convention-callouts.md) and the [implementation reference](references/callouts-reference.md).
+**Attention markers.** Callouts and blockquotes are structured interruptions of the flow. The scan catches only them; the deep read integrates them. The marker is a contract: "you can go fast, but don't miss this." See the [callout convention](references/convention-callouts.md).
 
-**Headings as filters.** A descriptive heading ("How to declare methods") serves the scan — you know whether the section is relevant without reading it. A vague heading ("Considerations") serves no one.
+**Headings that suffice.** A descriptive heading tells the scanner whether the section concerns them without reading it. A vague heading ("Considerations") serves no one.
 
 ### 3. Write to be read
 
-Prose is a visual register like any other — with its own strengths, anti-patterns, and rules.
+Prose is not a neutral background. It is a register like any other — with its own strengths, anti-patterns, and rules.
 
 **One idea per unit.** One paragraph, one idea. One section, one theme. When two ideas share the same block, neither is perceived clearly.
 
-**Prose before bullets.** A bullet list is an admission of parallel structure. When the elements are not parallel, the list lies. A paragraph that develops an argument is more honest than a list that chops it up.
+**Prose when thought unfolds.** A bullet list asserts that its items are parallel. When they are not, the list lies — and hides behind an appearance of order the reasoning it has cut. An argument develops in sentences.
 
-**Tone as signal.** Peer-to-peer, not top-down. Propose, don't prescribe. Acknowledge reality before suggesting change. A prescriptive document repels. A document that proposes invites.
+**Tone as signal.** Peer-to-peer, not top-down. Propose, don't prescribe. Acknowledge what is before suggesting change. Tone decides whether the reader feels invited or subjected.
+
+Prose is the richest register and the riskiest: its defects do not look like defects. A wall of text, a disguised list, an empty heading pass for ordinary text.
 
 ### 4. Understand without reading
 
-Some information resists prose. The reason is cognitive: prose is sequential — one idea after another — and the reader must reconstruct the whole in working memory. A visual artefact is simultaneous — five dimensions coexist in the same glance, and the eye navigates between them without effort. This is not a presentation luxury — it is a thinking capability that linear text cannot offer.
+Some information has a shape — a comparison has rows and columns, a hierarchy has levels, a flow has branches. Prose flattens it, and asks the reader to rebuild in their head the shape the author had in view. When relations matter more than narrative, the page can show them: alignment says "comparable," indentation says "belongs to," an arrow says "leads to." The question is not *how do I write this?* but *what shape does this information have?*
 
-When a subject has more dimensions than prose can carry at once, it *demands* a visual artefact so that one can think about it. Proximity says "related." Separation says "distinct." Colour says "state." Size says "importance." No words need say it — topology communicates.
+**Tables** for what compares. **Lists and trees** for what nests and orders. **Diagrams** for flows, states, relationships — a diagram is documentation, not illustration; see the [Mermaid reference](references/mermaid-reference.md). **Images** when the referent is visual by nature, always captioned.
 
-**Tables.** Comparisons, catalogues, registers. Tabular information is grasped at a glance. But a 30-row table is as impenetrable as a 30-line paragraph.
-
-**Lists and trees.** Hierarchies, sequences, enumerations. Indentation shows belonging. Numbering shows order. The risk: the bullet list as a lazy crutch.
-
-**Diagrams.** Flows, relationships, states, sequences. Mermaid for formal structures, inline SVG for free-form illustrations. A diagram is documentation, not illustration — see the [Mermaid reference](references/mermaid-reference.md).
-
-**Images.** The richest and most expensive register. Useful when the referent is visual by nature. An image without a caption is an image that does not communicate.
-
-**Dynamic artefacts.** Beyond the static document: a dashboard that shows pipeline state, a companion terminal with a refreshing table, a grid that makes multi-dimensional progress visible in real time. The channel adapts to the available environment — structured text as baseline, terminal pane when a multiplexer is present, HTML when a browser is available. The reflex is constant; only the richness varies.
+**To think, not only to read.** The same capability serves the one who works. Prose is sequential: the reader holds each dimension in memory while the next arrives. A visual artefact is simultaneous: the dimensions are present at once, and the eye relates them without effort. When a subject has more dimensions than prose can carry at once, it *demands* a visual artefact so that one can think about it at all — a status board, a companion pane, a grid of facets. The means follows what is at hand; the reflex is constant. Such an artefact serves the work, not its presentation.
 
 ### 5. Show before concluding
 
-The narrative arc is a readability tool that operates at the level of an entire document. The pattern that works:
+The order of a document changes what the reader makes of it. Starting with the conclusion asks the reader to believe it, then sets out to justify it. Starting with what is lets the reader see, then lets them conclude.
 
-1. Current state — describe the situation as it is, without judgement
-2. Reframe — introduce a distinction that unlocks a better model
-3. Mechanism — show concretely how it works
-4. Concrete example — a real case, walked through
-5. What it yields — tangible deliverable, not abstract promise
-6. Discussion — open questions, framed as invitations
+The arc that works: the current state, described without judgement; the distinction that sheds light; how it works; a real case walked through; what it yields; open questions, framed as invitations. At each step the reader has something to check.
 
-The pattern extends beyond presentations. A method deliverable, a fragment, a README all follow the same logic. The common thread: start with what is, show what you make of it, let the reader see for themselves. Never start with the conclusion.
+The arc is not reserved for presentations. A method, a note, a README gain from the same order: what is, what you make of it, what the reader judges. The reader is not convinced — they see for themselves.
 
 ---
 
 ## What governs the whole
 
+Four principles apply to every means at once. Each regulates a different dimension.
+
+| Principle | Regulates | What fails without it |
+|---|---|---|
+| Just measure | quantity | excess — each signal drowns the others |
+| Rhythm | sequence | uniformity — all dense exhausts, all airy scatters |
+| A code is learned | constancy | the unstable sign — the reader falls back to reading |
+| Signal without imposing | territory | the invasive signal — it takes over the reading |
+
 ### Just measure
 
-Every visual layer has a yield that rises then falls with frequency of use:
+Every means of readability first serves, then harms. Emphasis distinguishes while it is rare; everywhere, it distinguishes nothing. A symbol condenses meaning while isolated; multiplied, it becomes background. An alert interrupts the flow for a reason; repeated, every sentence screams. Structure helps; pushed too far, it chops the thought it was meant to carry.
 
-- A wall of **bold** signals nothing — everything is important, therefore nothing is
-- An emoji on every line turns visual semantics into background noise
-- A document packed with callouts makes every sentence scream
-- A 30-row table is as impenetrable as a 30-line paragraph
-- Bullets everywhere — prose disappears, and thinking with it
+The central anti-pattern of Aisthesis is not the absence of form — it is excess. A bare document under-uses the medium but stays readable. An overloaded one turns its means against their purpose. Readability lives between the two: each addition must still distinguish something, or it subtracts.
 
-The central anti-pattern of Aisthesis is not the absence of formatting — it is excess. A bare document under-exploits the medium. An overloaded document sabotages it. Readability lives between the two.
-
-This principle is confirmed by established sources: Tufte's data-ink ratio and smallest effective difference, Bringhurst's typography in service of text, Müller-Brockmann's invisible grid. They did not found Aisthesis — they confirm it.
+This principle is confirmed by established sources: Tufte's data-ink ratio and smallest effective difference, Bringhurst's typography in service of the text, Müller-Brockmann's invisible grid. They did not found Aisthesis — they confirm it.
 
 ### Rhythm
 
-The cadence of a document — the alternation between density and breathing, between prose and visuals, between long sections and short ones — guides the reader without their awareness.
+A document can have good headings, measured emphasis, well-chosen registers — and still tire. What is missing is neither the choice of means nor their quantity but their succession.
 
-**Separators as register changes.** A `---` between two sections signals a change in tone, abstraction level, or subject. Without separators, the reader must guess where the register shifts. With too many, every section floats disconnected.
+The reader moves by alternation. A dense passage calls for a lighter one; an explanation calls for what summarises or shows it; detail calls for overview. A separator says "the register changes." Length itself speaks: a short section after a long one is a pause; a long one after several short ones says "here we go deeper." Rhythm guides without being noticed — and is noticed mostly when it is missing.
 
-**Prose/visual alternation.** An entirely textual document tires through monotony. An entirely diagrammatic one tires through cognitive overload. The alternation between a paragraph that explains and a table that summarises — or a diagram that shows then a text that interprets — creates natural breathing.
+### A code is learned
 
-**Section length variation.** Uniformly long sections numb. Uniformly short sections chop. Variation in length is a signal: a short section after a long one says "pause." A long section after several short ones says "we go deeper here."
+A symbol, a colour, a case, a prefix can speak before a word is read — but none does so by itself. The reader recognises what they have learned to recognise; everything else is one more mark to decipher.
 
-Rhythm is transversal — it concerns neither the choice of layers nor their dosage, but their sequencing. This territory remains young.
+A code is learned when it is **closed** — a set small enough to retain, which does not grow with each use — and **constant** — one sign, one meaning, wherever it appears. A sign that changes meaning from one document to the next, or two signs for the same meaning, undo what the reader had learned. Every new sign is one more thing to learn.
+
+### Signal without imposing
+
+To signal is to make information perceptible: a state, an alert, a change. To impose is to alter the reader's space so that it cannot be ignored. Both draw attention; only the first leaves the decision to the reader.
+
+The screen, the page, the theme, the layout are where the reader works, set up for themselves. A signal enters as a guest: it takes a place proportionate to what it has to say, where the reader knows to find it, and stays there. This is not a matter of quantity — even a single signal that redraws someone else's space has crossed the line.
 
 ---
 
@@ -119,29 +133,30 @@ Rhythm is transversal — it concerns neither the choice of layers nor their dos
 
 ### Affordance
 
-A document does not merely sit there to be read — it signals the nature of the interaction it expects. Read, contribute, execute, navigate. If the expected interaction is not perceptible before the first line, that is a design failure.
+A document does not merely sit there to be read — it signals the interaction it expects. Read, contribute, execute, navigate. If the expected interaction is not perceptible before the first line, that is a design failure.
 
-**File name.** A declarative name ("Position", "Picture") invites reading — it is a state. An imperative name ("FORGE", "OBSERVE", "DELIVER") invites action — it is a gesture. A conventional name ("README", "REQUESTS", "CHANGELOG") carries an implicit contract inherited from the software ecosystem.
+**Name.** A declarative name ("Position", "Picture") invites reading — it is a state. An imperative name ("FORGE", "OBSERVE") invites action — it is a gesture. A conventional name ("README", "CHANGELOG") carries a contract inherited from the software ecosystem.
 
-**Case.** UPPERCASE for directives and gestures (CONSTRAINTS, CHOICES, FORGE) — it signals authority or action. Normal case for narrative content — it signals reading.
+**Case.** UPPERCASE for directives and gestures — authority or action. Normal case for narrative content — reading.
 
-**Position in the structure.** A file at the root (README.md, INTENTION.md) says "read me first." A file in `µ. LOCAL/GESTURES/` says "execute me." A file in `6. 📦 Deliverable/` says "I am a finished product — consume me."
+**Position in the structure.** A file at the root says "read me first." A file among gestures says "execute me." A file in the deliverable says "I am a finished product — use me."
 
-**End of document.** A document that ends with a Navigation section invites exploration. A document that ends with a principle invites reflection. The end of a document is an affordance — it says what the reader should do next.
+**End of document.** A document that ends with navigation invites exploration. One that ends with a principle invites reflection. The ending says what the reader should do next.
 
-Affordance has two consumers. The human reader perceives signals visually and interprets them through cultural habit. The AI agent perceives the same signals but interprets them through instruction. The boundary between Aisthesis and Kentauros passes exactly here: Aisthesis designs the signal, Kentauros teaches the agent to consume it.
+Affordance has two consumers. A human perceives the signals and interprets them through habit; an agent perceives the same signals and interprets them through instruction. The same signal must serve both. This is where perception meets action: Aisthesis designs the signal, Praxis describes the gesture it announces, Kentauros how an agent receives it.
 
 ---
 
-## Tool independence
+## Reach
 
-Aisthesis principles are independent of any tool. Obsidian, VS Code, GitHub, a bare text editor — implementations change, principles hold. Markdown is the common medium, not the constraint.
+Aisthesis was born in the textual workspace — Markdown files in a folder — and that remains its ground and the source of its examples. But its principles are set at the level of meaning, and hold wherever meaning must reach an eye: a Markdown file, an HTML page, a status screen. Obsidian, a code editor, a browser, a bare terminal — implementations change, principles hold. Aisthesis does not claim graphic design in general; it claims readability wherever someone works with text and its forms.
 
-Implementation references accompany this document:
+What depends on a tool or a medium is kept apart, so that the core travels without it:
 
-- [callouts-reference](references/callouts-reference.md) — available Obsidian callout types
-- [mermaid-reference](references/mermaid-reference.md) — supported Mermaid diagram types
-- [convention-callouts](references/convention-callouts.md) — which callouts to use in Tekton projects
+- [colour-and-type](references/colour-and-type.md) — colour, typeface, signs, state signals: choosing the means once the meaning is decided
+- [convention-callouts](references/convention-callouts.md) — which callouts to use, and how many
+- [callouts-reference](references/callouts-reference.md) — available callout types
+- [mermaid-reference](references/mermaid-reference.md) — supported diagram types
 
 ---
 
@@ -149,27 +164,28 @@ Implementation references accompany this document:
 
 A workspace made readable by Aisthesis tends to have:
 
+- **Meaning before form** — what must stand out is decided first, the means chosen for the reader's eye
 - **Structure as attention architecture** — visual hierarchy guides before content does
-- **Two reading speeds** — fast scan and deep read coexist in every file
-- **Intentional typographic styles** — each style is a semantic channel
-- **Attention markers** — callouts and blockquotes as contracts with the reader
-- **Semantic symbols** — emoji and numeric prefixes as positional language, not decoration
-- **Prose as a conscious register** — one idea per unit, descriptive headings, peer-to-peer tone
-- **Narrative arc** — show before concluding, let the reader see for themselves
-- **Appropriate visual registers** — tables, diagrams, images, dynamic artefacts chosen for the type of information
-- **Visual power** — when a subject exceeds what prose can carry simultaneously, externalise into a visual artefact adapted to the available channel
+- **Two reading speeds** — fast scan and deep read coexist in every document
+- **Intentional styles and markers** — each a channel of meaning, a contract with the reader
+- **Positional language** — signs and prefixes that say where and what, before reading
+- **Prose as a chosen register** — one idea per unit, headings that filter, peer-to-peer tone
+- **Registers fit to the shape of information** — and visual artefacts where thought needs simultaneity
+- **A narrative arc** — show before concluding
 - **Just measure** — every layer used with intention, not habit
-- **Rhythm** — cadence between density and breathing across the document
-- **Affordance** — the document signals what kind of interaction it expects
+- **Rhythm** — cadence between density and breathing
+- **A learned code** — few signs, each with one meaning, everywhere
+- **Signals that stay in place** — informing the reader without taking over their space
+- **Affordance** — each document signals the interaction it expects
 
 ---
 
 ## What remains to explore
 
-Aisthesis is a young project. Two territories are identified but not yet mature:
+Aisthesis is young. Two territories are identified but not yet mature:
 
-- **Rhythm** — the cadence patterns of a document. Are there identifiable rhythmic structures? Does rhythm interact with the narrative arc? Can it be prescribed, or only observed after the fact?
-- **Affordance** — the full grammar of interaction signals. How do naming conventions, case, position, and document endings compose into a coherent system? Where exactly does Aisthesis end and Praxis begin?
+- **Rhythm** — the principle holds; its patterns do not yet. Are there identifiable cadences? Can rhythm be prescribed, or only observed after the fact? How does it meet the narrative arc?
+- **Affordance** — the boundary is set, the full grammar is not. How do name, case, position and ending compose into one system? Where exactly does Aisthesis end and Praxis begin?
 
 ---
 
@@ -177,7 +193,7 @@ Aisthesis is a young project. Two territories are identified but not yet mature:
 
 Genesis designs the workspace — *what* goes *where*. Praxis operates the workspace — *what to do*. Aisthesis makes the workspace readable — *how* meaning becomes visible, and *what interaction* the document expects. The three form the Topos triptych: design, operate, perceive.
 
-Aisthesis prescribes neither structure (Genesis) nor action (Praxis). It prescribes form in service of meaning — and signals that bridge perception to action.
+Aisthesis prescribes neither structure (Genesis) nor action (Praxis). It prescribes form in service of meaning — and the signals that bridge perception to action.
 
 ---
 

@@ -1,10 +1,16 @@
 {
   "name": "chiron",
-  "version": "0.0.9-beta",
-  "description": "Chiron — methodological companion for the tekton corpus.",
+  "version": "0.0.11",
+  "description": "Chiron — the methodological companion of the tekton corpus: a peer persona that holds the session and carries five grammars (Kentauros, Dialektikē, Genesis, Praxis, Aisthesis) as skills. For work on methods, workspaces and the gestures that animate them.",
   "author": {
     "name": "Christian Lemer",
     "url": "https://github.com/ChristianLemer"
+  },
+  "settings": {
+    "agent": "chiron:chiron"
+  },
+  "metadata": {
+    "glyph": "🐴"
   },
   "hooks": {
     "SessionStart": [
@@ -12,59 +18,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --persona",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --conduct",
             "timeout": 5,
-            "statusMessage": "Loading chiron..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar kentauros",
-            "timeout": 5,
-            "statusMessage": "Loading kentauros..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar genesis",
-            "timeout": 5,
-            "statusMessage": "Loading genesis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar praxis",
-            "timeout": 5,
-            "statusMessage": "Loading praxis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar aisthesis",
-            "timeout": 5,
-            "statusMessage": "Loading aisthesis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar dialektike",
-            "timeout": 5,
-            "statusMessage": "Loading dialektike..."
+            "statusMessage": "Loading chiron conduct..."
           }
         ]
       }

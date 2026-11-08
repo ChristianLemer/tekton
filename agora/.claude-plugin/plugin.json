@@ -1,0 +1,9 @@
+{
+  "name": "agora",
+  "version": "0.0.7",
+  "description": "Agora — the guardian of the whole. Keeps a living corpus coherent from a piece's birth to its consumer: an instance file declares what leaves, every exit reviews it with the user; six gestures, one file per target system.",
+  "author": {
+    "name": "Christian Lemer",
+    "url": "https://github.com/ChristianLemer"
+  }
+}
