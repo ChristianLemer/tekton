@@ -4,7 +4,7 @@
 
 > **A rendering, not a source.** PACKAGE writes this by applying the composition rule of the instance to the corpus as it stands, minus what the instance pauses. The carrier reads it; nobody maintains it. Regenerate rather than edit.
 >
-> Rendered at corpus revision `aa3904b` · 5 grammars · rule `every grammar of the families 🤝 Synergeia and 📐 Topos`
+> Rendered at corpus revision `33106fc` · 5 grammars · rule `every grammar of the families 🤝 Synergeia and 📐 Topos`
 
 ---
 

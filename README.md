@@ -53,6 +53,10 @@ None is injected at session start: each is a skill, present by its description f
 
 **Prosopon** — `prosopon@tekton`. A method of the persona as an object, grafted on Kyklos: at the Position of a persona's cycle, six questions to settle — its end, its use, its posture, what it mobilises, how it is recognised, how it is tried. Chiron is forged with it.
 
+## What moved
+
+**Chiron 0.0.12 — the profile is wired, not read.** Chiron no longer reads a profile from `$HOME/.tekton/eikon/<agent>.md`. Where a filled profile lives and how it is installed now belong to Kentauros — its `EIKON.md` ships with Chiron: the profile lives wherever you keep it, in a space that belongs to you, and each harness you use loads it at every session, so Chiron receives it rather than looks for it. If you filled a profile at the old path, install it once: keep it where you like, wire each harness to it, then open a new session and ask what it knows of you.
+
 ## Two channels
 
 Stable is published from `main` as the `tekton` marketplace; trial from `beta` as `tekton-beta`.

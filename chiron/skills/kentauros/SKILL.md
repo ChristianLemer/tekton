@@ -85,7 +85,7 @@ What Si knows of C lives in a profile. The profile is not a memory: a memory kee
 
 It holds preferences, not setup, and where the other's knowledge lives. It gives the default: it follows the person everywhere; a project overrides it where the override applies.
 
-The profile belongs to the person, not to the agent: one profile per person, read by every agent. Kentauros defines the mechanism and the canvas that collects it (`EIKON.md`); the agent uses it, it does not own it. An agent without a profile works with its defaults — absence is a valid case.
+The profile belongs to the person, not to the agent: one profile per person, loaded by each harness rather than read by the agent. Kentauros defines the mechanism and the canvas that collects it (`EIKON.md`); the agent uses it, it does not own it. An agent without a profile works with its defaults — absence is a valid case.
 
 ### Initiative
 
@@ -203,7 +203,7 @@ Detection is asymmetric: C sees patterns from daily work, Si sees patterns from 
 2. It proposes to establish the relevant part of the profile.
 3. C accepts, declines, or asks to keep the request for later.
 
-Declining is a valid case: Si answers minimally, with its defaults. A request kept for later is not asked again each time. When C opens the whole profile, the same gesture goes through the whole canvas; the answers go where the canvas says.
+Declining is a valid case: Si answers minimally, with its defaults. A request kept for later is not asked again each time. When C opens the whole profile, the same gesture goes through the whole canvas, and ends by installing the profile (`EIKON.md`).
 
 ### Moments
 
