@@ -64,6 +64,7 @@ At most one unit per destination adds a persona that holds the main thread — t
 
 - **Rule:** `<property>` — or — **List:** `<piece>`, `<piece>`
 - **Adds:** `<what the unit's purpose requires in its own right>` — and, for a persona, whether it holds the main thread
+- **Injects:** `<for a carrier: its grammars, at session start — or nothing>` — whether the grammars are in the context before the first reply, or skills the model loads; absent means nothing
 
 ## Pauses
 

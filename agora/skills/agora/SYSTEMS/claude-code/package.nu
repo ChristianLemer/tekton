@@ -26,7 +26,8 @@
 #
 # It reports, without stopping: a skill description over another client's ceiling, and a
 # skill whose cost on invoke passes the re-attach ceiling — measured by the system's own
-# projection (`claude plugin details`); cutting a head is the piece's cycle's to do.
+# projection (`claude plugin details`); cutting a head is the piece's cycle's to do — and, for
+# a carrier, the sum of its grammars' cost and the margin left in the re-attach budget.
 #
 # What this script does NOT do: review (the instance is read, not confirmed),
 # qualify, decide the number, write the home page (DOCUMENT does, in the apparatus's
@@ -64,6 +65,8 @@ const NATURES = ["grammar" "method" "persona"]
 const OTHER_CEILING = 1024
 # after compaction the system re-attaches only this many tokens of an invoked skill (system file, "Limits")
 const REATTACH_CEILING = 5000
+# ... within one budget shared by every invoked skill (system file, "Limits")
+const REATTACH_BUDGET = 25000
 # where this script lives: templates/ sit beside it, and Agora's lexicon two levels up
 const HERE = (path self | path dirname)
 const LEXICON = (path self | path dirname | path join .. .. lexicon.md)
@@ -135,14 +138,14 @@ def reading-order [text: string]: nothing -> list<string> {
     section $text "## Reading order" | parse --regex '^\d+\.\s+`(?<piece>[^`]+)`' | get piece
 }
 
-# Composition: per `### `<unit>``, its Rule, List and Adds, as written.
+# Composition: per `### `<unit>``, its Rule, List, Adds and Injects, as written.
 def compositions [text: string]: nothing -> record {
     let lines = (section $text "## Composition")
     $lines | enumerate | where {|l| $l.item | str starts-with "### `" } | reduce --fold {} {|h, acc|
         let unit = ($h.item | parse --regex '^### `(?<u>[^`]+)`' | get u.0)
         let block = ($lines | skip ($h.index + 1) | take until {|l| $l | str starts-with "### " })
         let field = {|key| $block | parse --regex ('^- \*\*' + $key + ':\*\*\s*(?<v>.*)$') | get --optional v.0 | default "" }
-        $acc | insert $unit {rule: (do $field Rule), list: (do $field List), adds: (do $field Adds)}
+        $acc | insert $unit {rule: (do $field Rule), list: (do $field List), adds: (do $field Adds), injects: (do $field Injects)}
     }
 }
 
@@ -373,11 +376,33 @@ def package-carrier [unit: string, version: string, r: record, owner: record, in
     let prov = ($grammars | zip $carried | each {|p| $"| `($p.0.name)` | `(source-of $p.0.piece $p.0.upper)` | (carried-list $p.1) |" } | str join "\n")
     write ([(unit-dir $unit) INVENTORY.md] | path join) (fill (template carrier) {UNIT: $unit, PERSONA: $persona, REV: (revision), N: ($grammars | length | into string), RULE: $comp.rule, ROWS: $rows, PROV: $prov, SOURCE: (source-of $piece $upper), MARK: $CONDUCT_MARK, CHANNELS: $channels})
 
-    # manifest — transformation 6: the persona is the session's agent; the conduct is the one payload
-    # injected at session start (the instance injects no grammar: none fits the ceiling whole)
+    # manifest — transformation 6: the persona is the session's agent; the conduct is injected at
+    # session start, and so are the grammars when the composition says so (Injects) — each in the
+    # parts the handler cuts, one entry per part, after the conduct, in the reading order
     handler $unit
     let u = (reading $r units $unit)
-    manifest $unit $version $u.description $owner --agent $"($unit):($persona)" --hooks {SessionStart: [(hook "--conduct" $"($persona) conduct")]} --extra (if ($u | get --optional glyph | default "") == "" { {} } else { {glyph: $u.glyph} })
+    let injects = (injects-grammars $comp)
+    let conduct_hook = (hook (if $injects { "--conduct --injected" } else { "--conduct" }) $"($persona) conduct")
+    # the handler reads the unit's manifest when it starts: a manifest without hooks comes first,
+    # the one that declares the parts replaces it
+    if $injects { manifest $unit $version $u.description $owner --agent $"($unit):($persona)" }
+    let hooks = (if $injects {
+        let root = (unit-dir $unit | path expand)
+        let parts = ($grammars | each {|g|
+            let n = (do { with-env {CLAUDE_PLUGIN_ROOT: $root} { ^node ([$root hooks-handlers session-start.js] | path join) --parts $g.name } } | complete)
+            if $n.exit_code != 0 { stop $"($unit): the handler cannot cut ($g.name) — ($n.stderr | str trim)" }
+            1..($n.stdout | str trim | into int) | each {|k| {type: command, command: $'node "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js" --grammar-part ($g.name) ($k)', timeout: 5} }
+        } | flatten)
+        [{hooks: ($conduct_hook.hooks | append $parts)}]
+    } else { [$conduct_hook] })
+    manifest $unit $version $u.description $owner --agent $"($unit):($persona)" --hooks {SessionStart: $hooks} --extra (if ($u | get --optional glyph | default "") == "" { {} } else { {glyph: $u.glyph} })
+}
+
+# Whether a carrier's composition injects its grammars at session start: its Injects line,
+# written by REVIEW. Absent, or « nothing », the grammars stay skills, loaded by the model.
+def injects-grammars [comp: record]: nothing -> bool {
+    let v = ($comp | get --optional injects | default "" | str trim | str lowercase)
+    $v != "" and not ($v | str starts-with "nothing")
 }
 
 # A persona's title and the italic subtitle under it, at the head of a document — the marks
@@ -538,16 +563,24 @@ def ceilings [units: list<string>]: nothing -> nothing {
 # Skills past the re-attach ceiling: reported, never cut — where a head ends is a decision of
 # frequency, the piece's cycle makes it (system file, "Limits"). The measure is the system's
 # own projection of each skill's cost on invoke; without it, the step says so and goes on.
-def reattach [units: list<string>]: nothing -> nothing {
-    for u in $units {
+# A carrier invokes all its grammars before its first reply, so it pays their sum: for a
+# carrier, the sum and the margin left in the budget are always reported — information for
+# REVIEW and the pieces' cycles, not a threshold.
+def reattach [inst: record]: nothing -> nothing {
+    for u in $inst.units {
         let skills = (glob ([(unit-dir $u) skills * SKILL.md] | path join) | each {|f| $f | path dirname | path basename })
         if ($skills | is-empty) { continue }
         let r = (do { ^claude --plugin-dir (unit-dir $u) plugin details $u } | complete)
         if $r.exit_code != 0 { info $"($u): the system's projection is unavailable — re-attach ceiling not measured"; continue }
-        for row in ($r.stdout | lines | parse --regex '^\s+(?<name>[a-z0-9-]+)\s+~(?<always>[0-9.]+k?)\s+~(?<invoke>[0-9.]+k?)\s*$') {
-            if $row.name not-in $skills { continue }
-            let n = (if ($row.invoke | str ends-with "k") { ($row.invoke | str trim --right --char "k" | into float) * 1000 } else { $row.invoke | into float })
-            if $n > $REATTACH_CEILING { info $"($u): skill ($row.name) costs ~($row.invoke) tokens on invoke — past the ($REATTACH_CEILING) re-attached after compaction; the head of its main document is the piece's cycle to cut" }
+        let costs = ($r.stdout | lines | parse --regex '^\s+(?<name>[a-z0-9-]+)\s+~(?<always>[0-9.]+k?)\s+~(?<invoke>[0-9.]+k?)\s*$'
+            | where name in $skills
+            | each {|row| {name: $row.name, shown: $row.invoke, tokens: (if ($row.invoke | str ends-with "k") { ($row.invoke | str trim --right --char "k" | into float) * 1000 } else { $row.invoke | into float })} })
+        for c in ($costs | where tokens > $REATTACH_CEILING) {
+            info $"($u): skill ($c.name) costs ~($c.shown) tokens on invoke — past the ($REATTACH_CEILING) re-attached after compaction; the head of its main document is the piece's cycle to cut"
+        }
+        if (shape $u $inst).shape == carrier {
+            let sum = ($costs | get tokens | math sum | math round)
+            info $"($u): carrier — its ($costs | length) grammars cost ~($sum) tokens on invoke together, paid at every start; ($REATTACH_BUDGET - $sum) left of the ($REATTACH_BUDGET) re-attach budget for the methods a session invokes — which grammars it takes is REVIEW's, where each head ends is each piece's cycle's"
         }
     }
 }
@@ -606,7 +639,7 @@ def main [
         if ($inst.rows | where Unit == $v.unit | get Destination.0) == $CORPUS_DESTINATION { corpus-servable $v.unit }
     }
     ceilings $inst.units
-    reattach $inst.units
+    reattach $inst
     one-helm $inst.rows
 
     # what the destination holds besides the units — the home page is DOCUMENT's, kept as it is:

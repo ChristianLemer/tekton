@@ -55,6 +55,8 @@ None is injected at session start: each is a skill, present by its description f
 
 ## What moved
 
+**Chiron 0.0.13 — the grammars are already there.** Chiron's five grammars no longer load one by one at the start of a session, in calls you could watch scroll by and the model made only in part: they are in the session's context before the first reply, every time. Nothing to do on your side. The skills stay installed, for rereading a passage. Aisthesis also became lighter — its developed text moved to its references, every principle kept in its head.
+
 **Chiron 0.0.12 — the profile is wired, not read.** Chiron no longer reads a profile from `$HOME/.tekton/eikon/<agent>.md`. Where a filled profile lives and how it is installed now belong to Kentauros — its `EIKON.md` ships with Chiron: the profile lives wherever you keep it, in a space that belongs to you, and each harness you use loads it at every session, so Chiron receives it rather than looks for it. If you filled a profile at the old path, install it once: keep it where you like, wire each harness to it, then open a new session and ask what it knows of you.
 
 ## Two channels

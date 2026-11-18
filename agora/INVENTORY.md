@@ -4,7 +4,7 @@
 
 > **A rendering, not a source.** PACKAGE writes this from the instance and the deliverable as they stand. Regenerate rather than edit.
 >
-> Rendered at corpus revision `6b5fc81` · one method, one skill · composition by list: Agora
+> Rendered at corpus revision `f2bb437` · one method, one skill · composition by list: Agora
 
 ---
 

@@ -13,11 +13,22 @@
 //                        Then a note: which grammars this unit carries as skills,
 //                        from INVENTORY.md — present by their descriptions, to be
 //                        loaded in full when the situation calls for them.
+//   --conduct --injected The same, for a unit whose instance injects its grammars:
+//                        the note says their bodies follow in this session's
+//                        context and are not to be loaded again.
+//
+//   --parts <name>       Print how many parts a grammar is injected in.
+//   --grammar-part <name> <k>
+//                        Emit part k of a grammar. A grammar is cut at its `## `
+//                        headings, greedily, each part under PART_LIMIT characters —
+//                        under the system's ceiling for one payload. The cut changes
+//                        no word: it is a cut of transport, the order and the text are
+//                        the deliverable's. This function is the only source of the
+//                        cut; PACKAGE asks it how many parts to declare.
 //
 //   --grammar <name>     Emit one grammar in full. Kept for a unit whose instance
-//                        decides to inject a grammar under the system's ceiling; a
-//                        grammar that does not fit it whole is not injected —
-//                        splitting a grammar is its author's act.
+//                        decides to inject a grammar under the system's ceiling;
+//                        one that does not fit it whole goes by --grammar-part.
 //
 // WHAT IT WRITES — one thing, and only under a real session. A statusline shows, in
 // each session, the glyph of the personas it carries; --conduct deposits the card it
@@ -226,7 +237,7 @@ function grammarBlock(name) {
     stripFrontmatter(fs.readFileSync(file, 'utf8')).trim() + '\n';
 }
 
-function emitConduct() {
+function emitConduct(injected) {
   if (!fs.existsSync(ACTIVATION_FILE)) {
     console.error(`activation file not found: ${ACTIVATION_FILE}`);
     process.exit(1);
@@ -237,7 +248,9 @@ function emitConduct() {
     `\n\n--- The grammars you operate by ---\n\n` +
     `This unit carries ${GRAMMARS.length} grammars as skills, in this framing order: ` +
     `${GRAMMARS.map((g) => `${UNIT}:${g}`).join(', ')}. Their descriptions are with you from the first reply; ` +
-    `their bodies are not — load a grammar in full before you act on it. ` +
+    (injected
+      ? `their bodies follow in this session's context, injected at start — do not load them again; the skills stay within reach to reread a passage. `
+      : `their bodies are not — load a grammar in full before you act on it. `) +
     `INVENTORY.md at the unit root says where each one comes from and what the packaging left out.\n`;
 
   if (COPILOT) {
@@ -273,7 +286,42 @@ function emitConduct() {
   if (payload) depositPresence(payload);
 }
 
+// A grammar past the ceiling of one payload travels in parts, cut at its `## ` headings.
+const PART_LIMIT = 9500;
+function grammarParts(name) {
+  if (!GRAMMARS.includes(name)) {
+    console.error(`unknown grammar: ${name} (expected one of ${GRAMMARS.join(', ')})`);
+    process.exit(1);
+  }
+  const file = path.join(PLUGIN_DIR, 'skills', name, 'SKILL.md');
+  if (!fs.existsSync(file)) {
+    console.error(`grammar file not found: ${file}`);
+    process.exit(1);
+  }
+  const blocks = stripFrontmatter(fs.readFileSync(file, 'utf8')).trim().split(/\n(?=## )/);
+  const parts = [];
+  let cur = '';
+  for (const b of blocks) {
+    if (cur && cur.length + 1 + b.length > PART_LIMIT) { parts.push(cur); cur = b; }
+    else cur = cur ? `${cur}\n${b}` : b;
+  }
+  if (cur) parts.push(cur);
+  return parts;
+}
+function grammarPart(name, k) {
+  const parts = grammarParts(name);
+  if (!(k >= 1 && k <= parts.length)) {
+    console.error(`${name} has ${parts.length} part(s), not ${k}`);
+    process.exit(1);
+  }
+  const rule = '='.repeat(70);
+  return `${rule}\n${UNIT.toUpperCase()} GRAMMAR — ${name.toUpperCase()} (${GRAMMARS.indexOf(name) + 1} of ${GRAMMARS.length}, part ${k} of ${parts.length})\n${rule}\n\n` +
+    parts[k - 1].trim() + '\n';
+}
+
 const argv = process.argv.slice(2);
-if (argv[0] === '--conduct') emitConduct();
+if (argv[0] === '--conduct') emitConduct(argv[1] === '--injected');
+else if (argv[0] === '--parts') process.stdout.write(String(grammarParts(argv[1]).length));
+else if (argv[0] === '--grammar-part') { if (!COPILOT) process.stdout.write(grammarPart(argv[1], Number(argv[2]))); }
 else if (argv[0] === '--grammar') { if (!COPILOT) process.stdout.write(grammarBlock(argv[1])); }
-else { console.error('usage: session-start.js --conduct | --grammar <name>'); process.exit(1); }
+else { console.error('usage: session-start.js --conduct [--injected] | --parts <name> | --grammar-part <name> <k> | --grammar <name>'); process.exit(1); }
