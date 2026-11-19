@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 // SessionStart handler — carried into a unit by PACKAGE, invoked by the manifest.
 //
-// The persona holds the main thread by `settings.agent` in the manifest: its
-// essence (agents/<name>.md) is the session's system prompt from the first reply.
-// What that leaves to a hook is the conduct — persona/activation.md — which must
-// be true at message zero and which the agent file alone does not bring.
+// The persona holds the main thread by what this hook injects at session start, in
+// order: its essence (agents/<name>.md), its conduct (persona/activation.md), and its
+// grammars when the instance says so. The manifest names no `settings.agent`: the
+// system announces its withdrawal from plugins at every launch.
 //
+//   --essence            Emit the essence — the agent file without its frontmatter.
+//                        Silent when the session's agent already is this persona
+//                        (agent_type in the payload: the user set `agent` or passed
+//                        --agent, so the essence is the system prompt already), and
+//                        under Copilot, where --conduct carries it.
 //   --conduct            Emit the conduct payload on stdout, under a card that
 //                        names the unit version, the channel it was installed from
 //                        when the install folder says so, and the shas of what
@@ -46,9 +51,10 @@
 // looks for that twin: the same unit under another catalog INVENTORY.md lists, installed
 // for a scope that covers the session (user, or the session's project) and enabled in
 // the user, project or local settings. When it finds one, the copy whose catalog serves
-// all stands down for the one that serves a few: it emits nothing to the model and
-// shows the user one line naming both. Each copy reaches that verdict alone. Out of
-// reach: a twin enabled by a launch flag or managed settings.
+// all stands down for the one that serves a few: it emits nothing to the model — by
+// none of its entries, essence, conduct or grammar part — and its conduct entry shows
+// the user one line naming both. Each copy reaches that verdict alone. Out of reach: a
+// twin enabled by a launch flag or managed settings.
 //
 // ONE PAYLOAD PER HOOK ENTRY — the system measures each hook's stdout separately
 // and, past 10 000 characters, persists it to a file and splices in a ~2 KB
@@ -57,9 +63,9 @@
 // COPILOT CLI reads the same SessionStart entries and sets CLAUDE_PLUGIN_ROOT too;
 // COPILOT_CLI tells the two apart. Measured on Copilot CLI 1.0.81: it keeps only
 // the LAST non-empty `additionalContext` of an event and discards stdout that is
-// not one JSON object. It does not read `settings.agent`. So under Copilot the
-// --conduct invocation carries the essence, the conduct and every grammar in one
-// JSON object, and --grammar stays silent. Two clients, opposite constraints.
+// not one JSON object. So under Copilot the --conduct invocation carries the essence,
+// the conduct and every grammar in one JSON object, and --essence, --grammar and
+// --grammar-part stay silent. Two clients, opposite constraints.
 
 const fs = require('fs');
 const path = require('path');
@@ -170,6 +176,14 @@ function twin(channels, cwd) {
   return '';
 }
 
+// The twin verdict, the same for every entry: `other` is the twin's catalog or '';
+// `standsDown` is true when this copy serves all and its twin serves a few.
+function verdict(payload) {
+  const channels = readChannels();
+  const other = twin(channels, payload && payload.cwd || process.cwd());
+  return { channels, other, standsDown: Boolean(other) && channels[CATALOG] === 'all' && channels[other] !== 'all' };
+}
+
 const PRESENCE_TTL_DAYS = 7;
 function depositPresence(payload) {
   try {
@@ -264,11 +278,10 @@ function emitConduct(injected) {
   }
 
   const payload = readPayload();
-  const channels = readChannels();
-  const other = twin(channels, payload && payload.cwd || process.cwd());
+  const { channels, other, standsDown } = verdict(payload);
   if (other) {
     const warning = `${UNIT} is enabled from two catalogs, ${CATALOG} and ${other} — disable one.`;
-    if (channels[CATALOG] === 'all' && channels[other] !== 'all') {
+    if (standsDown) {
       // the copy that serves all stands down: nothing to the model, one line to the user
       process.stdout.write(JSON.stringify({ systemMessage: `${warning} This copy (@${CATALOG}) stands down for @${other}.` }));
       return;
@@ -284,6 +297,27 @@ function emitConduct(injected) {
 
   process.stdout.write(card + conduct + '\n' + note);
   if (payload) depositPresence(payload);
+}
+
+// The essence, first of the entries. Under the ceiling of one payload: PACKAGE checks it.
+function emitEssence() {
+  if (COPILOT) return;
+  const payload = readPayload();
+  if (payload && payload.agent_type === `${UNIT}:${UNIT}`) return;
+  if (verdict(payload).standsDown) return;
+  if (!fs.existsSync(AGENT_FILE)) {
+    console.error(`agent file not found: ${AGENT_FILE}`);
+    process.exit(1);
+  }
+  const rule = '='.repeat(70);
+  process.stdout.write(`${rule}\n${UNIT.toUpperCase()} — ESSENCE\n${rule}\n\n` +
+    stripFrontmatter(fs.readFileSync(AGENT_FILE, 'utf8')).trim() + '\n');
+}
+
+// A grammar entry emits nothing when its copy stands down for a twin.
+function grammarEntry(text) {
+  if (COPILOT || verdict(readPayload()).standsDown) return;
+  process.stdout.write(text());
 }
 
 // A grammar past the ceiling of one payload travels in parts, cut at its `## ` headings.
@@ -320,8 +354,9 @@ function grammarPart(name, k) {
 }
 
 const argv = process.argv.slice(2);
-if (argv[0] === '--conduct') emitConduct(argv[1] === '--injected');
+if (argv[0] === '--essence') emitEssence();
+else if (argv[0] === '--conduct') emitConduct(argv[1] === '--injected');
 else if (argv[0] === '--parts') process.stdout.write(String(grammarParts(argv[1]).length));
-else if (argv[0] === '--grammar-part') { if (!COPILOT) process.stdout.write(grammarPart(argv[1], Number(argv[2]))); }
-else if (argv[0] === '--grammar') { if (!COPILOT) process.stdout.write(grammarBlock(argv[1])); }
-else { console.error('usage: session-start.js --conduct [--injected] | --parts <name> | --grammar-part <name> <k> | --grammar <name>'); process.exit(1); }
+else if (argv[0] === '--grammar-part') grammarEntry(() => grammarPart(argv[1], Number(argv[2])));
+else if (argv[0] === '--grammar') grammarEntry(() => grammarBlock(argv[1]));
+else { console.error('usage: session-start.js --essence | --conduct [--injected] | --parts <name> | --grammar-part <name> <k> | --grammar <name>'); process.exit(1); }

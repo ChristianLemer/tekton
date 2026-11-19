@@ -58,7 +58,7 @@ REVIEW proposes it from what the deliverables say of their neighbours — what a
 
 Per unit: a **rule** that names a property (« every grammar of these families ») *or* a **list** that names the pieces; and what the unit adds beyond the rule (a persona, a guardian). A rule by families resolves through the places of the pieces' folder, each recognised by its name. No order here: it derives from *Reading order*.
 
-At most one unit per destination adds a persona that holds the main thread — the session's agent; the other personas are dispatched beside it. PACKAGE stops if two units of one destination claim it.
+At most one unit per destination adds a persona that holds the main thread — present from the first reply, its essence injected at session start; the other personas are dispatched beside it. PACKAGE stops if two units of one destination claim it.
 
 ### `<unit>`
 

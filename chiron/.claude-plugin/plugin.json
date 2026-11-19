@@ -1,13 +1,10 @@
 {
   "name": "chiron",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Chiron — the methodological companion of the tekton corpus: a peer persona that holds the session and carries five grammars (Kentauros, Dialektikē, Genesis, Praxis, Aisthesis) as skills. For work on methods, workspaces and the gestures that animate them.",
   "author": {
     "name": "Christian Lemer",
     "url": "https://github.com/ChristianLemer"
-  },
-  "settings": {
-    "agent": "chiron:chiron"
   },
   "metadata": {
     "glyph": "🐴"
@@ -16,6 +13,11 @@
     "SessionStart": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --essence",
+            "timeout": 5
+          },
           {
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --conduct --injected",

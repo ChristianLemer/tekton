@@ -19,7 +19,7 @@ Restart, and the session opens with Chiron's card — the version it runs and th
 
 | Plugin | What it does | For whom |
 |---|---|---|
-| **Chiron** | A methodological companion. Holds the session as its agent and carries five grammars as skills, loaded when the situation calls for them. Peer by default — dense, critical rather than agreeable. | anyone working with an AI on methods, workspaces and documents — **start here** |
+| **Chiron** | A methodological companion. Present from the first reply, with its five grammars already in the session's context — nothing to load. Peer by default — dense, critical rather than agreeable. | anyone working with an AI on methods, workspaces and documents — **start here** |
 | **Kyklos** | One cycle from raw input to deliverable, in three profiles: **Elasis** (swift), **Anabasis** (staged production), **Organon** (deep investigation). | anyone forging something that must hold — a method, a document, a system |
 | **Kairos** | Attention allocation, held by a guardian agent dispatched beside the session. For when attention rather than time is the constraint, and willpower has already failed at it. | someone with several zones of life or work competing, and a workspace that declares it |
 | **Agora** | The guardian of the whole: how a corpus of methods stays coherent from a piece's birth to its consumer — what enters, what is configured to leave, what leaves — with the tooling that packages and deploys it. | whoever keeps a corpus of their own and publishes it |
@@ -54,6 +54,8 @@ None is injected at session start: each is a skill, present by its description f
 **Prosopon** — `prosopon@tekton`. A method of the persona as an object, grafted on Kyklos: at the Position of a persona's cycle, six questions to settle — its end, its use, its posture, what it mobilises, how it is recognised, how it is tried. Chiron is forged with it.
 
 ## What moved
+
+**Chiron 0.0.14 — no more warning at launch.** Claude Code used to tell you, at every start, that Chiron *"set this session's agent"* and that this would stop working. Chiron now arrives the same way its grammars do — at session start, before the first reply — so the warning is gone and nothing will break when the system drops that setting. Nothing to do on your side. If you set `"agent": "chiron:chiron"` yourself, it keeps working, and Chiron is not loaded twice. Installed from both channels at once, the copy that serves all now stays fully silent for the one on trial.
 
 **Chiron 0.0.13 — the grammars are already there.** Chiron's five grammars no longer load one by one at the start of a session, in calls you could watch scroll by and the model made only in part: they are in the session's context before the first reply, every time. Nothing to do on your side. The skills stay installed, for rereading a passage. Aisthesis also became lighter — its developed text moved to its references, every principle kept in its head.
 

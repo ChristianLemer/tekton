@@ -22,7 +22,7 @@ The order is the corpus's **reading order**, restricted to what the rule selects
 
 What the instance pauses, and nothing else: every other grammar the rule yields is carried in this rendering.
 
-## The persona — the session's agent
+## The persona — it holds the main thread
 
 Two files, two layers — substance orients, conduct applies. Both derive from one deliverable, the same way a grammar does, cut at the marks the persona declares in its workshop:
 
@@ -32,7 +32,7 @@ Two files, two layers — substance orients, conduct applies. Both derive from o
 | `persona/activation.md` | `{SOURCE}ACTIVATION.md` | conduct | the opening sections, cut at `{MARK}`; the title and subtitle are kept |
 | the `description:` | `{SOURCE}ABOUT.md` | presentation | compressed by reading from *When it serves*, its boundary kept, never authored here |
 
-**How the two reach the session.** The manifest names the essence as the session's agent (`settings.agent`): it is the system prompt from the first reply, without a hook. The conduct is the one payload a `SessionStart` hook injects — `hooks-handlers/session-start.js --conduct`, under the ceiling — because it must be true at message zero and the agent file alone does not bring it.
+**How the two reach the session.** Both are injected at session start, one `SessionStart` hook entry each, under the ceiling: the essence first — `hooks-handlers/session-start.js --essence` —, then the conduct — `--conduct`. The manifest names no agent: the system announces the withdrawal of `settings.agent` from plugins. Whoever sets `agent` to this persona in their own settings, or passes `--agent`, has the essence as system prompt already; the essence entry then stays silent.
 
 **Not dispatched automatically — a limit, not a guarantee.** The system makes every agent of a unit a dispatchable subagent too, this one included, and no field withholds it. What holds the system back is the description: it keeps the boundary of the presentation — when the persona does not serve. An agent dispatched on request is not prevented.
 
@@ -40,7 +40,7 @@ Two files, two layers — substance orients, conduct applies. Both derive from o
 
 ## Channels — the destination's catalogs, and whom each serves
 
-The carrier reads this table to recognise its twin — this unit enabled from another catalog of the same destination. When it finds one, the copy whose catalog serves all stands down for the one that serves a few, and says so to the user. Written from the instance's channels; the same on every head.
+The carrier reads this table to recognise its twin — this unit enabled from another catalog of the same destination. When it finds one, the copy whose catalog serves all stands down for the one that serves a few — none of its entries emits — and says so to the user. Written from the instance's channels; the same on every head.
 
 | Catalog | Serves |
 |---|---|

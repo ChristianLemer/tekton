@@ -298,12 +298,11 @@ def carried-list [carried: list<string>]: nothing -> string {
     if ($carried | is-empty) { "—" } else { $carried | each {|c| $'`($c)`' } | str join ", " }
 }
 
-# Transformation 6. `agent` names the unit's main-thread persona (`settings.agent`); `hooks` carries one
-# SessionStart entry per payload injected at session start; `extra` is free-form metadata the system
-# does not read (the carrier does — the glyph).
-def manifest [unit: string, version: string, description: string, owner: record, --agent: string = "", --hooks: record = {}, --extra: record = {}]: nothing -> nothing {
+# Transformation 6. `hooks` carries one SessionStart entry per payload injected at session start —
+# for a carrier, its persona's essence first; `extra` is free-form metadata the system does not read
+# (the carrier does — the glyph). No `settings.agent`: the system announces its withdrawal from plugins.
+def manifest [unit: string, version: string, description: string, owner: record, --hooks: record = {}, --extra: record = {}]: nothing -> nothing {
     let m = ({name: $unit, version: $version, description: $description, author: $owner}
-        | merge (if $agent == "" { {} } else { {settings: {agent: $agent}} })
         | merge (if ($extra | is-empty) { {} } else { {metadata: $extra} })
         | merge (if ($hooks | is-empty) { {} } else { {hooks: $hooks} }))
     write ([(unit-dir $unit) .claude-plugin plugin.json] | path join) (($m | to json --indent 2) + "\n")
@@ -335,6 +334,9 @@ def fill [template: string, values: record]: nothing -> string {
 def template [shape: string]: nothing -> string { open --raw ($HERE | path join templates $"inventory-($shape).md") }
 
 # ---------------------------------------------------------------- a carrier
+# The ceiling of one hook payload, under which the essence must fit whole (system file, Limits).
+const PAYLOAD_LIMIT = 9500
+
 # A persona that holds the main thread and carries grammars as skills. Its grammars are
 # the composition's rule resolved, in the corpus's reading order; the persona is the piece
 # its addition names. Address, essence and conduct are cut where the persona declares.
@@ -363,7 +365,9 @@ def package-carrier [unit: string, version: string, r: record, owner: record, in
     let sub = ($head.subtitle | str trim --right --char ".")
     let opening = $"You are ($head.title) — ($sub | str substring 0..0 | str lowercase)($sub | str substring 1..)."
     let skills = ($grammars | each {|g| $"($unit):($g.name)" })
-    write ([(unit-dir $unit) agents $"($persona).md"] | path join) ((frontmatter $persona (reading $r agents $persona) --skills $skills) + $"\n# ($head.title)\n\n($opening)\n\n" + $body)
+    let agent_body = $"# ($head.title)\n\n($opening)\n\n" + $body
+    if ($agent_body | str trim | str length) > $PAYLOAD_LIMIT { stop $"($piece): the essence is ($agent_body | str trim | str length) characters — over the ($PAYLOAD_LIMIT) one hook entry carries; the persona's cycle shortens it" }
+    write ([(unit-dir $unit) agents $"($persona).md"] | path join) ((frontmatter $persona (reading $r agents $persona) --skills $skills) + "\n" + $agent_body)
     if not ($src | path join $ACTIVATION | path exists) { stop $"($piece): no ($ACTIVATION) beside its main document — the conduct the system file's marks expect" }
     let conduct = (open --raw ($src | path join $ACTIVATION))
     let chead = (title-block $piece $ACTIVATION $conduct)
@@ -376,16 +380,18 @@ def package-carrier [unit: string, version: string, r: record, owner: record, in
     let prov = ($grammars | zip $carried | each {|p| $"| `($p.0.name)` | `(source-of $p.0.piece $p.0.upper)` | (carried-list $p.1) |" } | str join "\n")
     write ([(unit-dir $unit) INVENTORY.md] | path join) (fill (template carrier) {UNIT: $unit, PERSONA: $persona, REV: (revision), N: ($grammars | length | into string), RULE: $comp.rule, ROWS: $rows, PROV: $prov, SOURCE: (source-of $piece $upper), MARK: $CONDUCT_MARK, CHANNELS: $channels})
 
-    # manifest — transformation 6: the persona is the session's agent; the conduct is injected at
-    # session start, and so are the grammars when the composition says so (Injects) — each in the
-    # parts the handler cuts, one entry per part, after the conduct, in the reading order
+    # manifest — transformation 6: the persona holds the main thread by what the hook injects at
+    # session start — its essence first, without a message, then its conduct, then the grammars when
+    # the composition says so (Injects), each in the parts the handler cuts, one entry per part, in
+    # the reading order
     handler $unit
     let u = (reading $r units $unit)
     let injects = (injects-grammars $comp)
+    let essence_entry = {type: command, command: 'node "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js" --essence', timeout: 5}
     let conduct_hook = (hook (if $injects { "--conduct --injected" } else { "--conduct" }) $"($persona) conduct")
     # the handler reads the unit's manifest when it starts: a manifest without hooks comes first,
     # the one that declares the parts replaces it
-    if $injects { manifest $unit $version $u.description $owner --agent $"($unit):($persona)" }
+    if $injects { manifest $unit $version $u.description $owner }
     let hooks = (if $injects {
         let root = (unit-dir $unit | path expand)
         let parts = ($grammars | each {|g|
@@ -393,9 +399,9 @@ def package-carrier [unit: string, version: string, r: record, owner: record, in
             if $n.exit_code != 0 { stop $"($unit): the handler cannot cut ($g.name) — ($n.stderr | str trim)" }
             1..($n.stdout | str trim | into int) | each {|k| {type: command, command: $'node "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js" --grammar-part ($g.name) ($k)', timeout: 5} }
         } | flatten)
-        [{hooks: ($conduct_hook.hooks | append $parts)}]
-    } else { [$conduct_hook] })
-    manifest $unit $version $u.description $owner --agent $"($unit):($persona)" --hooks {SessionStart: $hooks} --extra (if ($u | get --optional glyph | default "") == "" { {} } else { {glyph: $u.glyph} })
+        [{hooks: ([$essence_entry] | append $conduct_hook.hooks | append $parts)}]
+    } else { [{hooks: ([$essence_entry] | append $conduct_hook.hooks)}] })
+    manifest $unit $version $u.description $owner --hooks {SessionStart: $hooks} --extra (if ($u | get --optional glyph | default "") == "" { {} } else { {glyph: $u.glyph} })
 }
 
 # Whether a carrier's composition injects its grammars at session start: its Injects line,
@@ -536,15 +542,16 @@ def validate [unit: string]: nothing -> nothing {
     }
 }
 
-# At most one unit of a destination names the session's agent: the system would keep the
-# last loaded in silence (system file, "Rendering of natures").
+# At most one unit of a destination injects a persona's essence: two would hand the session two
+# identities (system file, "Rendering of natures").
 def one-helm [rows: list<record>]: nothing -> nothing {
     let helm = ($rows | each {|r|
         let m = (open ([(unit-dir $r.Unit) .claude-plugin plugin.json] | path join))
-        {unit: $r.Unit, destination: $r.Destination, agent: ($m | get --optional settings.agent | default "")}
-    } | where agent != "")
+        let entries = ($m | get --optional hooks.SessionStart | default [] | each {|e| $e.hooks } | flatten)
+        {unit: $r.Unit, destination: $r.Destination, essence: ($entries | any {|h| $h.command | str ends-with " --essence" })}
+    } | where essence)
     for g in ($helm | group-by destination | transpose dest units) {
-        if ($g.units | length) > 1 { stop $"($g.dest): ($g.units.unit | str join ', ') each name the session's agent — one unit per destination holds the main thread" }
+        if ($g.units | length) > 1 { stop $"($g.dest): ($g.units.unit | str join ', ') each inject a persona's essence — one unit per destination holds the main thread" }
     }
 }
 
