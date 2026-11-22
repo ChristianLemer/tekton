@@ -1,48 +1,37 @@
-# Si's Operational Capabilities
+# Si's operational recipes
 
-*Tooled recipes — what Si can do with its native tools.*
+*What Si can do with its tools — techniques at the edge of automation.*
 
----
-
-This catalogue documents the technical recipes Si uses to operate inside a workspace. They are neither gestures (no *tekhnē* — no judgment required) nor Nushell automatons (no managed scripts). They are techniques at the edge of automation — ambient tooled knowledge.
-
-The catalogue grows with practice. Every session may uncover a new recipe.
+Loaded on demand from `PRAXIS.md`.
 
 ---
 
-## Obsidian
+## What a recipe is
 
-**URI schemes.** Open a note: `obsidian://open?vault=VaultName&file=path/to/note`. From Chrome MCP, custom URI schemes are rewritten to `https://` — workaround: inject a clickable `<a href="obsidian://...">` via JavaScript.
+An operator Si animating a workspace has tooled capabilities: open a note through a URI scheme, insert a Mermaid diagram into Markdown, embed inline SVG, move between vaults, open an external URL, list a folder by Genesis conventions. These are neither gestures (no judgment required) nor automatons managed in `local/` or `admin/`. They are **recipes** — small techniques Si uses on its own with its native tools.
 
-**Mermaid.** Diagrams embedded in Markdown notes. Syntax: a code block with language `mermaid`. Rendered natively in Obsidian. Useful for flowcharts, sequence diagrams, dependency maps.
+Not a fifth form. Recipes are **ambient tooled knowledge**, as editor conventions (callouts, Mermaid, frontmatter) are ambient structural knowledge documented by Genesis.
 
-**Inline SVG.** Vector images embedded directly in the Markdown. No external file needed. Useful for simple illustrations, icons, schematics.
+Without Si the workspace still runs — the recipes simply lose their meaning. Si is itself a poros: these recipes document what that particular found resource makes possible.
 
-**Callouts.** Attention blocks (`> [!note]`, `> [!warning]`, etc.). Genesis convention for attention markers in documents.
+## Why capture them
 
-**Frontmatter.** YAML metadata at the head of a note. Usable for typing, dating, tags.
+This knowledge is lost between sessions. A workaround discovered today does not exist next session unless someone captured it. Praxis does not prescribe the recipes; it prescribes **where to capture them**: universal recipes here, situated ones (a particular template, a local validation script) in their workspace.
 
-## Chrome MCP
+## Territory
 
-**Custom URI schemes.** Chrome rewrites `obsidian://` to `https://`. Workaround: `javascript_tool` to inject a clickable link into the DOM.
+The catalogue is not fixed; it grows with practice — any session may find a new recipe.
 
-**Content extraction.** `get_page_text` to extract a page's text. `read_page` for the accessibility tree.
+- **Note editor** — URI schemes (`obsidian://`), Mermaid in notes, inline SVG, callouts, frontmatter.
+- **Browser automation** — workarounds for custom URI schemes, page interaction, content extraction.
+- **Filesystem** — listing conventions (follow the index, no recursive scan), handling Genesis folders.
+- **Embedded formats** — Mermaid, SVG, Markdown tables, code blocks.
+- **Interaction patterns** — how Si moves between vaults, how it opens external resources.
 
-**Navigating between vaults.** Use Obsidian URI links or navigate via the filesystem MCP.
+## Recipes
 
-## Filesystem
+### Open a custom URI scheme from a browser automation tool
 
-**Genesis listing conventions.** Follow the index (README), never scan recursively. When Si lists a directory, it reads the README first, not `ls -R`.
+**Problem.** Navigating the browser to an `obsidian://` URI does not open the note: the browser rewrites custom schemes to `https://`.
 
-**Handling Genesis directories.** Create a directory following the naming convention (number + emoji + name). Respect the partition (no overlap).
-
-## Embedded formats
-
-**Mermaid** — flowcharts, sequences, Gantt, dependency maps.
-**SVG** — illustrations, schematics, icons.
-**Markdown tables** — simple tabular data.
-**Code blocks** — snippets, examples, directory structures.
-
----
-
-*Universal recipes live here. Workspace-specific recipes stay situated in that workspace.*
+**Recipe.** Inject a clickable `<a href="obsidian://…">` into the page with JavaScript, then click it.

@@ -1,10 +1,13 @@
 {
   "name": "chiron",
-  "version": "0.0.9",
-  "description": "Chiron — methodological companion for the tekton corpus.",
+  "version": "0.0.14",
+  "description": "Chiron — the methodological companion of the tekton corpus: a peer persona that holds the session and carries five grammars (Kentauros, Dialektikē, Genesis, Praxis, Aisthesis) as skills. For work on methods, workspaces and the gestures that animate them.",
   "author": {
     "name": "Christian Lemer",
     "url": "https://github.com/ChristianLemer"
+  },
+  "metadata": {
+    "glyph": "🐴"
   },
   "hooks": {
     "SessionStart": [
@@ -12,59 +15,54 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --persona",
-            "timeout": 5,
-            "statusMessage": "Loading chiron..."
-          }
-        ]
-      },
-      {
-        "hooks": [
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --essence",
+            "timeout": 5
+          },
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar kentauros",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --conduct --injected",
             "timeout": 5,
-            "statusMessage": "Loading kentauros..."
-          }
-        ]
-      },
-      {
-        "hooks": [
+            "statusMessage": "Loading chiron conduct..."
+          },
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar genesis",
-            "timeout": 5,
-            "statusMessage": "Loading genesis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part kentauros 1",
+            "timeout": 5
+          },
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar praxis",
-            "timeout": 5,
-            "statusMessage": "Loading praxis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part kentauros 2",
+            "timeout": 5
+          },
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar aisthesis",
-            "timeout": 5,
-            "statusMessage": "Loading aisthesis..."
-          }
-        ]
-      },
-      {
-        "hooks": [
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part dialektike 1",
+            "timeout": 5
+          },
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar dialektike",
-            "timeout": 5,
-            "statusMessage": "Loading dialektike..."
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part genesis 1",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part genesis 2",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part praxis 1",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part praxis 2",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.js\" --grammar-part aisthesis 1",
+            "timeout": 5
           }
         ]
       }

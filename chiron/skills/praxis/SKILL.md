@@ -1,318 +1,172 @@
 ---
 name: praxis
-description: Workspaces that act — what one can do in a workspace designed by Genesis. The anatomy of a gesture (verb name / intention / when / input / output / sequence / safeguards / source method), the four forms of codified knowledge (grammar / method / gesture / automaton) discriminated by topology, ORIENT as the gesture-zero, the µ namespace (LOCAL for internal gestures, ADMIN for external, METHODS for copied methods), and Nushell as the shared automaton language between C and Si. Use when codifying actions in a workspace, designing a pipeline of gestures, deciding what belongs as a gesture vs an automaton, or thinking about how an operator enters and acts within a workspace.
+description: 'Use when a recurring action deserves a name and a documented shape; when you must decide whether something is a gesture (judgment required) or an automaton (judgment gone) — the answer decides who executes it; when a pipeline of gestures is being laid out and their order matters; when an operator or an agent has to enter a workspace cold and act without a briefing; when a script is about to be written and should be co-readable rather than merely correct; and before forging anything at all — search before forging, look for the passage that already exists. Not where a file belongs — that is Genesis. Not the conduct of a conversation — that is Dialektikē: a Praxis gesture stays in the repository, a Dialektikē gesture exists only in the exchange.'
 ---
 # Praxis
 
 *Workspaces that act.*
 
-A grammar for operating inside workspaces designed with Genesis — what can be done there, how the infrastructure supports action, and how an operator enters.
+Genesis designs the workspace — how to lay it out. Praxis animates it — how to act in it: gestures, the µ namespace, entering and asking, the automaton layer. A **grammar** by its own taxonomy — applied everywhere, never traversed. For any operator, C and/or Si.
 
-Genesis designs the workspace. Praxis animates it.
-
----
-
-## Founding Conviction
-
-**Structure without action is inert.** A workspace that explains what is there but not what can be done forces the operator to guess. Action must be named, documented, and discoverable — with the same clarity as structure. A workspace animated by Praxis says *what can be done* as clearly as Genesis says *what is there*.
+**Structure without action is inert.** A workspace that explains what is there but not what can be done forces the operator to guess. A workspace animated by Praxis says *what can be done* as clearly as Genesis says *what is there*.
 
 ---
 
-## Five Positions
+## Six Positions
 
-Praxis takes an explicit stance on five tensions that run through its conventions:
+Each is a choice, and the price it accepts.
 
-**Prescribed core, emergent periphery.** The gesture anatomy, the nature × scope matrix, ORIENT, the neutrality test — that is the core, non-negotiable. Everything else emerges from need: µ directories appear when there is something to put in them, automatons when there is something to automate. No template to fill in. Unity lies in the conventions, not in the form — two Praxis workspaces may look very different.
-
-**The anatomy is Praxis, the gestures belong to their authors.** Praxis owns the frame (the eight-facet anatomy). Methods and workspaces own the gestures themselves. Organon defines OBSERVE. Tekton defines ASSESS. Praxis does not copy portable gestures into the workspace — it recognises them by reference. No centralised catalogue of every gesture in the ecosystem.
-
-**Designed for the centaur, functional without.** The C/Si tandem is the design intent. Nushell is chosen for co-readability. Code discipline serves collaboration. Si's operational capabilities are documented. But the neutrality test guarantees that every gesture works without Si — the centaur is the optimised case, not the only case.
-
-**Document first, automate when the pattern stabilises.** The natural path: observe → document (gesture) → stabilise → automate (automaton). An automaton written too early freezes a decision that should stay fluid. The switch happens when judgment disappears. The reverse move (automaton → gesture) happens when the context grows complex. Automation coverage stays partial — by design.
-
-**Search before forging.** The *poros* (πόρος) — the passage, the resource found. Before forging, look for what exists: tools, patterns, solutions. Enquire, evaluate, integrate what is found when it answers the need. Do not build a bridge where a ford exists. At runtime, automatons probe the *poroi* (available external tools) and adapt to their presence or absence — the baseline always works, the poros enriches.
+1. **Prescribed core, emergent periphery.** Prescribed: the eight-facet anatomy, the nature × scope matrix, ORIENT, ASK, the neutrality test. Everything else — µ folders, automatons, recipes — appears when needed, never from a template. *Price:* two Praxis workspaces can look very different; unity lives in the conventions, not the shape.
+2. **The anatomy is Praxis; gestures belong to their authors.** Methods own their portable gestures, workspaces their situated ones. Praxis owns only its own two — ORIENT and ASK, how one enters and how one asks — shared by every workspace. *Price:* no central catalogue of the ecosystem's gestures.
+3. **Designed for the centaur, working without it.** Nushell, code discipline, Si's recipes exist for the C/Si tandem; the neutrality test guarantees every gesture runs without Si. *Price:* some parts matter less to a human alone — they are not diluted for that.
+4. **Document first, automate when the pattern settles.** Observe → document (gesture) → stabilise → automate. An automaton written too early freezes a decision that should stay fluid; one that no longer copes becomes a gesture again. *Price:* automation coverage stays partial, by design.
+5. **Search before forging.** Once the objective is set, look for what exists, evaluate, then integrate or forge what is missing — do not build a bridge where a ford exists. At runtime, probe what you consume and adapt to its absence. *Price:* dependence on tools you do not control; knowing what exists outside takes active watch.
+6. **Orient inside, ask outside.** *Inside one reads, outside one asks.* Within the workspace, re-orient at every threshold; beyond its frontier, ask the other workspace's agent. *Price:* outside, you depend on the other agent's availability and thresholds — a detour, latency, an interpretation you don't control; inside, every threshold read weighs on the session's context.
 
 ---
 
-## I — The Four Forms of Codified Knowledge
+## The Core
 
-*What the ecosystem produces, where it lives, how to tell them apart.*
+### Anatomy of a gesture
 
-The ecosystem produces four forms. The discriminating criterion is **topology**: if you can be "somewhere" inside the form and move forward — it is a method. If you apply it without traversing it — it is a grammar.
-
-| Form | Question | Topology | Where it lives |
-|-------|----------|-----------|-----------|
-| **Grammar** | How to structure / collaborate? | No — you apply it | Ambient — in the agent, in the structure |
-| **Method** | How to think / produce / practise? | Yes — levels, flows | Declared in the workspace README |
-| **Gesture** | What can be done here, now? | No — a situated action | `µ. LOCAL/` and `µ. ADMIN/` |
-| **Automaton** | Execute without judgment? | No — mechanical execution | `local/` and `admin/` |
-
-Grammars (Genesis, Kentauros, Praxis) are ambient — you do not traverse them, you apply them everywhere. Methods (Organon, Elasis, Kairos) have a topology — you are somewhere inside, following a flow. Gestures are situated actions requiring judgment. Automatons are scripts that execute mechanically.
-
-The taxonomy is Praxis. Declaring these forms in the workspace (README, µ namespace) is a Genesis convention.
-
----
-
-## II — The Gesture
-
-*What can be done — named, documented, executable.*
-
-### Anatomy
-
-A gesture is a named, repeatable action, executable by any competent operator. Every gesture follows the same anatomy:
+A **gesture** is a named, repeatable action that requires a present operator — one who reads, decides, adapts. Tekhnē, not mechanism. Every gesture, wherever it lives, has the same anatomy:
 
 | Facet | Role |
-|---------|------|
-| **Name** (verb) | The action, imperative. OBSERVE. FORGE. DELIVER. |
-| **Intention** | What this gesture accomplishes — one line. |
-| **When** | Trigger — which situation calls for this gesture. |
-| **Input** | What must be present before starting. |
-| **Output** | What exists once the gesture is complete. |
-| **Sequence** | The steps — the heart of the gesture. |
-| **Guardrails** | What to avoid, what not to confuse it with. |
-| **Source method** | Which method this gesture comes from, if any. |
+|---|---|
+| **Name** | A verb, imperative. OBSERVE. FORGE. ORIENT. |
+| **Intention** | What it accomplishes — one line |
+| **When** | The situation that calls for it |
+| **Input** | What must be present before starting |
+| **Output** | What exists when it is done |
+| **Sequence** | The steps — the heart of the gesture |
+| **Guardrails** | What to avoid, what not to confuse it with |
+| **Source method** | Where it comes from, if anywhere |
 
-The name is always a verb — an imperative. The name is the action, not the concept.
+**Neutrality.** A well-written gesture runs for C alone, Si alone, or both. *Test: can an operator arriving cold, reading only the gesture file and its prerequisites, execute it correctly?* If not, something is still implicit. A gesture only its author can run is tacit knowledge, not a gesture.
 
-### Neutrality
+### Nature × scope
 
-A well-written gesture is executable by C alone, Si alone, or both together. This is a design constraint.
-
-The test: can an operator arriving cold in this workspace, reading only the gesture file and its prerequisites, execute it correctly? If yes — it is a gesture. If no — something is still implicit. A gesture only its author can execute is tacit knowledge, not a gesture.
-
-### Distribution
-
-Gestures are distributed across three places:
-
-| Type | Where it lives | Owner | Example |
-|------|-----------|-------------|---------|
-| **Portable** | The method's deliverable (`GESTURES/`) | The method's author | OBSERVE in Organon |
-| **Situated, internal** | The workspace's `µ. LOCAL/GESTURES/` | The workspace operator | ASSESS in Tekton |
-| **Situated, external** | The workspace's `µ. ADMIN/GESTURES/` | The workspace operator | PUBLISH in Tekton |
-
-Portable gestures are used by reference — never copied into the consuming workspace. Situated gestures coexist with the portable gestures of the method being followed.
-
-### Pipeline
-
-When gestures are independent — each invocable without the others — a README in `GESTURES/` listing them is enough.
-
-When gestures form a sequence — the output of one is the input of the next, with decision gates — a `PLAYBOOK.md` appears. The PLAYBOOK makes the pipeline visible: states, gates, entry points, recovery loops. Organon is the example: twelve gestures forming a cycle with gates between each transition.
-
-The criterion is **sequentiality with gates**, not the number of gestures.
-
-### What it is not
-
-A gesture is not a **Kentauros protocol** (dialogical — it governs the exchange between intelligences). A gesture is not an **automaton** (mechanical — it executes without judgment). A gesture is not a **method** (topological — it defines levels and flows). A gesture requires *tekhnē* — judgment, adaptation, reading the situation. It may *invoke* automatons within its sequence, but it does not reduce to them.
-
----
-
-## III — The Operational Infrastructure
-
-*Where gestures and scripts live — the nature × scope matrix.*
-
-### Two Axes
-
-Two axes structure the whole operational infrastructure:
-
-**Nature** — *tekhnē* (judgment required) vs automaton (mechanical execution). A gesture documents an action requiring adaptation and decision. An automaton executes mechanically. The two collaborate: a gesture may invoke an automaton within its sequence.
-
-**Scope** — internal (closed circuit, the result stays in the workspace) vs external (crosses a boundary, affects other workspaces). Touching the outside requires admin.
-
-### The Matrix
-
-| | Tekhnē (documented gestures) | Automaton (executable scripts) |
+| | Tekhnē (gestures) | Automaton (scripts) |
 |---|---|---|
-| **Internal scope** | µ. LOCAL/ | local/ |
-| **External scope** | µ. ADMIN/ | admin/ |
+| **Internal** — stays in the workspace | `µ. LOCAL/` | `local/` |
+| **External** — crosses a frontier | `µ. ADMIN/` | `admin/` |
 
-A gesture in µ. LOCAL/ may invoke a script from `local/`. A gesture in µ. ADMIN/ may invoke a script from `admin/`. The gesture adds judgment — the automaton executes.
+A gesture may invoke the scripts of its row: the gesture judges, the automaton executes. The frame is fixed; its folders appear one by one.
 
-### The µ Namespace
+### ORIENT — crossing a threshold
 
-Three directories share the µ prefix, each answering one question:
+There is no single entry point but **thresholds**: the README for the human, `AGENTS.md` for the agent — what serves the agent only, starting with the method to load. Each refers to the README, the hub. Where the agent is launched, its threshold is **received** — the harness loads it, no gesture. Going down, nothing is received: crossing into a folder handed to a method means **reading** its threshold — an act, so it can be omitted. From threshold to threshold the grammars stay; the method changes. One descends progressively without launching a new agent.
 
-| Directory | Question | Presence |
-|---------|----------|----------|
-| µ. LOCAL/ | Which internal gestures can be executed here? | When internal gestures are codified |
-| µ. ADMIN/ | Which gestures affect the outside? | When the workspace publishes or propagates |
-| µ. METHODS/ | Which methods are copied locally? | Only when methods are copied (maturity marker) |
+- **Intention** — discover a workspace, or the folder one descends into, and become operational.
+- **When** — arriving somewhere unknown or long unvisited; at every threshold crossed into a folder handed to a method.
+- **Input** — a Genesis folder and its thresholds.
+- **Output** — the operator knows what this folder is, which method it follows — loaded — and which gestures are available. Ready for a task.
+- **Sequence** — 1. The agent's threshold, received or read: is the method it declares loaded? If not, say so and stop. 2. Read the README. 3. If it points to codified gestures (`µ. LOCAL/`, `µ. ADMIN/`), read them. 4. Ask for the task.
+- **Guardrails** — Follow the thresholds, never scan: `find` and `ls -R` are not orientation tools. Crossing a threshold is reading, not moving — the working directory stays put. If the declared method cannot load, launch the agent where the work is. An undeclared neighbouring root is not a threshold; it is another workspace. A familiar operator skips to the task — a gesture, not a ritual.
+- **Source method** — Genesis: orientation consumes the structure Genesis creates.
 
-Each directory appears when the need exists — not before. The namespace is not a template to fill in. A workspace with no codified gestures has no µ. LOCAL/. A workspace that does not publish has no µ. ADMIN/.
+ORIENT is gesture zero, and the way back when context is lost. If it fails, the threshold is at fault, not the operator.
 
-Unicode collation places `µ.` directories after `z.` — content first, infrastructure second.
+### ASK — beyond the frontier
 
-### Internal Structure of µ. LOCAL/ and µ. ADMIN/
+At the frontier the relation inverts. One does not cross another workspace's threshold: one addresses its agent, which orients at home and hands back a result already processed by its own method. One stays home. Not a variant of ORIENT — a gesture of its own, and a frequent one.
 
-Both follow the same structure:
+- **Intention** — obtain what another workspace holds, without entering it.
+- **When** — the need lies beyond the frontier: a neighbouring root, a repository alongside, another space that explains itself.
+- **Input** — the need, with the context the other side needs to understand it. A reachable agent there.
+- **Output** — a result processed on the other side, in a form consumable at home.
+- **Sequence** — 1. Recognise the need is outside — not a threshold of this workspace. 2. Phrase the need, not the path: what and why, never where to find it over there. 3. Address it to the other workspace's agent. 4. Receive and check: does it answer? If not, ask again — do not go and look.
+- **Guardrails** — Do not read for yourself what the other agent knows how to find: you would read a place without its thresholds. Depend on the workspace, not its interior — it can reorganise without breaking the request. With no reachable agent, ask the operator; do not inspect.
+- **Source method** — Genesis: one does not point into another workspace, one asks it.
+
+Conducting the exchange once open is Dialektikē; how the other agent is reached is the tool of the moment.
+
+---
+
+## Four Forms of Codified Knowledge
+
+The criterion is **topology**: can one be *somewhere* in it?
+
+| Form | Topology | Where it lives |
+|---|---|---|
+| **Grammar** | No — applied everywhere | Carried by the operator |
+| **Method** | Yes — levels, flows, traversed | Declared by the place, at both thresholds |
+| **Gesture** | No — a situated action with judgment | `µ. LOCAL/`, `µ. ADMIN/` |
+| **Automaton** | No — mechanical execution | `local/`, `admin/` |
+
+A grammar travels with the operator. A method is learnt by crossing the threshold of the place that declares it. The taxonomy is Praxis; declaring the forms in a workspace is Genesis.
+
+## Where Gestures Live
+
+| Kind | Where | Owner |
+|---|---|---|
+| **Portable** | The method's deliverable (`GESTURES/`) | The method's author |
+| **Situated, internal** | `µ. LOCAL/GESTURES/` | The workspace operator |
+| **Situated, external** | `µ. ADMIN/GESTURES/` | The workspace operator |
+
+Portable gestures are used **by reference**, never copied, alongside situated ones. Independent gestures need only a `GESTURES/README.md`. When they form a sequence — one's output the next's input, with decisions between — a `PLAYBOOK.md` shows states, gates, entry points, loops. The criterion is **sequentiality with gates**, not count.
+
+**What a gesture is not.** Not a Kentauros protocol — those govern the exchange between intelligences; a gesture acts on a ground. Not an automaton — it needs judgment, though it may invoke one. Not a method — a method defines a topology; a gesture is a verb within it.
+
+## The µ Namespace
+
+Methodological infrastructure — neither domain nor deliverable. Sorted after `z.`: content first.
+
+| Folder | Question | Present when |
+|---|---|---|
+| `µ. LOCAL/` | Which gestures run here, closed-circuit? | Internal gestures are codified |
+| `µ. ADMIN/` | Which gestures affect the outside? | The workspace publishes or propagates |
+| `µ. METHODS/` | Which methods are held as local copies? | Methods are copied — a conscious act |
 
 ```
-µ. LOCAL/  (or µ. ADMIN/)
-├── README.md           → which gestures exist, start here
-├── PLAYBOOK.md         → optional: pipeline, states, gates
+µ. LOCAL/  (µ. ADMIN/ alike)
+├── README.md        which gestures, start here
+├── PLAYBOOK.md      optional: pipeline, states, gates
 ├── GESTURES/
-│   ├── README.md       → list and description of each gesture
-│   └── {GESTURE}.md    → one file per gesture, verb as name
-└── templates/          → artifacts consumed by the gestures
+│   ├── README.md    list, one line each
+│   └── {GESTURE}.md one per gesture, UPPERCASE — an interface
+└── templates/       artefacts the gestures consume
 ```
 
-Files in `GESTURES/` are UPPERCASE — this is an interface, not a workspace.
+Nothing is created speculatively.
 
-### Method Declaration
+## The Automaton Layer
 
-Methods followed by reference are declared in the README with Genesis links — not in a physical directory. `µ. METHODS/` appears only when methods are copied locally (Genesis convention: link or copy). Moving from reference to copy is a conscious act.
+An automaton is worth something only if both partners can read, run and modify it (Kentauros). **Nushell** is the main language — structured, explicit, modular, cross-platform; Python for heavy computation. Entry point `mod.nu`, used as `use local` / `use admin`. **Dry-run by default** for `admin/`, `--force` to execute. Recurring script shapes earn a named model.
 
----
+**Poros.** Gestures and automatons consume what the workspace does not forge — a CLI, an MCP server, an API. A *poros* (πόρος) is found, probed, optional; its absence, *aporia*, triggers the baseline, not a failure — the familiar probe-and-adapt of progressive enhancement, capability probing, `command -v`. The operator does the same for itself: **once per session**, outside ORIENT, it probes its machine — real tools, real shell, present CLIs — and treats absence as reduced scope. The report is recomputed, never engraved. Praxis gives the probe its form; the persona decides to mobilise it.
 
-## IV — Orientation
-
-*How an operator enters the workspace.*
-
-### ORIENT — the gesture-zero
-
-ORIENT precedes every other gesture. It is the sequence by which an operator moves from "I have a filesystem" to "I know where I am and what I can do".
-
-**Sequence:**
-
-1. **Read the README** — the hub. It declares what this workspace is, which grammars and methods it follows, which projects exist, and where the gestures live.
-2. If the README points to **µ. LOCAL/** and/or **µ. ADMIN/** — read them. Discover the available gestures and their scopes.
-3. **Ask for the task.**
-
-That is all. Everything is discovered from the README.
-
-### Constraints
-
-Follow the index, never scan recursively. `find` and `ls -R` are not orientation tools. The README is the only entry point — an operator who reads only the README knows everything they need.
-
-A familiar operator may jump to step 3. ORIENT is a gesture, not a ritual. But when context is lost — new session, new operator, significant time elapsed — ORIENT is the recovery path.
-
-### Agent Bootstrap
-
-An agent (Si) enters the ecosystem in two steps:
-
-1. **Load Kentauros** — the collaboration grammar. How it collaborates, not where it works.
-2. **ORIENT** — read the README. Discover the workspace.
-
-Kentauros says: *read the README.* Genesis guarantees: *the README is a self-sufficient hub.* Praxis points from there to µ. LOCAL/ and µ. ADMIN/. The README is the interface between the three worlds.
-
-If orientation fails, the README is at fault — not the operator.
-
----
-
-## V — The Automaton Layer
-
-*The shared technical ground — how scripts are built.*
-
-### Founding Principle
-
-Kentauros states the principle: an automaton only has value if it is accessible to both partners — C and Si. A script only C can write is captive knowledge. A script Si produces and C cannot inspect is a black box. What one produces, the other must be able to read, run, and modify.
-
-### Nushell as the Primary Language
-
-Nushell is the primary choice for automatons:
-
-- **Native structured data** — typed pipelines, tables, records
-- **Readable by C and Si** — explicit syntax, close to structured thought
-- **Modular** — module system (`mod.nu`, `use local`)
-- **Cross-platform** — macOS, Linux, Windows
-
-Python complements it for complex computation (Polars, pandas, ML). The criterion: filesystem, pipeline, structured transformation → Nushell. Computation, data science → Python.
-
-### Conventions
-
-**Entry point:** `mod.nu` in each directory. Usage: `use local` or `use admin` from the root.
-
-```
-Workspace/
-├── local/          → internal automatons
-│   ├── mod.nu
-│   └── deliver.nu
-├── admin/          → external automatons
-│   ├── mod.nu
-│   └── publish.nu
-└── ...
-```
-
-**Dry-run by default** for admin automatons (external scope). `--force (-f)` to execute. Local automatons may be more permissive — their scope is confined.
-
-### Code Discipline
-
-Scripts deserve the same discipline as any codebase: modularisation (small functions, one responsibility per command), readability (clear naming, comments where the intention is not obvious), tests (especially for batch or admin operations), shared libraries (extract reusable patterns rather than duplicate).
-
-Si is a co-author of automatons. Common ground presupposes that what Si produces is readable and maintainable by C, and vice versa. See references/automaton for the detailed conventions.
-
-### Poroi — Optional External Dependencies
-
-An automaton may consume tools it does not control — *poroi* (πόροι). An MCP server, a CLI, an external API. These resources are found, not forged. They may be absent.
-
-The discipline: declare the poroi, probe them at launch, and handle absence (*aporia*) with a fallback to baseline operation. Absence is not an error — it is a state that narrows the scope.
-
-The mechanism is well known: progressive enhancement (enrich if available), capability probing (MCP `tools/list`), `command -v` (Unix). What Praxis prescribes: name it, make it explicit, do not crash when an external tool is missing.
-
----
-
-## Activable Capabilities
-
-Like Genesis, Praxis has optional capabilities that activate when the need appears:
-
-- **Si's operational capabilities** — tooled recipes Si uses natively with its own tools (Obsidian URIs, Mermaid, inline SVG, Chrome MCP patterns). Activable when Si operates the workspace. The catalogue grows with practice. See references/recipes.
-- **Formalised pipeline** — a PLAYBOOK appears when gestures form a sequence with gates. Not every workspace needs one.
-
----
+**Si's recipes** — small tooled techniques, not a fifth form, lost between sessions unless captured.
 
 ## What Praxis Does Not Prescribe
 
-- **The workspace structure** — that is Genesis
-- **The collaboration protocol** — that is Kentauros
-- **Concrete gestures** — they belong to methods and workspaces
-- **Content** — Praxis structures action, not thought
-- **Exhaustive automation** — partial coverage is a choice, not a defect
-
----
+- **Structure** — Genesis: the partition, naming, the thresholds themselves.
+- **Collaboration** — Kentauros.
+- **The bootstrap** — the agent's persona; Praxis gives orientation and probe their form, not their mobilisation.
+- **The exchange** — Dialektikē, once ASK has opened it.
+- **Content** — gestures and scripts belong to methods and workspaces; automation stays partial.
 
 ## The Test
 
-A competent operator — C or Si — arrives in the workspace. Can they:
+An operator arriving cold, reading from the thresholds — README for the human, `AGENTS.md` for the agent — can:
 
-- Know which methods and grammars are in play — from the README
-- Know the available gestures and their scopes — from µ. LOCAL/ and µ. ADMIN/
-- Execute a gesture correctly — from the gesture file alone
-- Know the available automatons — from the README or µ
-
-If yes — the workspace is animated by Praxis.
-
----
+- name the method at play, and have it loaded;
+- know the available gestures — from `µ. LOCAL/`, `µ. ADMIN/`;
+- execute a gesture correctly — from its file alone;
+- know the automatons — from the README or µ;
+- know where the workspace ends, and whom to ask beyond.
 
 ## Relation to Genesis
 
-Genesis designs the workspace — *what it contains*. Praxis animates the workspace — *what can be done in it*. The two evolve independently: Genesis can add structural conventions without affecting Praxis. Praxis can refine the gesture anatomy without affecting Genesis. The README is the interface contract.
-
-A workspace can follow Genesis without Praxis — no codified gestures, but a readable structure. A workspace cannot follow Praxis without Genesis — the README as hub, the naming conventions, the excluded zones, all of that is Genesis.
-
-The boundary: Genesis lays down the **structural** conventions (what is there). Praxis lays down the **operational** conventions (what can be done).
-
----
-
-## Characteristics
-
-A workspace animated by Praxis tends to have:
-
-- **README as the front door** — declares everything, points to µ. LOCAL/ and µ. ADMIN/
-- **Documented gestures** — codified in µ. LOCAL/ and µ. ADMIN/, executable by any operator
-- **Companion automatons** — scripts in local/ and admin/, invoked by the gestures
-- **An emergent µ namespace** — infrastructure separated from content, growing from need
-- **Orientation by index** — follow the README, never scan recursively
-- **Shared technical ground** — Nushell, code discipline, C/Si co-maintenance
-- **Two-step bootstrap** — load Kentauros, read the README
-
----
+Genesis lays down the **structural** conventions — what is there; Praxis the **operational** ones — what can be done. The **thresholds** are their interface: Genesis lays them down and says one does not point into another workspace; Praxis says how they are crossed (ORIENT) and how one asks beyond (ASK). Genesis without Praxis is a readable workspace; Praxis without Genesis is impossible. They evolve independently.
 
 ## References
 
 | File | Content |
-|---------|---------|
-| lexicon | Terminology correspondences |
-| references/automaton | Detailed Nushell conventions, code discipline, patterns |
-| references/recipes | Si's operational capabilities, tooled recipes |
+|---|---|
+| `references/automaton.md` | Nushell conventions, code discipline, recurring shapes, poros and probe mechanics |
+| `references/recipes.md` | Si's operational recipes |
+| `lexicon.md` | Multilingual correspondences |
 
 ---
 

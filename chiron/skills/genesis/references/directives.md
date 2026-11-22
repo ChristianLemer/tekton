@@ -29,7 +29,7 @@
 
 - **Strong** — must be respected. Requires a conscious act to revise: new external reality for constraints, new decision for choices, contrary evidence for tempered.
 - **Medium** — influences without prescribing. An operator can weigh them against other factors.
-- **Structural** — FRAME delimits the perimeter. Not on the force axis.
+- **Structural** — FRAME delimits the perimeter of a level. At a workspace's root, the README carries it. Not on the force axis.
 
 ---
 
@@ -43,15 +43,15 @@ Positive gradient: **choice → conviction → tempered.**
 
 ---
 
-## Input Channels
+## Two Axes of Conviction
 
-Not directives — they feed the project rather than shaping its reasoning.
+A fragment-conviction is vertical — a deep principle that irrigates the whole system, an axiom. A directive-conviction is horizontal — a local force that influences one level, revocable. A local conviction that survives across contexts rises to TEMPERED. One that ossifies in place becomes a constraint in disguise. The test: does it travel?
 
-| Name | Role |
-|------|------|
-| REQUESTS | Receive feedback, suggestions, critiques from any operator at any level |
+---
 
-The catalogue is open. Other channel types may emerge from practice.
+## Not Directives
+
+Input channels feed the project rather than shaping its reasoning. They live outside the workspace; the README says where (see *Input Channel* in the main document).
 
 ---
 
