@@ -25,6 +25,17 @@ Rhythms are not a homogeneous block. What they maintain determines what their di
 
 These categories are not prescribed — they emerge from instantiation.
 
+## The tracking threshold
+
+**Tracking makes sense only where memory fails.** A rhythm faster than the threshold declared at setup is not logged at each occurrence — seven lines a week for a daily routine drown the plan. It is reviewed once per threshold period instead: *how did it hold?* At or above the threshold, each occurrence is logged, dated.
+
+| Cadence | Logged? | Form |
+|---|---|---|
+| Faster than the threshold | no, not per occurrence | reviewed once per threshold period |
+| At the threshold or slower | yes | dated occurrence |
+
+**A streak feeds a habit; a due date makes it guilty.** A habit being installed is followed by its continuity, never by a due date. The principle is the method's; the threshold's value is the user's.
+
 ## Naming
 
 Each task is a `.md` file. The name follows the format: `[partition] [nature] Description.md` or, when the task belongs to a project, `[partition] [nature] PROJECT — Description.md`.
@@ -35,7 +46,7 @@ Examples:
 - `💰 📌 File taxes.md`
 - `💪 📊 Weekly weigh-in.md`
 - `🏡 🏗️ Renovate bathroom.md`
-- `🧠 🏗️ HELIOS — Validate dataset.md`
+- `🧠 🏗️ PROJECT — Validate dataset.md`
 
 The name is self-contained — readable in its partition folder as well as in cross-cutting views (allocation, journal, weekly review). The project prefix makes every task identifiable without folder context. Simple tasks that don't belong to a project skip the prefix. An optional `Project:` field in the frontmatter mirrors this for programmatic use.
 
@@ -48,6 +59,17 @@ Tasks change nature — and the change carries more information than the task it
 - A stalled worksite → perhaps needs re-scoping or letting go
 
 The guardian spots mutations during grooming.
+
+## Provenance
+
+Many tasks arrive from a stream — mail, messages, notifications — that other practices already sort.
+
+- **A stream state is not a task.** An item flagged for action stays in the stream; a short reply is settled there. Only a commitment that takes work is captured.
+- **One task per commitment, not per message.** A ten-message thread, an invoice and its reminder: one commitment.
+- **Source and task point to each other.** The task says the expected result; the source keeps the evidence. The source's known identifier — not a similar title — says the task already exists.
+- **Completing the task does not close the source.** A paid invoice does not end the next one; a sent reply may open a wait.
+
+Kairos does not need to know the stream. It needs to know a task may have a source, declare it, and not duplicate it.
 
 ## The worksite as a single document
 

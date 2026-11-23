@@ -3,6 +3,7 @@ Partition: "{#}"
 Nature: one-off | tracking | hygiene | maintenance | attention | worksite
 Frequency: "{if rhythm — weekly, monthly, quarterly, annual}"
 Project: "{optional — project name}"
+Source: "{optional — identifier of the stream item this task came from}"
 Created: "{date}"
 ---
 

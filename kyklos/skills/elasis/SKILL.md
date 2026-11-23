@@ -1,15 +1,12 @@
 ---
-name: "elasis"
-description: "The swift forge — the simplest profile of the Kyklos family. One cycle from raw input to deliverable: seven core gestures, four levels (inputs, Fragments, Picture, Position, Forge), no refinement modules. Nothing between Fragments and Picture, nothing between Position and the Forge. Stands alone: applying Elasis requires no knowledge of the other profiles. Use when the result is critical and the knowledge already well understood, when the project is small (fewer than about five fragments), when speed matters more than depth of analysis, or as the entry point into Kyklos — the trunk is here. Not when the project grows past five fragments or the production path needs staging (Anabasis), and not when the knowledge itself must be built before deciding (Organon)."
+name: elasis
+description: 'Use when the result is critical and the knowledge is already well understood — the situation is clear, judgement is not in doubt, and what remains is to produce; when the project is small, fewer than about five fragments; when speed matters more than depth of analysis; when you need a deliverable, not a treatise. And as the entry point into Kyklos: the trunk is here — learn it once, and the other two profiles read as additions rather than as new methods. Not when the project grows past roughly five fragments, or when the path from decision to production needs staging — that is Anabasis. Not when the knowledge itself is what has to be built before deciding — that is Organon.'
 ---
-
 # Elasis
 
 *The swift forge.*
 
-A method for projects where the result is critical and the knowledge is well understood. From fragments to deliverable — one cycle, no ceremony.
-
-Elasis is the simplest profile of the Kyklos family. Same cycle as Organon and Anabasis, without the optional refinement modules.
+A method for projects where the result is critical and the knowledge is well understood. From fragments to deliverable — one cycle, no ceremony. The simplest profile of the Kyklos family: the common trunk, without refinement modules.
 
 The name means "driving forward" (ἔλασις).
 
@@ -17,7 +14,7 @@ The name means "driving forward" (ἔλασις).
 
 ## The Cycle
 
-Every Kyklos method is a cycle. Forge acts on the world and produces results. Results feed fragments. Fragments consolidate into knowledge. Knowledge frames action. Action forges.
+The Forge acts on the world and produces results. Results feed fragments. Fragments consolidate into knowledge. Knowledge frames action. Action forges.
 
 ```mermaid
 flowchart TD
@@ -27,121 +24,81 @@ flowchart TD
     P -->|DISTILL| Pos["3 · Position"]
     Pos -->|FORGE| F
     F -.->|ACCEPT| G{"go?"}
-    G -->|DELIVER| D(["6. Deliverable"])
+    G -->|DELIVER| D(["main — accepted"])
 ```
 
 | # | Level | Pole | Role |
 |---|-------|------|------|
 | 0 | *(parallel input folders)* | Experience | Raw input — lived, received, observed |
-| 1 | Fragments | — | Observe, name, keep |
+| 1 | Fragments | — | Reflect on one aspect — views with their conditions |
 | 2 | Picture | Knowledge | Consolidate into patterns |
 | 3 | Position | — | Frame for action (+ directives) |
 | 4 | Forge | Experience | Materialise, act on the world |
 
-Two poles: **Forge/inputs** (experience) and **Picture** (knowledge).
-Two interfaces: **Fragments** (between experience and knowledge) and **Position** (between knowledge and action).
-Two artifacts: **Knowledge Artifact** (output of Picture) and **Executable Artifact** (output of Forge).
+Two poles: **Forge/inputs** (experience) and **Picture** (knowledge). Two interfaces: **Fragments** (between experience and knowledge) and **Position** (between knowledge and action). Two artifacts: **Knowledge** (Picture) and **Executable** (Forge).
 
 The cycle: `4 → 0 → 1 → 2 → 3 → 4`
 
 ---
 
-## Project Structure
+## Inside the Project
+
+Elasis describes the inside of the folder it is given — a piece of a corpus, a project filed in a zone, or, when the project lives alone, the zone where its workspace produces. It does not name what contains it.
 
 ```
-Project/
-├── README.md
-├── INTENTION.md
-├── REQUESTS.md
-├── 1. Workshop/
-│   ├── 0. References/
-│   ├── 1. Fragments/
-│   ├── 2. Picture/
-│   ├── 3. Position/
-│   └── 4. Forge/
-├── 6. Deliverable/
-├── 7. Attic/
-├── 8. Purgatory/
-├── 9. The Void/
-├── local/
-└── µ. LOCAL/
+<the folder you are given>/
+├── 0. References/ · 0. Result/  ← inputs, outside the sequence
+├── 1. Fragments/
+├── 2. Picture/
+├── 3. Position/
+└── 4. Forge/
+    ├── CHOICES.md …   ← Forge directives
+    └── <PRODUCT>/     ← the product, written by FORGE on a working branch
 ```
 
-Level 0 can have multiple parallel folders (`0. References/`, `0. Result/`, `0. Communication/`, etc.) — create what you need. See CHOICES (Kyklos .. CHOICES) for the full catalogue.
+The levels lie flat, numbered as a sequence; the product lives at the Forge, the last step. The deliverable is not a folder but a state: what `main` holds of `4. Forge/<PRODUCT>/`. Level 0 holds parallel folders, all numbered 0, one per kind of input: `0. Result/` (what the forge produced in the world), `0. References/` (external sources, borrowed knowledge), `0. Communication/` (what is shared with others), `0. Dialogs/` (conversations, interviews), `0. Survey/` (structured enquiry). Create only those you need.
 
-Gestures are documented in `µ. LOCAL/` — see Praxis (Tekton .. Praxis .. PRAXIS) for the infrastructure conventions.
+**Around the cycle, Genesis.** The folder explains itself — README, INTENTION — as Genesis says; what you discard goes to the excluded zones of the workspace; names and marks follow its conventions. Local gestures follow Praxis. A project that lives alone becomes a Genesis workspace and lays this sequence out in the zone where it produces.
 
 ---
 
 ## The Levels
 
-### Input Zone (0)
+**Input Zone (0).** Raw material, held as it came. Not a working phase but an inbox. This is where the situated lives — dated, tied to its case.
 
-Raw material of different types, held in parallel folders all numbered 0. Results from previous forge cycles, external references, communications, dialogues, surveys — each in its own folder. Not every project needs all of them.
+**Fragments (1).** A space of reflection on one aspect. The mind does not think a problem whole: it cuts it up and works one aspect at a time. A fragment is that aspect, and the place where one's view of it is refined — several principles, even several doctrines, one per case or competing ones set against each other. Its unit is the aspect, not the conclusion. It is a view, not a science: one follows a school.
 
-Level 0 is not a working phase. It is an inbox — what enters the cycle before any observation has been made.
+A fragment is high-level and carries its **conditions of applicability** — *when A, then X*. That is why it has no date and tells no story: the situated case stays in level 0, grounding the fragment without appearing in it. What depends on the moment or the place belongs elsewhere — a record of what happened (level 0), a *how* (the Forge directives), a decision for our situation (Position). A local doctrine that has lost its conditions has become a Position. Fragments can emerge from any input folder or from unrecorded experience. Good fragments have minimal coupling: autonomous nodes, few edges.
 
-### Fragments (1)
+**Picture (2).** Patterns consolidated from fragments — what recurs, what conflicts, what connects. It maps; it does not choose. A **Knowledge Artifact** — shareable and usable on its own.
 
-Observations named and kept. Specific, grounded, tied to context. A fragment says: "I noticed this, it matters, here's why."
+**Position (3).** Where choices are made. Position is **situated**: it looks at our situation, recognises which conditions are ours, and decides — what we do, what we reject, what we accept as trade-off. It carries **context** as directives: choices, constraints, beliefs. As the last level before the Forge, it is also where the artefact's language is declared, when its readers are not the workshop's.
 
-Fragments can emerge from any input folder or from unrecorded experience. The gesture is the same: OBSERVE — name, keep.
-
-A good fragment is a module with minimal coupling — an autonomous unit of reasoning. Graph-theoretic analogy: fragments are nodes, dependencies are edges. Good fragmentation minimises inter-fragment edges.
-
-### Picture (2)
-
-Patterns consolidated from fragments. The Picture is honest synthesis — what recurs, what conflicts, what connects. It is the knowledge pole of the cycle.
-
-The Picture does not choose. It maps. Choices belong to Position.
-
-The Picture is a **Knowledge Artifact** — it can be shared, referenced, and used independently of the rest of the cycle.
-
-### Position (3)
-
-Where choices are made. Given the patterns mapped by the Picture, Position picks a stance — what we do, what we reject, what we accept as trade-off.
-
-Position carries **context** — lateral forces that shape decisions without participating in them: choices, constraints, beliefs. These are implemented as directives (Genesis convention).
-
-Position is the interface between knowledge and action. It translates understanding into intent.
-
-### Forge (4)
-
-Where intent becomes artefact. The Forge materialises — it acts on the world, produces the deliverable, generates results.
-
-The Forge includes **UAT** — review against the previous deliverable before delivery. What is forged is tested before it replaces what exists.
-
-The output is an **Executable Artifact** — something that works, that can be deployed, used, applied.
-
-The Forge is the experience pole of the cycle. What is forged produces results (fed back to 0), which feed the next iteration.
+**Forge (4).** Where intent becomes an **Executable Artifact**. FORGE writes the product itself, in `4. Forge/<PRODUCT>/`, on a working branch. What is forged produces results, fed back to 0 for the next iteration.
 
 ---
 
 ## Gestures
 
-Elasis defines seven gestures. Each follows the Praxis anatomy (Tekton .. Praxis .. PRAXIS). The gesture files live in `µ. LOCAL/GESTURES/`. The PLAYBOOK describes their sequencing.
+Seven gestures, each following the Praxis anatomy (Tekton .. Praxis .. PRAXIS), in `GESTURES/` beside this document. The PLAYBOOK sequences them.
 
 | Gesture | Transition | Nature |
 |---------|-----------|--------|
-| OBSERVE | 0 → Fragments | Name an experience worth keeping |
+| OBSERVE | 0 → Fragments | Draw from an experience a view on one aspect |
 | CONSOLIDATE | Fragments → Picture | Reveal the patterns |
 | DISTILL | Picture → Position | Frame for action |
 | FORGE | Position → Forge | Materialise |
-| ACCEPT | Forge → go/no-go | Review against the previous deliverable |
-| DELIVER | Forge → Deliverable | Install the new, keep the previous recoverable |
+| ACCEPT | Forge → go/no-go | Confront with the previous deliverable and with the workshop |
+| DELIVER | Forge → Deliverable | The accepted state advances; a tag marks it |
 | HARVEST | (external) → Fragments | Import from another project |
 
-The first four form the cycle. ACCEPT and DELIVER are a gate between the Forge and the Deliverable — ACCEPT is a judgment (tekhnē), DELIVER is a transport (automaton). HARVEST is transversal — it feeds the cycle from outside.
-
-FORGE begins by prospecting what already exists — components, patterns, or solutions that can be assembled — so that only the delta needs to be created.
+The first four form the cycle. ACCEPT and DELIVER are a gate between the Forge and the Deliverable — ACCEPT is a judgment (tekhnē), DELIVER advances the accepted state (automaton). HARVEST feeds the cycle from outside. FORGE begins by prospecting what already exists, so that only the delta is created.
 
 ---
 
 ## Directives
 
-At each level, **directives** can influence the work without participating in it. They are lateral forces — scope boundaries, constraints, preferences — that shape judgment without being the judgment.
-
-Directives are UPPERCASE files inside the level's folder. They are typed on two axes — source and binding force:
+At each level, **directives** shape judgment without being the judgment. They are UPPERCASE files inside the level's folder, typed by source and force:
 
 | Directive | Source | Force | What it says |
 |-----------|--------|-------|--------------|
@@ -152,129 +109,43 @@ Directives are UPPERCASE files inside the level's folder. They are typed on two 
 | CONVICTIONS | Internal | **Medium** | "We believe this deeply — it influences but does not prescribe" |
 | TEMPERED | Experience | **Strong** | "Practice has confirmed this" |
 
-The strong pair — CONSTRAINTS and CHOICES — must be respected. The medium pair — CONSIDERATIONS and CONVICTIONS — influence without prescribing. TEMPERED has survived practice and is the strongest form.
-
-Directives survive regeneration. If the work at a level is rewritten, directives remain — they are the memory of what was learned along the way.
+The strong pair must be respected; the medium pair influences without prescribing; TEMPERED has survived practice and is the strongest form. Directives survive regeneration: they are the memory of what was learned along the way. When new knowledge contradicts one, it is revisited — the cycle self-corrects by walking.
 
 ---
 
-## Bridges
+## Producing the Deliverable
 
-New knowledge can challenge existing directives. When a fragment, a pattern, or any new insight contradicts a directive at any level, the directive must be revisited.
+The product has one home: `4. Forge/<PRODUCT>/`, beside the Forge directives. FORGE writes it on a working branch, never on the accepted one; `main` holds the accepted state — the deliverable — and the tag of the last DELIVER the previous one.
 
-This is not a separate mechanism — it is the natural consequence of the cycle. Every pass through OBSERVE → CONSOLIDATE → DISTILL is an opportunity to confront what was previously decided. If a Position directive no longer holds given the current Picture, revise it.
+ACCEPT confronts the branch on two faces: the last tag, which catches regressions, and the Position, which catches omissions, since the previous deliverable cannot vouch for what it never contained. If satisfied, DELIVER advances `main` to the accepted branch and tags it; how history is shaped is the house's rule, not the method's. The PLAYBOOK carries the practice.
 
-The cycle self-corrects by walking.
-
----
-
-## Injection
-
-The cycle is not a monologue. At each level, reviewing the output reveals things you didn't know you knew:
-
-- Something jars → a fragment is missing, or a constraint was undocumented
-- Something resonates → a deeper principle is at work, worth capturing
-
-Capture it in directives (at the current level) or in fragments (upstream). Then regenerate. By iteration, the output converges toward what is right.
-
-The process is not: specify then generate. It is: generate, review, inject, regenerate.
-
----
-
-## Input Channels
-
-A project needs visible entry points for feedback. **REQUESTS.md** receives suggestions, critiques, and demands from any operator at any level. It feeds the project without contaminating work in progress.
-
-A request is a living item. Open items need attention. Resolved items are either elevated (into a fragment, a deliverable, a README, a CHANGELOG) or deleted. The request is not the memory — the artefact it produced is.
-
----
-
-## Excluded Zones
-
-Three zones with a retention gradient:
-
-| # | Zone | Purpose | Contract |
-|---|------|---------|----------|
-| 7 | **Attic** | Archived/historical | Preserved for reference, not for active work |
-| 8 | **Purgatory** | Superseded content | Consultable for rollback, cleanable periodically |
-| 9 | **Void** | Discarded content | May be wiped without notification |
-
-The contract applies to any operator — human or AI. No one should read, search, cite, or rely on content in excluded zones, but anyone can use them as destinations when moving content out of active areas.
+The deliverable carries an **`ABOUT`**: what it is about, when it serves, and — when it has neighbours — when it does not, and who takes over. What leaves the workshop arrives bare; owing nothing to your workshop is not the same as being able to introduce yourself. FORGE writes it, ACCEPT reviews it.
 
 ---
 
 ## How to Use
 
-### Starting a Project
+**Starting.** Lay the levels out in the folder you are given, and let it say why the project exists (INTENTION, per Genesis). Start with Fragments. Move to the Picture when they reveal patterns, to Position when you need to frame for action, to the Forge when you need to produce.
 
-1. Create the folder structure (or deploy the template)
-2. Write **INTENTION.md** at the root — why does this project exist?
-3. Start with **Fragments/** — what do you observe? What matters?
-4. Move to **Picture/** when fragments reveal patterns worth consolidating
-5. Move to **Position/** when you need to frame for action
-6. Move to **Forge/** when you need to produce
+**Maintaining.** When reality changes, update from the bottom and let changes propagate. When Position drifts from Picture, reconcile. Capture what you learn in directives. The PLAYBOOK carries the dynamics — bridges, injection, where a change enters.
 
-### Maintaining a Project
-
-- When reality changes, update from the bottom: Fragments first, then let changes propagate through the cycle.
-- When Position drifts from Picture, reconcile — don't let them diverge silently.
-- Date your fragments. Your future self will thank you.
-- Use directives to capture what you learn along the way — they are your lateral memory.
-
-### Producing the Deliverable
-
-FORGE generates the artefact in `4. Forge/`. ACCEPT compares it with the current version in `6. Deliverable/` — what changed, what was lost, what was gained. If satisfied, DELIVER installs the new one, making sure the previous state remains recoverable. Do not write directly in `6. Deliverable/` — forge first, accept, then deliver.
-
-How recoverability is obtained is an Operational choice, not a method one — see the PLAYBOOK.
-
-The deliverable also carries an **`ABOUT`** — what it is about, and when it serves. What leaves the workshop arrives bare: none of what surrounded it there crosses with it. Self-sufficiency stated negatively — nothing external required — is not enough; owing nothing to your workshop is not the same as being able to introduce yourself. FORGE writes it, ACCEPT reviews it.
-
-### Feedback
-
-If you apply this method, **feed back your learnings**:
-- What **worked** — confirmations, reinforcements
-- What **failed** — invalidations, corrections needed
-- What's **missing** — situations not anticipated
-
-This feedback feeds Kyklos. The field is always right.
+**Feedback.** If you apply this method, feed back what worked, what failed, what is missing — through the project's input channel (Genesis). The field is always right.
 
 ---
 
 ## When to Use Elasis
 
-Use Elasis when:
-- The result is critical and the knowledge is well understood
-- The project is small — fewer than ~5 fragments
-- Speed matters more than depth of analysis
-- You need a deliverable, not a treatise
+When the result is critical and the knowledge well understood. When the project is small — fewer than about five fragments. When speed matters more than depth of analysis. When you need a deliverable, not a treatise.
 
-When the project grows beyond ~5 fragments, or when the knowledge is not yet understood, consider Anabasis (adds production refinement) or Organon (adds knowledge refinement).
-
----
-
-## Kyklos Family
-
-Elasis is the simplest profile of **Kyklos** (κύκλος) — the unified cycle of learning and production.
-
-Three profiles share the same trunk and the same core gestures. They differ in how much refinement is applied between the trunk levels:
-
-| Profile | Knowledge refinement | Production refinement |
-|---------|--------------------|--------------------|
-| **Elasis** | — | — |
-| **Anabasis** | — | Strategy → Tactics → Operational |
-| **Organon** | Sketch → Angles → enriched Picture | Strategy → Tactics → Operational |
-
-All three are cycles. All three produce and learn. The question is: where does the project need more refinement?
-
-See also: Anabasis (Kyklos .. ANABASIS), Organon (Kyklos .. ORGANON).
+Not when the project grows past about five fragments, or the path from decision to production needs staging — that is **Anabasis**, which adds production refinement. Not when the knowledge itself must be built before deciding — that is **Organon**, which adds knowledge refinement too. All three share the trunk and its gestures; Elasis is the trunk alone, and stands without the others.
 
 ---
 
 ## Dependencies
 
-Elasis depends on:
-- **Genesis** (Tekton .. Genesis .. GENESIS) — workspace design conventions
+- **Genesis** (Tekton .. Genesis .. GENESIS) — workspace design conventions, and everything around the cycle: partition, excluded zones, the files a folder explains itself with, the input channel
 - **Praxis** (Tekton .. Praxis .. PRAXIS) — gesture anatomy, µ namespace, orientation
+- **A version control system** — a branch for the work in progress, a reference for the accepted state, a diff between the two. Any VCS gives these three; the gate (ACCEPT, DELIVER) is defined on them
 
 ---
 

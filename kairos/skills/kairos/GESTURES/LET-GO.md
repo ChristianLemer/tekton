@@ -14,7 +14,7 @@
 1. The human or the guardian proposes to abandon the task.
 2. The other confirms or contests.
 3. Confirm the reason — *why* matters more than *that*.
-4. The guardian removes the task from the reservoir (cancel/close issue, delete file — whatever the provider does).
+4. The guardian sets the task to `dropped` in the reservoir (cancel/close issue, delete file — whatever the provider maps to).
 5. Optionally journal the let-go, especially where a pattern is forming.
 6. The backlog lightens. The balance doesn't change.
 

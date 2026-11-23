@@ -4,14 +4,14 @@
 
 **Intention:** Walk the backlog to produce clarity.
 
-**When:** The backlog is getting heavy, tasks are ageing, or the human senses the overview is degrading.
+**When:** The backlog is getting heavy, tasks are ageing, the human senses the overview is degrading — or Allocate has turned tasks away at the maturity gate.
 
 **Input:** Backlog from the reservoir (all open tasks by partition).
 
 **Output:** Cleaned backlog — requalified tasks, spotted mutations, candidates for letting go identified.
 
 **Sequence:**
-1. The guardian walks the backlog partition by partition.
+1. The guardian walks the backlog partition by partition — starting with the tasks turned away at the maturity gate: make them doable as written, split them, or let them go.
 2. For each task: still relevant? Nature changed? Context different? The common mutations — a one-off that lingers may be a worksite in disguise; a broken rhythm signals by its category; a stalled worksite wants re-scoping or letting go.
 3. Requalify if needed (nature mutation).
 4. Identify candidates for letting go — propose them to the human.

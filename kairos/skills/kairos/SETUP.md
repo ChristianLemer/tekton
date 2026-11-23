@@ -60,23 +60,38 @@ Regular inflections persist. One-time inflections come and go.
 > [!tip] Where tasks live. Declared once at setup. Transparent in operation.
 > The guardian acts in the reservoir without friction — no probing, no fallback.
 
-The reservoir is the external system where tasks are created, read, and completed. One provider for the entire scope.
+The reservoir is where tasks are created, read, allocated, completed and dropped. There is always one, and only one, for the entire scope: every gesture that touches a task acts in it — no sync gesture, no second copy.
 
 Configuration:
-- **Provider** — the system (Linear, GitLab, GitHub, or local files)
+- **Provider** — the system (an issue tracker, or local files)
 - **Channel** — how the guardian reaches it (CLI, MCP, API, or filesystem)
 - **Mapping** — how partitions correspond to the provider's structure (projects, labels, folders)
+- **States** — which provider state means each Kairos state. Gestures speak only of these four; the mapping is what keeps them provider-agnostic.
+- **Rhythm threshold** — the cadence below which a rhythm is reviewed once per period instead of logged at each occurrence. The value is the user's choice (day, week, month).
 
 ```
-provider: linear
+provider: <provider>
 channel: cli
 mapping:
   🏢 Work: "project:Work"
   🌱 Personal: "project:Personal"
   💪 Health: "project:Health"
+states:
+  waiting:   Backlog
+  allocated: Todo
+  done:      Done
+  dropped:   Canceled
+rhythm_threshold: week
 ```
 
-If no external provider is configured, local markdown files are the reservoir. This is the baseline — always functional.
+| State | Meaning | Set by |
+|---|---|---|
+| `waiting` | open, not in the current plan | Capture, Weekly Review |
+| `allocated` | retained for the period — passed the maturity gate | Allocate |
+| `done` | completed — on the human's word or observed | Complete |
+| `dropped` | let go | Let-go |
+
+If no external provider is configured, local markdown files are the reservoir. This is the baseline — always functional. Their states are read in place: the partition folder, the allocation, the journal.
 
 The guardian may also read contextual information from the provider (deadlines, collaborator activity) to inform its gestures.
 
@@ -84,7 +99,9 @@ The guardian may also read contextual information from the provider (deadlines, 
 
 > [!tip] One folder per partition, tasks inside.
 
-Each partition has a folder. Each task is an `.md` file with the nature emoji in the name. The TASK.md template describes the internal structure.
+Each partition has a place in the reservoir — a folder for local files, a project or label for a provider. With local files, each task is an `.md` file with the nature emoji in the name; the TASK.md template describes the internal structure.
+
+When a provider holds the state, a task file no longer carries it. A file may remain to document a worksite or a rhythm — context, sub-tasks — linked to its task in the reservoir.
 
 ## Journal
 

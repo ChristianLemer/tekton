@@ -87,6 +87,18 @@ Forged by the method's author for terms where literal translation would be inade
 | Provider | Fournisseur | Proveedor | Dostawca |
 | Channel | Canal | Canal | Kanał |
 | Baseline | Baseline | Baseline | Baseline |
+| Source (provenance) | Provenance | Procedencia | Pochodzenie |
+| Maturity gate | Test de maturité | Prueba de madurez | Test dojrzałości |
+| Rhythm threshold | Seuil des rythmes | Umbral de ritmos | Próg rytmów |
+
+## Reservoir states
+
+| English | Français | Español | Polski |
+|---------|----------|---------|--------|
+| waiting | en attente | en espera | oczekujące |
+| allocated | alloué | asignado | przydzielone |
+| done | fait | hecho | zrobione |
+| dropped | lâché | soltado | puszczone |
 
 ## Key phrases
 
